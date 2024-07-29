@@ -1,0 +1,24 @@
+<SignatureRequest>
+	<POSID>7</POSID>
+	<APPID>01</APPID>
+	<CCTID>01</CCTID>
+	<ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+	<SessionId>51</SessionId>
+	<TransactionIdentifier></TransactionIdentifier>
+	<SignUploadFlag>Y</SignUploadFlag>
+	<SignatureData></SignatureData>
+	<HeaderLine>Please Sign</HeaderLine>
+	<CustomDisplay1>Please sign &amp;select ACCEPT.</CustomDisplay1>
+	<CustomDisplay2></CustomDisplay2>
+	<SignatureType>02</SignatureType>
+	<ECAFlag>1</ECAFlag>
+	<ButtonMsg>
+		<ButtonSizeFlag>00</ButtonSizeFlag>
+		<Button1Text>Accept</Button1Text>
+		<Button2Text>Refuse</Button2Text>
+		<Button3Text>Clear</Button3Text>
+	</ButtonMsg>
+	<ListData>
+		<Paragraph>I authorize this check for $118.77. If the check is not valid, I accept a return fee of $25.00 by electronic fund transfers or drafts from my account.</Paragraph>
+	</ListData>
+</SignatureRequest>

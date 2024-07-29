@@ -1,0 +1,39 @@
+
+<TransRequest>
+	<POSID>S00744R0011</POSID>
+	<APPID>01</APPID>
+	<CCTID>01</CCTID>
+	<ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+	<SessionId>12345</SessionId>
+	<CardPresent>Y</CardPresent>
+	<CardType>EBC</CardType>
+	<PurchaserPresent>Y</PurchaserPresent>
+	<KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+	<GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+	<ProcessingMode>0</ProcessingMode>
+	<CardExpiryDate>1226</CardExpiryDate>
+	<CashBackFlag>1</CashBackFlag>
+	<TransAmountDetails>
+		<TenderAmount>10.00</TenderAmount>
+		<TransactionTotal>10.00</TransactionTotal>
+		<EBTAmount>10.00</EBTAmount>
+	</TransAmountDetails>
+	<TransactionType>01</TransactionType>
+	<InvoiceNumber></InvoiceNumber>
+	<CardToken></CardToken>
+	<ReferenceNumber>261</ReferenceNumber>
+	<ReceiptNumber>261</ReceiptNumber>
+	<ClerkID>001039151</ClerkID>
+	<CurrencyCode>840</CurrencyCode>
+	<TransactionDate></TransactionDate>
+	<TransactionTime></TransactionTime>
+	<TipEligible>0</TipEligible>
+	<AmountNoBar>1</AmountNoBar>
+	<SignatureFlag>N</SignatureFlag>
+	<OrigAurusPayTicketNum></OrigAurusPayTicketNum>
+	<OrigTransactionIdentifier></OrigTransactionIdentifier>
+	<PartialAllowed>0</PartialAllowed>
+	<ShowResponse>0</ShowResponse>
+	<ECommerceIndicator>N</ECommerceIndicator>
+	<POSType>1</POSType>
+</TransRequest>

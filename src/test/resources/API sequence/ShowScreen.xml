@@ -1,0 +1,25 @@
+<ShowScreenRequest>
+	<POSID>112</POSID>
+	<APPID>01</APPID>
+	<CCTID>01</CCTID>
+	<ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+	<SessionId>117</SessionId>
+	<LanguageIndicator></LanguageIndicator>
+	<Header></Header>
+	<MessageLine1>What type of paper receipt would</MessageLine1>
+	<MessageLine2>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</MessageLine2>
+	<MessageLine3>XXXXXXXXXXXXXXXXXXXXXXXXX</MessageLine3>
+	<MessageLine4></MessageLine4>
+	<MessageLine5></MessageLine5>
+	<MessageLine6></MessageLine6>
+	<ShowCheckBox>0</ShowCheckBox>
+	<CheckBoxText></CheckBoxText>
+	<ActivityFlag>0</ActivityFlag>
+	<ButtonMsg>
+		<ButtonSizeFlag>00</ButtonSizeFlag>
+		<Button1Text>Short Receipt</Button1Text>
+		<Button2Text>Full Receipt</Button2Text>
+		<Button3Text></Button3Text>
+	</ButtonMsg>
+	<TimeOut>600</TimeOut>
+</ShowScreenRequest>

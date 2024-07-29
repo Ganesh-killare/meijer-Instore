@@ -1,0 +1,17 @@
+# Ignore build output directories
+/build/
+/out/
+/target/
+
+
+
+# Ignore log files
+*.log
+*.xlsx
+
+
+# Ignore .xlsx files in the transactionsXLfiles folder
+transactionsXLfiles/*.xlsx
+
+# Ignore .html files in the reports folder
+reports/*.html

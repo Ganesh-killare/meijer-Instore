@@ -1,0 +1,38 @@
+
+<TransRequest>
+ <CCTID>01</CCTID>
+ <CardNumber>9840000067000004787</CardNumber>
+ <TransactionType>16</TransactionType>
+ <POSID>01</POSID>	
+ <TipEligible>0</TipEligible>
+ <CardDataInfo>
+  <CardDataSource></CardDataSource>
+  <TrackData></TrackData>
+ </CardDataInfo>
+ <ProcessingMode>1</ProcessingMode>
+ <EntrySource>B</EntrySource>
+ <LanguageIndicator></LanguageIndicator>
+ <CurrencyCode>840</CurrencyCode>
+ <CardExpiryDate>1231</CardExpiryDate>
+ <InvoiceNumber></InvoiceNumber>
+ <ReceiptNumber>54334567</ReceiptNumber>
+ <TransactionDate></TransactionDate>
+ 	<TransactionTime></TransactionTime>
+ <APPID>04</APPID>
+ <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+ <SubTransType>04</SubTransType>
+ <ReferenceNumber>1324566</ReferenceNumber>
+ <ProgramId></ProgramId>
+ <AmountNoBar>1</AmountNoBar>
+ <EPPDetailsInfo>
+  <ProductCount></ProductCount>
+  <STAN>123454</STAN>
+  <ProductIdentificationData>79936682159</ProductIdentificationData>
+ </EPPDetailsInfo>
+  <BlackHawkUpc>71373309077</BlackHawkUpc>
+ <POSType>1</POSType>
+ <TransAmountDetails>
+  <ProductTotalAmount>10.00</ProductTotalAmount>
+  <TransactionTotal>10.00~10.00</TransactionTotal>
+ </TransAmountDetails>
+</TransRequest>
