@@ -10,12 +10,12 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import requestbuilder.ByPass;
-import utilities.DateUtilities;
+import utilities.Utils;
 import xmlrequestbuilder.Close_Transaction;
 
 public class TC_PLC extends BaseClass {   
 
-	@Test(invocationCount = 4)   
+	@Test(invocationCount = 40)   
 	public void PLC_RefundOfSale() throws IOException, Exception {       
 		fileName = new Exception().getStackTrace()[0].getMethodName();       
 		System.out.println(fileName);
@@ -27,8 +27,8 @@ public class TC_PLC extends BaseClass {
 		}
 	}
 
-	@Test(invocationCount = 4)   
-	public void VoidOfSale() throws IOException, Exception {    
+	@Test(invocationCount = 40)   
+	public void PLC_VoidOfSale() throws IOException, Exception {    
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
@@ -41,7 +41,7 @@ public class TC_PLC extends BaseClass {
 	}
 
 	@Test(invocationCount = 4)
-	public void PLC_VoidOfRefundWithoutsale() throws IOException, Exception {      
+	public void PLC_VoidOfRefundWithoutsale() throws IOException, Exception {         
 		fileName = new Exception().getStackTrace()[0].getMethodName();    
 		System.out.println(fileName);
 
@@ -60,7 +60,7 @@ public class TC_PLC extends BaseClass {
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());    
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(DateUtilities.setFileName("PLC"));   
+		excelWriter.saveExcelFile(Utils.setFileName(fileName));   
 
 	}
 

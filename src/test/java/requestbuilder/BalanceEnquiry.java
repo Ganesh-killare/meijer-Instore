@@ -15,13 +15,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import utilities.DateUtilities;
+import base.BaseClass;
+import base.SessionIdManager;
+import utilities.Utils;
 
 public class BalanceEnquiry {
 
-	private static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	private static String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	private static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	private static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	private static String buildXMLRequest() {
 		try {
@@ -50,7 +52,7 @@ public class BalanceEnquiry {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId", "123456");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, transRequestElement, "CardType", "EBW");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
@@ -161,6 +163,11 @@ public class BalanceEnquiry {
 			setTagValue(document, "CardToken", CardToken);
 			setTagValue(document, "CRMToken", CI);
 			setTagValue(document, "CardIdentifier", CRM);
+			
+			// Set CashBack Flag
+
+			setTagValue(document, "CashBackFlag", Utils.getCashBackValue());
+			setTagValue(document, "ShowResponse", Utils.getShowResponseValue());
 
 			// Convert the modified document back to a string
 			return documentToString(document);

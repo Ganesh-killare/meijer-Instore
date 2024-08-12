@@ -17,7 +17,7 @@ import org.jdom2.output.XMLOutputter;
 
 import com.github.javafaker.Faker;
 
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class Sale_Request_Modification {
 	static Faker faker = new Faker();
@@ -43,9 +43,9 @@ public class Sale_Request_Modification {
 		// Date & Time with Invoice Number
 
 
-		String formattedTime =	DateUtilities.generateDateTimeAndInvoice().get(0);
-		String finalDate =	DateUtilities.generateDateTimeAndInvoice().get(1);
-		String invoiceNumber =	DateUtilities.generateDateTimeAndInvoice().get(2);
+		String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
+		String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
+		String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
 
 
 		try {
@@ -117,9 +117,9 @@ public class Sale_Request_Modification {
 		// Date & Time with Invoice Number
 		
 		
-		String formattedTime =	DateUtilities.generateDateTimeAndInvoice().get(0);
-		String finalDate =	DateUtilities.generateDateTimeAndInvoice().get(1);
-		String invoiceNumber =	DateUtilities.generateDateTimeAndInvoice().get(2);
+		String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
+		String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
+		String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
 		
 		
 		try {

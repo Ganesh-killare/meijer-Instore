@@ -15,6 +15,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+import base.SessionIdManager;
+
 public class ShowScreen {
 
 	public static String buildXMLRequest() {
@@ -137,7 +139,7 @@ public class ShowScreen {
 			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "form of payment.");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
 			appendElementWithValue(doc, showScreenRequest, "LineDisplay", "1");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "12345");
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			// Add ButtonMsg element with child elements
 			Element buttonMsg = doc.createElement("ButtonMsg");
@@ -177,8 +179,7 @@ public class ShowScreen {
 			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "+1(877)816-9410");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
 			appendElementWithValue(doc, showScreenRequest, "LineDisplay", "1");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "12345");
-
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			// Add ButtonMsg element with child elements
 			Element buttonMsg = doc.createElement("ButtonMsg");
 			showScreenRequest.appendChild(buttonMsg);
@@ -217,8 +218,7 @@ public class ShowScreen {
 			appendElementWithValue(doc, showScreenRequest, "MessageLine3", "to this transaction?");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
 			appendElementWithValue(doc, showScreenRequest, "LineDisplay", "1");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "12345");
-
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			// Add ButtonMsg element with child elements
 			Element buttonMsg = doc.createElement("ButtonMsg");
 			showScreenRequest.appendChild(buttonMsg);
@@ -257,8 +257,7 @@ public class ShowScreen {
 			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "to account previously entered.");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
 			appendElementWithValue(doc, showScreenRequest, "LineDisplay", "1");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "12345");
-
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			// Add ButtonMsg element with child elements
 			Element buttonMsg = doc.createElement("ButtonMsg");
 			showScreenRequest.appendChild(buttonMsg);
@@ -299,8 +298,7 @@ public class ShowScreen {
 			appendElementWithValue(doc, showScreenRequest, "MessageLine4", "Expires : 12/32/1852");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
 			appendElementWithValue(doc, showScreenRequest, "LineDisplay", "1");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "6");
-
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			// Add ButtonMsg element with child elements
 			Element buttonMsg = doc.createElement("ButtonMsg");
 			showScreenRequest.appendChild(buttonMsg);
@@ -334,7 +332,7 @@ public class ShowScreen {
 			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.12");
 			appendElementWithValue(doc, showScreenRequest, "LanguageIndicator", "00");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "123456");
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, showScreenRequest, "Header", "");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "Selet the coupon you would");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "like to apply to this transaction.");
@@ -410,8 +408,7 @@ public class ShowScreen {
 
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
 			appendElementWithValue(doc, showScreenRequest, "LineDisplay", "1");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "12345");
-
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -434,7 +431,7 @@ public class ShowScreen {
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
 			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "10");
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, showScreenRequest, "LanguageIndicator", "");
 			appendElementWithValue(doc, showScreenRequest, "Header", "Confirm Transaction");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "");

@@ -17,13 +17,14 @@ import org.w3c.dom.Text;
 
 import com.github.javafaker.Faker;
 
-import utilities.DateUtilities;
+import base.SessionIdManager;
+import utilities.Utils;
 
 public class SoloTronRequest {
 
-	private static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	private static String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	private static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	private static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	public static String Request(String cardToken, String transType) {
 		try {
@@ -80,6 +81,8 @@ public class SoloTronRequest {
 			appendElementWithValue(doc, transRequestElement, "EntrySource", "");
 			appendElementWithValue(doc, transRequestElement, "EcommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
+
 
 			// Add TransAmountDetails
 			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
@@ -120,7 +123,7 @@ public class SoloTronRequest {
 			appendElementWithValue(doc, transRequestElement, "TipEligible", "0");
 			appendElementWithValue(doc, transRequestElement, "ReceiptNumber", "873");
 			appendElementWithValue(doc, transRequestElement, "ReferenceNumber", "157");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse",Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "CurrencyCode", "840");
 			appendElementWithValue(doc, transRequestElement, "ClerkID", "1111");
 			appendElementWithValue(doc, transRequestElement, "TransactionDate", finalDate);

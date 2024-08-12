@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import requestbuilder.ByPass;
-import utilities.DateUtilities;
+import utilities.Utils;
 import xmlrequestbuilder.Close_Transaction;
 
 public class TC_EBT extends BaseClass {
@@ -60,7 +60,7 @@ public class TC_EBT extends BaseClass {
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());   
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(DateUtilities.setFileName("EBT"));
+		excelWriter.saveExcelFile(Utils.setFileName("EBT"));
 
 	}
 }

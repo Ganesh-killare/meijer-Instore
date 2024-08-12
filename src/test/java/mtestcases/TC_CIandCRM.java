@@ -1,4 +1,4 @@
-package testcases;
+package mtestcases;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -9,14 +9,17 @@ import java.util.List;
 import org.jdom2.JDOMException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import base.ConnectionWithPort;
+import base.BaseClass;
+import requestbuilder.ByPass;
+import requestbuilder.GetUserInput;
+import requestbuilder.ShowScreen;
 import responsevalidator.Response_Parameters;
-import utilities.DateUtilities;
+import utilities.Utils;
 import utilities.ExcelUtility;
-import utilities.GIft_Data;
 import utilities.TransactionXL;
 import xmlrequestbuilder.Close_Transaction;
 import xmlrequestbuilder.GCB_Modification;
@@ -24,28 +27,22 @@ import xmlrequestbuilder.PLCC_Sale_Request_Modification;
 import xmlrequestbuilder.Refund_Request_Modification;
 import xmlrequestbuilder.Sale_Request_Modification;
 
-public class TC_CIandCRM extends ConnectionWithPort {
-	String[] parameters = { "CardToken", "CardIdentifier", "CRMToken", "CardEntryMode", "TransactionTypeCode",
-			"TransactionSequenceNumber", "CardType", "SubCardType", "TotalApprovedAmount", "ResponseText",
-			"ResponseCode", "TransactionIdentifier", "AurusPayTicketNum", "ApprovalCode", "ProcessorMerchantId",
-			"CardExpiryDate", "STAN", "ProcessorResponseCode" };
+public class TC_CIandCRM extends BaseClass {
+
 	List<String> GCB_Parameters = new ArrayList<>(Arrays.asList(parameters));
 
-	ConnectionWithPort cp = new ConnectionWithPort();
 	TransactionXL excelWriter = new TransactionXL();
 
 	@BeforeClass
 	public void setXLfile() throws Exception, IOException, InterruptedException {
 		try {
 
-			ConnectionWithPort cp = new ConnectionWithPort();
-
 			// GCB Started
 
 			String req = GCB_Modification.GCB_Request_Modified();
-			cp.sendRequestToAESDK(req);
+			sendRequestToAESDK(req);
 			// System.out.println(req);
-			String res = cp.receiveResponseToAESDK();
+			String res = receiveResponseFromAESDK();
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
@@ -54,7 +51,7 @@ public class TC_CIandCRM extends ConnectionWithPort {
 					GCBPrameter.getParameterValue("CRMToken"), "01");
 			List<String> GCBXLData = GCBPrameter.print_Response("GCB", parameters);
 
-			excelWriter.WriteGCBData( GCBXLData, "GCB");
+			excelWriter.WriteGCBData(GCBXLData, "GCB");
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
 			if (result.equalsIgnoreCase("Approved")) {
@@ -63,9 +60,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 
 				// Sale Satrted
 
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
-				String sale_Respose = cp.receiveResponseToAESDK();
+				String sale_Respose = receiveResponseFromAESDK();
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(" Sale  : ", parameters);
 				saleData.add(3, "Sale");
@@ -82,9 +79,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 				if (responseText.equalsIgnoreCase("APPROVAL")) {
 					String RefundRequest = Refund_Request_Modification.modified_Refund_Request("02", Amount,
 							AurusPayTicketNum, transactionIdentifier);
-					cp.sendRequestToAESDK(RefundRequest);
+					sendRequestToAESDK(RefundRequest);
 
-					String refund = cp.receiveResponseToAESDK();
+					String refund = receiveResponseFromAESDK();
 
 					Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
 
@@ -100,6 +97,14 @@ public class TC_CIandCRM extends ConnectionWithPort {
 
 	}
 
+//	@BeforeMethod
+	public void POS_APIs() throws Exception, IOException, InterruptedException {
+		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
+		sendRequestToAESDK(ByPass.Option1());
+		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());
+		sendRequestToAESDK(ByPass.Random());
+	}
+
 	@Test(dataProvider = "CI_Data", dataProviderClass = TC_CIandCRM.class, priority = 1)
 	public void testCIRefundOfSale(String CI, String cardType) throws Exception, InterruptedException, JDOMException {
 		try {
@@ -107,16 +112,16 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (cardType.equalsIgnoreCase("PLC")) {
 
 				String Sale_Request = PLCC_Sale_Request_Modification.modified_PLCCSale_Request(null, CI, null, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 
 			} else {
 				String Sale_Request = Sale_Request_Modification.modified_Sale_Request(null, CI, null, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 			}
 
-			String sale_Respose = cp.receiveResponseToAESDK();
+			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			List<String> saleData = saleResponse.print_Response(" Sale ", parameters);
 			saleData.add(3, "Sale");
@@ -131,9 +136,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (responseText.equalsIgnoreCase("APPROVAL")) {
 				String RefundRequest = Refund_Request_Modification.modified_Refund_Request("02", Amount,
 						AurusPayTicketNum, transactionIdentifier);
-				cp.sendRequestToAESDK(RefundRequest);
+				sendRequestToAESDK(RefundRequest);
 
-				String refund = cp.receiveResponseToAESDK();
+				String refund = receiveResponseFromAESDK();
 
 				Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
 
@@ -155,16 +160,16 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (cardType.equalsIgnoreCase("PLC")) {
 
 				String Sale_Request = PLCC_Sale_Request_Modification.modified_PLCCSale_Request(null, CI, null, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 
 			} else {
 				String Sale_Request = Sale_Request_Modification.modified_Sale_Request(null, CI, null, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 			}
 
-			String sale_Respose = cp.receiveResponseToAESDK();
+			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			List<String> saleData = saleResponse.print_Response(" Sale ", parameters);
 			saleData.add(3, "Sale");
@@ -179,9 +184,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (responseText.equalsIgnoreCase("APPROVAL")) {
 				String RefundRequest = Refund_Request_Modification.modified_Refund_Request("06", Amount,
 						AurusPayTicketNum, transactionIdentifier);
-				cp.sendRequestToAESDK(RefundRequest);
+				sendRequestToAESDK(RefundRequest);
 
-				String refund = cp.receiveResponseToAESDK();
+				String refund = receiveResponseFromAESDK();
 
 				Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
 
@@ -204,15 +209,15 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (cardType.equalsIgnoreCase("PLC")) {
 
 				String Sale_Request = PLCC_Sale_Request_Modification.modified_PLCCSale_Request(null, CI, null, "02");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 
 			} else {
 				String Sale_Request = Sale_Request_Modification.modified_Sale_Request(null, CI, null, "02");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 			}
-			String sale_Respose = cp.receiveResponseToAESDK();
+			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			List<String> saleData = saleResponse.print_Response(" Refund Without sale", parameters);
 			saleData.add(3, "Refund Without sale");
@@ -227,9 +232,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (responseText.equalsIgnoreCase("APPROVAL")) {
 				String RefundRequest = Refund_Request_Modification.modified_Refund_Request("06", Amount,
 						AurusPayTicketNum, transactionIdentifier);
-				cp.sendRequestToAESDK(RefundRequest);
+				sendRequestToAESDK(RefundRequest);
 
-				String refund = cp.receiveResponseToAESDK();
+				String refund = receiveResponseFromAESDK();
 
 				Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
 
@@ -251,15 +256,15 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (cardType.equalsIgnoreCase("PLC")) {
 
 				String Sale_Request = PLCC_Sale_Request_Modification.modified_PLCCSale_Request(null, null, CRM, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 
 			} else {
 				String Sale_Request = Sale_Request_Modification.modified_Sale_Request(null, null, CRM, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 			}
-			String sale_Respose = cp.receiveResponseToAESDK();
+			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			List<String> saleData = saleResponse.print_Response(" Sale ", parameters);
 			saleData.add(3, "Sale");
@@ -274,9 +279,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (responseText.equalsIgnoreCase("APPROVAL")) {
 				String RefundRequest = Refund_Request_Modification.modified_Refund_Request("02", Amount,
 						AurusPayTicketNum, transactionIdentifier);
-				cp.sendRequestToAESDK(RefundRequest);
+				sendRequestToAESDK(RefundRequest);
 
-				String refund = cp.receiveResponseToAESDK();
+				String refund = receiveResponseFromAESDK();
 
 				Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
 
@@ -298,15 +303,15 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (cardType.equalsIgnoreCase("PLC")) {
 
 				String Sale_Request = PLCC_Sale_Request_Modification.modified_PLCCSale_Request(null, null, CRM, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 
 			} else {
 				String Sale_Request = Sale_Request_Modification.modified_Sale_Request(null, null, CRM, "01");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 			}
-			String sale_Respose = cp.receiveResponseToAESDK();
+			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			List<String> saleData = saleResponse.print_Response(" Sale ", parameters);
 			saleData.add(3, "Sale");
@@ -321,9 +326,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (responseText.equalsIgnoreCase("APPROVAL")) {
 				String RefundRequest = Refund_Request_Modification.modified_Refund_Request("06", Amount,
 						AurusPayTicketNum, transactionIdentifier);
-				cp.sendRequestToAESDK(RefundRequest);
+				sendRequestToAESDK(RefundRequest);
 
-				String refund = cp.receiveResponseToAESDK();
+				String refund = receiveResponseFromAESDK();
 
 				Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
 
@@ -346,15 +351,15 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (cardType.equalsIgnoreCase("PLC")) {
 
 				String Sale_Request = PLCC_Sale_Request_Modification.modified_PLCCSale_Request(null, null, CRM, "02");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 
 			} else {
 				String Sale_Request = Sale_Request_Modification.modified_Sale_Request(null, null, CRM, "02");
-				cp.sendRequestToAESDK(Sale_Request);
+				sendRequestToAESDK(Sale_Request);
 				// System.out.println(Sale_Request);
 			}
-			String sale_Respose = cp.receiveResponseToAESDK();
+			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			List<String> saleData = saleResponse.print_Response(" Refund Without sale", parameters);
 			saleData.add(3, "Refund Without sale");
@@ -369,9 +374,9 @@ public class TC_CIandCRM extends ConnectionWithPort {
 			if (responseText.equalsIgnoreCase("APPROVAL")) {
 				String RefundRequest = Refund_Request_Modification.modified_Refund_Request("06", Amount,
 						AurusPayTicketNum, transactionIdentifier);
-				cp.sendRequestToAESDK(RefundRequest);
+				sendRequestToAESDK(RefundRequest);
 
-				String refund = cp.receiveResponseToAESDK();
+				String refund = receiveResponseFromAESDK();
 
 				Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
 
@@ -387,10 +392,10 @@ public class TC_CIandCRM extends ConnectionWithPort {
 
 	@DataProvider(name = "CI_Data")
 	public String[][] getData() throws IOException {
-		
+
 		String path;
 
-		if (DateUtilities.getEnvironment().toUpperCase().contains("P")) {
+		if (Utils.getEnvironment().toUpperCase().contains("P")) {
 			path = ".\\test-Data\\LiveCIandCRM.xlsx";
 		} else {
 			path = ".\\test-Data\\CIandCRMs.xlsx";
@@ -419,7 +424,7 @@ public class TC_CIandCRM extends ConnectionWithPort {
 	public String[][] getCRMData() throws IOException {
 		String path;
 
-		if (DateUtilities.getEnvironment().toUpperCase().contains("P")) {
+		if (Utils.getEnvironment().toUpperCase().contains("P")) {
 			path = ".\\test-Data\\LiveCIandCRM.xlsx";
 		} else {
 			path = ".\\test-Data\\CIandCRMs.xlsx";
@@ -446,9 +451,10 @@ public class TC_CIandCRM extends ConnectionWithPort {
 
 	@AfterMethod
 	public void afterMethod() throws Exception, Exception, InterruptedException, JDOMException {
-		cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
-		cp.receiveResponseToAESDK();
-		excelWriter.saveExcelFile(DateUtilities.setFileName("CI&CRM_Transaction"));
+	//	sendRequestToAESDK(ByPass.Option1());
+		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+		receiveResponseFromAESDK();
+		excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));
 
 	}
 

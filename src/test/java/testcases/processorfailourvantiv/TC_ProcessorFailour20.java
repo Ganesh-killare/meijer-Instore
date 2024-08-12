@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import reporting.AESDKData;
 import responsevalidator.Response_Parameters;
-import utilities.DateUtilities;
+import utilities.Utils;
 import utilities.ExcelUtility;
 import utilities.P_XL_Utility;
 import utilities.ProcessorFailourXL;
@@ -115,7 +115,7 @@ public class TC_ProcessorFailour20 {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(1));
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 		
 		}
 	}
@@ -190,7 +190,7 @@ public class TC_ProcessorFailour20 {
 			cp.receiveResponseFromAESDK();
 			
 
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -257,7 +257,7 @@ public class TC_ProcessorFailour20 {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 		
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -321,7 +321,7 @@ public class TC_ProcessorFailour20 {
 
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 			cp.receiveResponseFromAESDK();
 		
@@ -389,7 +389,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -462,7 +462,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 			invocationCount ++;
 			System.out.println(invocationCount);
@@ -535,7 +535,7 @@ public class TC_ProcessorFailour20 {
 			} finally {
 				cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 				cp.receiveResponseFromAESDK();
-				xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+				xlWriter.saveExcelFile(Utils.setFileName(fileName));
 				xl.saveExcelFile();
 				invocationCount++ ;
 
@@ -607,7 +607,7 @@ public class TC_ProcessorFailour20 {
 				if(invocationCount==5) {
 				xlWriter.writeHeadline(headlines.get(2));
 				}
-				xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+				xlWriter.saveExcelFile(Utils.setFileName(fileName));
 				xl.saveExcelFile();
 				invocationCount++;
 
@@ -683,7 +683,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 
 		}
@@ -752,7 +752,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 
 		}
@@ -819,7 +819,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 
 		}
@@ -865,7 +865,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 		}
 
 	}
@@ -957,7 +957,7 @@ public class TC_ProcessorFailour20 {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(3));
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -1029,7 +1029,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -1093,7 +1093,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -1161,7 +1161,7 @@ public class TC_ProcessorFailour20 {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(4));
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 			invocationCount=1 ;
 		}
@@ -1235,7 +1235,7 @@ public class TC_ProcessorFailour20 {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			invocationCount ++ ;
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -1291,7 +1291,7 @@ public class TC_ProcessorFailour20 {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			// xl.saveExcelFile();
 		}
 	}

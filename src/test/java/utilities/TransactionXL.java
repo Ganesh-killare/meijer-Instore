@@ -22,7 +22,7 @@ public class TransactionXL {
 	Workbook workbook;
 	Sheet sheet;
 
-	int startRow ;
+	int startRow;
 	List<CellRangeAddress> mergedRegions = new ArrayList<>();
 
 	public void setupWorkBook() {
@@ -31,19 +31,18 @@ public class TransactionXL {
 
 	}
 
-	public void WriteGCBData( List<String> data, String transType) {
-		
-	List<String> Headers =	BaseClass.ResponseParameter ;
+	public void WriteGCBData(List<String> data, String transType) {
 
-		
+		List<String> Headers = BaseClass.ResponseParameter;
+
 		Headers.add(3, "TransType");
-	
+
 		if (this.sheet == null) {
 			setupWorkBook();
 		}
-		
-    startRow = sheet.getLastRowNum()+3;
-  
+
+		startRow = sheet.getLastRowNum() + 3;
+
 		if (startRow == 2) {
 
 			Row headerRow = sheet.createRow(0);
@@ -143,7 +142,7 @@ public class TransactionXL {
 				nonZeroCellStyle.setFont(nonZeroFont);
 				row.createCell(11).setCellValue(data.get(10));
 				row.getCell(11).setCellStyle(nonZeroCellStyle);
-				
+
 			}
 
 			row.createCell(12).setCellValue(data.get(11));
@@ -221,21 +220,17 @@ public class TransactionXL {
 	}
 
 	public void writeDataRefundOfSale(List<String> data) {
-		
-		
-		
-		
-	List<String> Headers =	BaseClass.ResponseParameter ;
 
-		
-		Headers.add(3, "TransType");
-	
 		if (this.sheet == null) {
 			setupWorkBook();
 		}
-		
-    startRow = sheet.getLastRowNum()+3;
-  
+
+		List<String> Headers = BaseClass.ResponseParameter;
+
+		Headers.add(3, "TransType");
+
+		startRow = sheet.getLastRowNum() + 3;
+
 		if (startRow == 2) {
 
 			Row headerRow = sheet.createRow(0);
@@ -309,7 +304,6 @@ public class TransactionXL {
 				cell.setCellStyle(cellStyle);
 			}
 
-			
 		}
 	}
 
@@ -364,13 +358,10 @@ public class TransactionXL {
 				cellStyle.setFont(font);
 				cell.setCellStyle(cellStyle);
 			}
-			
 
 		}
 
 	}
-
-	
 
 	public void saveExcelFile(String fileName) {
 		try (FileOutputStream outputStream = new FileOutputStream("./transactionsXLfiles\\" + fileName)) {

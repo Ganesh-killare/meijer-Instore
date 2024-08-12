@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Properties>
-        <Property name="appName">TKACHA-WIN99 </Property>
+        <Property name="appName">GKILLARE-WIN87 </Property>
     </Properties>
     <Appenders>
         <File name="File" fileName="logs/${date:yyyy-MM}/${appName}-${date:yyyy-MM-dd}-.log">

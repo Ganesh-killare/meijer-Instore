@@ -16,13 +16,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class XMLRequestBuilder {
 	
-	static String formattedTime =	DateUtilities.generateDateTimeAndInvoice().get(0);
-	static String finalDate =	DateUtilities.generateDateTimeAndInvoice().get(1);
-	static String invoiceNumber =	DateUtilities.generateDateTimeAndInvoice().get(2);
+	static String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
+	static String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
+	static String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
 	
 
     public static String buildXMLRequest() {

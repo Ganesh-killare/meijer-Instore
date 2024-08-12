@@ -9,7 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import base.BaseClass;
-import utilities.DateUtilities;
+import utilities.Utils;
 import xmlrequestbuilder.Close_Transaction;
 
 public class TC_POA extends BaseClass {
@@ -61,7 +61,7 @@ public class TC_POA extends BaseClass {
 
 		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(DateUtilities.setFileName("POA_TRANSACTIONS"));
+		excelWriter.saveExcelFile(Utils.setFileName("POA_TRANSACTIONS"));
 
 	}
 

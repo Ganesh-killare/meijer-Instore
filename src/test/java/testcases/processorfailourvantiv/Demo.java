@@ -14,7 +14,7 @@ import base.BaseClass;
 import reporting.AESDKData;
 import responsevalidator.Response_Parameters;
 import testcases.processorfailourchase.TC_ProcessorFailour13;
-import utilities.DateUtilities;
+import utilities.Utils;
 import utilities.ExcelUtility;
 import utilities.P_XL_Utility;
 import utilities.ProcessorFailourXL;
@@ -116,7 +116,7 @@ public class Demo {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(1));
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 		
 		}
 	}
@@ -191,7 +191,7 @@ public class Demo {
 			cp.receiveResponseFromAESDK();
 			
 
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -258,7 +258,7 @@ public class Demo {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 		
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -322,7 +322,7 @@ public class Demo {
 
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 			cp.receiveResponseFromAESDK();
 		
@@ -390,7 +390,7 @@ public class Demo {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -463,7 +463,7 @@ public class Demo {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 			invocationCount ++;
 			System.out.println(invocationCount);
@@ -541,7 +541,7 @@ public class Demo {
 			cp.receiveResponseFromAESDK();
 			
 
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
@@ -584,7 +584,7 @@ public class Demo {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 		}
 
 	}

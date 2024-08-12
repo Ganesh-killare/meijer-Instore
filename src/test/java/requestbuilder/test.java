@@ -12,11 +12,13 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.BaseClass;
 import utilities.GIft_Data;
 
-public class test {
+public class test  {
 	@Test(dataProvider = "GIFT_DATA", dataProviderClass = GIft_Data.class, priority = 1)
 	public void testRequests(String transactionType, String amount, String cardNumber, String entrySource,
 			String transtype, String subtransType, String upsdata) {
@@ -56,12 +58,15 @@ public class test {
 		String ipAddress = localhost.getHostAddress();
 		return ipAddress;
 	}
+	
+	
+	@BeforeMethod
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 15)
 	public void testRequest() throws IOException {
 
 		System.out.println(AccountLookUp.withSSNandPhoneNumber());
-		System.out.println(AccountLookUp.withProcessorToken());
+		System.out.println(CD_Sale_Request.CD_RW_SALE_REQUEST(getHostIP(), getHostIP(), getHostIP()));
 
 	}
 

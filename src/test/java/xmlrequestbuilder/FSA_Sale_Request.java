@@ -17,7 +17,7 @@ import org.jdom2.output.XMLOutputter;
 
 import com.github.javafaker.Faker;
 
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class FSA_Sale_Request {
 
@@ -54,9 +54,9 @@ public class FSA_Sale_Request {
 
 		   // Get the current date and time
 
-		String formattedTime =	DateUtilities.generateDateTimeAndInvoice().get(0);
-		String finalDate =	DateUtilities.generateDateTimeAndInvoice().get(1);
-		String invoiceNumber =	DateUtilities.generateDateTimeAndInvoice().get(2);
+		String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
+		String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
+		String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
 
 	     int Prescription = ThreadLocalRandom.current().nextInt(0, 7);
 	        int VisionOptical = ThreadLocalRandom.current().nextInt(0, 7);
@@ -137,9 +137,9 @@ public class FSA_Sale_Request {
 		
 		// Get the current date and time
 		
-		String formattedTime =	DateUtilities.generateDateTimeAndInvoice().get(0);
-		String finalDate =	DateUtilities.generateDateTimeAndInvoice().get(1);
-		String invoiceNumber =	DateUtilities.generateDateTimeAndInvoice().get(2);
+		String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
+		String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
+		String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
 		
 		// Transaction Amount 
 		

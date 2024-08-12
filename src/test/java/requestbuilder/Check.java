@@ -16,12 +16,12 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import base.POS_APIs;
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class Check {
-	private static String finalTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	private static String InvoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	private static String finalTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	private static String InvoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	public static String buildXMLRequest() {
 		try {
@@ -50,13 +50,12 @@ public class Check {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId", "123456");
 			appendElementWithValue(doc, transRequestElement, "CardPresent", ""); // Empty string if not specified
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
-			appendElementWithValue(doc, transRequestElement, "CashBackFlag", "1");
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 
 			// Add <TransAmountDetails> element with its children
 			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
@@ -84,7 +83,7 @@ public class Check {
 																							// specified
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 

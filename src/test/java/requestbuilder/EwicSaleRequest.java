@@ -15,13 +15,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import utilities.DateUtilities;
+import base.SessionIdManager;
+import utilities.Utils;
 
 public class EwicSaleRequest {
 
-	private static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	private static String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	private static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	private static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	private static String buildXMLRequest() {
 		try {
@@ -50,13 +51,13 @@ public class EwicSaleRequest {
             appendElementWithValue(doc, transRequestElement, "APPID", "01");
             appendElementWithValue(doc, transRequestElement, "CCTID", "01");
             appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-            appendElementWithValue(doc, transRequestElement, "SessionId", "123456");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
             appendElementWithValue(doc, transRequestElement, "CardType", "EBW");
             appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
             appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
             appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
             appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
-            appendElementWithValue(doc, transRequestElement, "CashBackFlag", "1");
+            appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 
             // TransAmountDetails
             Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
@@ -101,7 +102,7 @@ public class EwicSaleRequest {
             appendElementWithValue(doc, upcDetailsElement, "UPCCount", "1");
 
             appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-            appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+            appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
             appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
             appendElementWithValue(doc, transRequestElement, "POSType", "1");
 
@@ -180,7 +181,8 @@ public class EwicSaleRequest {
 			setTagValue(document, "CardToken", CardToken);
 			setTagValue(document, "CRMToken", CI);
 			setTagValue(document, "CardIdentifier", CRM);
-
+			
+			
 			// Convert the modified document back to a string
 			return documentToString(document);
 		} catch (Exception e) {

@@ -7,22 +7,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
-import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+public class Utils {
 
-import com.github.javafaker.Faker;
-
-import org.testng.ITestContext;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-public class DateUtilities {
 	static String amount;
+	private static String configFile = "config.properties";
+
 
 	public static List<String> generateDateTimeAndInvoice() {
 		Date now = new Date();
@@ -54,10 +44,9 @@ public class DateUtilities {
 
 	}
 
-
 	public static String getEnvironment() {
 		Properties properties = new Properties();
-		try (FileInputStream input = new FileInputStream("config.properties")) {
+		try (FileInputStream input = new FileInputStream(configFile)) {
 			properties.load(input);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,9 +57,48 @@ public class DateUtilities {
 		return env;
 	}
 
+	public static String getCashBackValue() {
+		Properties properties = new Properties();
+		try (FileInputStream input = new FileInputStream(configFile)) {
+			properties.load(input);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Accessing properties
+		String CashBackValue = properties.getProperty("CashBackFlag", "3");
+		return CashBackValue;
+	}
+
+	public static String getShowResponseValue() {
+		Properties properties = new Properties();
+		try (FileInputStream input = new FileInputStream(configFile)) {
+			properties.load(input);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Accessing properties
+		String showResponse = properties.getProperty("ShowScreen", "0");
+		return showResponse;
+	}
+
+	public static String getSessionId() {
+		Properties properties = new Properties();
+		try (FileInputStream input = new FileInputStream(configFile)) {
+			properties.load(input);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Accessing properties
+		String SessionId = properties.getProperty("SessionID", "00");
+		return SessionId;
+	}
+
 	public static List<String> selectToken(List<String> tokens) {
 		Properties properties = new Properties();
-		try (FileInputStream input = new FileInputStream("config.properties")) {
+		try (FileInputStream input = new FileInputStream(configFile)) {
 			properties.load(input);
 		} catch (IOException e) {
 			e.printStackTrace();

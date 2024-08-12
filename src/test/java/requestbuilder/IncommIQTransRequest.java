@@ -17,13 +17,14 @@ import org.w3c.dom.Text;
 
 import com.github.javafaker.Faker;
 
-import utilities.DateUtilities;
+import base.SessionIdManager;
+import utilities.Utils;
 
 public class IncommIQTransRequest {
 
-	private static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	private static String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	private static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	private static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	public static String Request(String cardToken, String TransType) {
 		try {
@@ -77,14 +78,14 @@ public class IncommIQTransRequest {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId", "12345");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, transRequestElement, "CardType", "EPP");
 			appendElementWithValue(doc, transRequestElement, "SubCardType", "EPP");
 			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "1237");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
-			appendElementWithValue(doc, transRequestElement, "CashBackFlag", "0");
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
 
 			// Add TransAmountDetails
@@ -113,7 +114,7 @@ public class IncommIQTransRequest {
 			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "1");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 

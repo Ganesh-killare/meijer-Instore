@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import requestbuilder.ByPass;
-import utilities.DateUtilities;
+import utilities.Utils;
 import xmlrequestbuilder.Close_Transaction;
 
 public class ManualProcessorFailure extends BaseClass {
@@ -98,7 +98,7 @@ public class ManualProcessorFailure extends BaseClass {
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(DateUtilities.setFileName("ManualProcessorFailure"));
+		excelWriter.saveExcelFile(Utils.setFileName("ManualProcessorFailure"));
 
 	}
 

@@ -10,7 +10,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class PLCC_Refund_Modification {
 	
@@ -23,9 +23,9 @@ public class PLCC_Refund_Modification {
 		
 
 
-		String formattedTime =	DateUtilities.generateDateTimeAndInvoice().get(0);
-		String finalDate =	DateUtilities.generateDateTimeAndInvoice().get(1);
-		String invoiceNumber =	DateUtilities.generateDateTimeAndInvoice().get(2);
+		String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
+		String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
+		String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
 
 	try {
 		// Load the XML file

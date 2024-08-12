@@ -1,6 +1,7 @@
 package base;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +15,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
@@ -21,6 +23,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import requestbuilder.AccountLookUp;
 import requestbuilder.BalanceEnquiry;
@@ -38,7 +42,7 @@ import requestbuilder.ReturnRequest;
 import requestbuilder.Signature;
 import requestbuilder.SoloTronRequest;
 import responsevalidator.Response_Parameters;
-import utilities.DateUtilities;
+import utilities.Utils;
 import utilities.GiftDataXLwriting;
 import utilities.LoggerUtil;
 import utilities.TransactionXL;
@@ -47,7 +51,7 @@ import xmlrequestbuilder.Close_Transaction;
 public class BaseClass {
 
 	private String serverAddress = getHostIP();
-	// private String serverAddress = "10.190.10.169";
+//	 private String serverAddress = "10.190.70.167";
 
 	private int serverPort = 8060;
 	// private int serverPort = 15583;
@@ -67,7 +71,7 @@ public class BaseClass {
 	}
 
 	public void sendRequestToAESDK(String data) throws UnknownHostException, IOException, InterruptedException {
-		// System.out.println(data);
+	//	System.out.println(data);
 
 		socket = new Socket(serverAddress, serverPort);
 		OutputStream outputStream = socket.getOutputStream();
@@ -127,6 +131,13 @@ public class BaseClass {
 
 	public static List<String> ResponseParameter = new ArrayList<>(Arrays.asList(parameters));
 
+	@BeforeMethod
+	public void incrementSessionId() {
+		SessionIdManager.incrementAndGetSessionId();
+	}
+	
+	
+
 	public List<String> performGetCardBin() throws Exception, IOException {
 
 		List<String> gcbResults = new ArrayList<String>();
@@ -135,7 +146,7 @@ public class BaseClass {
 
 		try {
 
-			 pa.beforeGetCardBinAPIs();
+			pa.beforeGetCardBinAPIs();
 
 			String req = GCBRequest.GCB_REQUEST().trim();
 			sendRequestToAESDK(req);
@@ -152,12 +163,12 @@ public class BaseClass {
 
 			List<String> GCBXLData = GCBPrameter.print_Response("GCB", parameters);
 			excelWriter.WriteGCBData(GCBXLData, "GCB");
-			gcbresult = DateUtilities.selectToken(gcbResults);
+			gcbresult = Utils.selectToken(gcbResults);
 
 			if (gcbResults.get(0).equalsIgnoreCase(gcbApprovedText)) {
 				Thread.sleep(1000);
 
-				 pa.performed();
+				// pa.performed();
 
 			} else {
 				System.out.println("Get Card Bin Request denied!");
@@ -180,7 +191,7 @@ public class BaseClass {
 
 		try {
 
-		//	pa.beforeGetCardBinAPIs();
+			// pa.beforeGetCardBinAPIs();
 
 			String req = GCBRequest.GCB_REQUEST("Y").trim();
 			sendRequestToAESDK(req);
@@ -197,7 +208,7 @@ public class BaseClass {
 
 			List<String> GCBXLData = GCBPrameter.print_Response("GCB", parameters);
 			excelWriter.WriteGCBData(GCBXLData, "GCB");
-			gcbresult = DateUtilities.selectToken(gcbResults);
+			gcbresult = Utils.selectToken(gcbResults);
 
 			if (gcbResults.get(0).equalsIgnoreCase(gcbApprovedText)) {
 
@@ -918,7 +929,7 @@ public class BaseClass {
 			ALUResult.add(ALUParameter.getParameterValue("CardType"));
 
 			if (ALUResult.get(0).equalsIgnoreCase(gcbApprovedText)) {
-				int i = 0 ;
+				int i = 0;
 
 				// pa.performed();
 
@@ -935,7 +946,7 @@ public class BaseClass {
 
 	}
 
-	public void performPOA( String AMT, String AuruspayTicketNumber, String cardIdentifier, String paymentMethod)
+	public void performPOA(String AMT, String AuruspayTicketNumber, String cardIdentifier, String paymentMethod)
 			throws Exception, IOException, InterruptedException {
 
 		try {
@@ -943,7 +954,7 @@ public class BaseClass {
 			String POARequest = PaymentOnAccount.Request(AMT, AuruspayTicketNumber, cardIdentifier, paymentMethod);
 
 			sendRequestToAESDK(POARequest);
-		//	System.out.println(POARequest);
+			// System.out.println(POARequest);
 			String POARes = receiveResponseFromAESDK();
 			// System.out.println(sale_Respose);
 			Response_Parameters saleResponse = new Response_Parameters(POARes);
@@ -952,12 +963,11 @@ public class BaseClass {
 			excelWriter.writeDataRefundOfSale(saleData);
 
 			String responseText = saleResponse.getParameterValue("ResponseText");
-			Assert.assertEquals( responseText, "APPROVAL");
+			Assert.assertEquals(responseText, "APPROVAL");
 
 		} finally {
-			sendRequestToAESDK(ByPass.Option1());   
+			sendRequestToAESDK(ByPass.Option1());
 			receiveResponseFromAESDK();
-		
 
 		}
 
@@ -974,7 +984,7 @@ public class BaseClass {
 			// Sale Satrted
 
 			sendRequestToAESDK(Sale_Request);
-			// System.out.println(Sale_Request);
+			 System.out.println(Sale_Request);
 			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			List<String> saleData = saleResponse.print_Response(" CHECK Sale  : ", parameters);
@@ -995,6 +1005,7 @@ public class BaseClass {
 				String signRequest = Signature.Request(transactionIdentifier);
 				sendRequestToAESDK(signRequest);
 				// System.out.println(signRequest);
+
 				String SignResponse = receiveResponseFromAESDK();
 				Response_Parameters signRes = new Response_Parameters(SignResponse);
 				String signResText = signRes.getParameterValue("ResponseText");

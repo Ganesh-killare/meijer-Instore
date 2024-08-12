@@ -18,6 +18,9 @@ import org.w3c.dom.Text;
 
 import com.github.javafaker.Faker;
 
+import base.BaseClass;
+import base.SessionIdManager;
+
 public class ByPass {
 	public static String buildXMLRequest() {
 		try {
@@ -45,7 +48,7 @@ public class ByPass {
 			appendElementWithValue(doc, byPassScreenRequest, "APPID", "01");
 			appendElementWithValue(doc, byPassScreenRequest, "CCTID", "01");
 			appendElementWithValue(doc, byPassScreenRequest, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, byPassScreenRequest, "SessionId", "117");
+			appendElementWithValue(doc, byPassScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, byPassScreenRequest, "ByPassReason", "Idle");
 			appendElementWithValue(doc, byPassScreenRequest, "ByPassOptions", "0");
 			appendElementWithValue(doc, byPassScreenRequest, "ClerkID", "000000563");

@@ -16,6 +16,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+import base.BaseClass;
+import base.SessionIdManager;
+
 public class GCBRequest {
 
     public static String buildXMLRequest() {
@@ -45,7 +48,7 @@ public class GCBRequest {
             appendElementWithValue(doc, GCBRequestElement, "APPID", "01");
             appendElementWithValue(doc, GCBRequestElement, "CCTID", "01");
             appendElementWithValue(doc, GCBRequestElement, "ADSDKSpecVer", "6.14.8");
-            appendElementWithValue(doc, GCBRequestElement, "SessionId", "12345");
+            appendElementWithValue(doc, GCBRequestElement, "SessionId",SessionIdManager.getCurrentSessionId());
             appendElementWithValue(doc, GCBRequestElement, "HeaderMessage", "Please Tap, Insert or Swipe");
            appendElementWithValue(doc, GCBRequestElement, "CashBackAmountPrompts", "10,20,399,400,401,No");
             appendElementWithValue(doc, GCBRequestElement, "LookUpFlag", "16");
@@ -143,6 +146,7 @@ public class GCBRequest {
         // Accessing properties
         String LookUpFlag = properties.getProperty("LookUpFlag");
         String AllowKeyedEntry = properties.getProperty("AllowKeyedEntry");
+        String CashBackFlag = properties.getProperty("CashBackFlag");
 
         try {
             // take a basic request
@@ -155,6 +159,7 @@ public class GCBRequest {
             // Modify specific tag values
             setTagValue(document, "AllowKeyedEntry", AllowKeyedEntry);
             setTagValue(document, "LookUpFlag", LookUpFlag);
+            setTagValue(document, "CashBackFlag", CashBackFlag);
 
             // Convert the modified document back to a string
             return documentToString(document);

@@ -14,6 +14,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import base.BaseClass;
+import base.SessionIdManager;
+
 public class GetUserInput {
 
 	public static String ALUScreen01Request() {
@@ -112,7 +115,6 @@ public class GetUserInput {
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.newDocument();
 
-		
 			// Create root element: ShowScreenRequest
 			Element showScreenRequest = doc.createElement("ShowScreenRequest");
 			doc.appendChild(showScreenRequest);
@@ -127,7 +129,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "Meijer credit card for this transaction?");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
 			appendElementWithValue(doc, showScreenRequest, "LineDisplay", "1");
-			appendElementWithValue(doc, showScreenRequest, "SessionId", "12345");
+			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			// ButtonMsg element and its children
 			Element buttonMsg = doc.createElement("ButtonMsg");
@@ -177,7 +179,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, getUserInputRequest, "Format", "1");
 			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "150");
 			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
-			appendElementWithValue(doc, getUserInputRequest, "SessionId", "");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			return doc;
 		} catch (Exception e) {
@@ -210,7 +212,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, getUserInputRequest, "Format", "1");
 			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "150");
 			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
-			appendElementWithValue(doc, getUserInputRequest, "SessionId", "");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			return doc;
 		} catch (Exception e) {
@@ -243,7 +245,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, getUserInputRequest, "Format", "0");
 			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "150");
 			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
-			appendElementWithValue(doc, getUserInputRequest, "SessionId", "");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			return doc;
 		} catch (Exception e) {
@@ -278,7 +280,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, getUserInputRequest, "Format", "1");
 			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "150");
 			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
-			appendElementWithValue(doc, getUserInputRequest, "SessionId", "");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			return doc;
 		} catch (Exception e) {
@@ -298,20 +300,20 @@ public class GetUserInput {
 			doc.appendChild(getUserInputRequest);
 
 			// Add child elements for GetUserInputRequest
-			  // Set values for each child element
-            appendElementWithValue(doc, getUserInputRequest, "POSID", "20");
-            appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-            appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
-            appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.14.8");
-            appendElementWithValue(doc, getUserInputRequest, "SessionId", "25");
-            appendElementWithValue(doc, getUserInputRequest, "Type", "11");
-            appendElementWithValue(doc, getUserInputRequest, "LanguageIndicator", "00");
-            appendElementWithValue(doc, getUserInputRequest, "MinInputLimit", "10");
-            appendElementWithValue(doc, getUserInputRequest, "MaxInputLimit", "10");
-            appendElementWithValue(doc, getUserInputRequest, "BackgroundImage", "Customnumber1");
-            appendElementWithValue(doc, getUserInputRequest, "Format", "1");
-            appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "3600");
-            appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
+			// Set values for each child element
+			appendElementWithValue(doc, getUserInputRequest, "POSID", "20");
+			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
+			appendElementWithValue(doc, getUserInputRequest, "Type", "11");
+			appendElementWithValue(doc, getUserInputRequest, "LanguageIndicator", "00");
+			appendElementWithValue(doc, getUserInputRequest, "MinInputLimit", "10");
+			appendElementWithValue(doc, getUserInputRequest, "MaxInputLimit", "10");
+			appendElementWithValue(doc, getUserInputRequest, "BackgroundImage", "Customnumber1");
+			appendElementWithValue(doc, getUserInputRequest, "Format", "1");
+			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "3600");
+			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
 			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -344,7 +346,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, getUserInputRequest, "Format", "1");
 			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "150");
 			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
-			appendElementWithValue(doc, getUserInputRequest, "SessionId", "");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			return doc;
 		} catch (Exception e) {
@@ -378,7 +380,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, getUserInputRequest, "Format", "1");
 			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "150");
 			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
-			appendElementWithValue(doc, getUserInputRequest, "SessionId", "");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			return doc;
 		} catch (Exception e) {
@@ -411,7 +413,7 @@ public class GetUserInput {
 			appendElementWithValue(doc, getUserInputRequest, "Format", "1");
 			appendElementWithValue(doc, getUserInputRequest, "ScreenTimeOut", "150");
 			appendElementWithValue(doc, getUserInputRequest, "AllowCancel", "1");
-			appendElementWithValue(doc, getUserInputRequest, "SessionId", "");
+			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 
 			return doc;
 		} catch (Exception e) {

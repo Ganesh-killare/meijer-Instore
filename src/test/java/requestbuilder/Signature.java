@@ -15,6 +15,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+import base.SessionIdManager;
+
 public class Signature {
 	public static String buildXMLRequest() {
 		try {
@@ -43,7 +45,7 @@ public class Signature {
 	        appendElementWithValue(doc, signatureRequestElement, "APPID", "01");
 	        appendElementWithValue(doc, signatureRequestElement, "CCTID", "01");
 	        appendElementWithValue(doc, signatureRequestElement, "ADSDKSpecVer", "6.14.8");
-	        appendElementWithValue(doc, signatureRequestElement, "SessionId", "51");
+	        appendElementWithValue(doc, signatureRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 	        appendElementWithValue(doc, signatureRequestElement, "TransactionIdentifier", "");
 	        appendElementWithValue(doc, signatureRequestElement, "SignUploadFlag", "Y");
 	        appendElementWithValue(doc, signatureRequestElement, "SignatureData", "");

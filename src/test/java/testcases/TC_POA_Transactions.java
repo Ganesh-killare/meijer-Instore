@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import responsevalidator.Response_Parameters;
-import utilities.DateUtilities;
+import utilities.Utils;
 import utilities.TransactionXL;
 import xmlrequestbuilder.A_L_Key_Request_Modification;
 import xmlrequestbuilder.CheckRequestModification;
@@ -96,7 +96,7 @@ public class TC_POA_Transactions {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			Thread.sleep(5000);
-			excelWriter.saveExcelFile(DateUtilities.setFileName("PLCC Transactions"));
+			excelWriter.saveExcelFile(Utils.setFileName("PLCC Transactions"));
 
 		}
 	}
@@ -139,7 +139,7 @@ public class TC_POA_Transactions {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			Thread.sleep(5000);
-			excelWriter.saveExcelFile(DateUtilities.setFileName("PLCC Transactions"));
+			excelWriter.saveExcelFile(Utils.setFileName("PLCC Transactions"));
 
 		}
 	}
@@ -225,7 +225,7 @@ public class TC_POA_Transactions {
 		} finally {
 			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 			Thread.sleep(5000);
-			excelWriter.saveExcelFile(DateUtilities.setFileName("PLCC Transactions"));   
+			excelWriter.saveExcelFile(Utils.setFileName("PLCC Transactions"));   
 
 		}
 	}

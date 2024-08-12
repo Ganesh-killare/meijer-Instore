@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import requestbuilder.ByPass;
-import utilities.DateUtilities;
+import utilities.Utils;
 import xmlrequestbuilder.Close_Transaction;
 
 public class OTC extends BaseClass {
@@ -44,7 +44,7 @@ public class OTC extends BaseClass {
 		receiveResponseFromAESDK();  
 		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());   
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(DateUtilities.setFileName("OTC"));
+		excelWriter.saveExcelFile(Utils.setFileName("OTC"));
 
 	}
 

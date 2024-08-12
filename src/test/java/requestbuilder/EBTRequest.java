@@ -2,6 +2,8 @@ package requestbuilder;
 
 import java.io.StringWriter;
 import base.POS_APIs;
+import base.SessionIdManager;
+
 import java.text.DecimalFormat;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,13 +20,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class EBTRequest {
 
-	private static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	private static String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	private static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	private static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	private static String buildXMLRequest() {
 		try {
@@ -53,7 +55,7 @@ public class EBTRequest {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId", "12345");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "CardType", "EBC");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
@@ -61,7 +63,7 @@ public class EBTRequest {
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
 			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "1226");
-			appendElementWithValue(doc, transRequestElement, "CashBackFlag", "1");
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 
 			// TransAmountDetails
 			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
@@ -85,7 +87,7 @@ public class EBTRequest {
 			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse",Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 
@@ -198,6 +200,8 @@ public class EBTRequest {
 			setTagValue(document, "TenderAmount", transactionAmount);
 			setTagValue(document, "EBTAmount", transactionAmount);
 			setTagValue(document, "TransactionType", "02");
+
+			// Set CashBack Flag
 
 			// Convert the modified document back to a string
 			return documentToString(document);

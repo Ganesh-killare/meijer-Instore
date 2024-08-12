@@ -16,12 +16,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import utilities.DateUtilities;
+import base.BaseClass;
+import base.SessionIdManager;
+import utilities.Utils;
 
 public class AccountLookUp {
 
-	private static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
+	private static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
 
 	public static String buildXMLRequest() {
 		try {
@@ -50,7 +52,7 @@ public class AccountLookUp {
 			appendElementWithValue(doc, GCBRequestElement, "APPID", "01");
 			appendElementWithValue(doc, GCBRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, GCBRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, GCBRequestElement, "SessionId", "50");
+			appendElementWithValue(doc, GCBRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, GCBRequestElement, "HeaderMessage", "");
 			appendElementWithValue(doc, GCBRequestElement, "MessageLine1", "");
 			appendElementWithValue(doc, GCBRequestElement, "MessageLine2", "");

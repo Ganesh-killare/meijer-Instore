@@ -16,7 +16,7 @@ import org.jdom2.output.XMLOutputter;
 
 import com.github.javafaker.Faker;
 
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class EBT_Sale_Request {
 
@@ -37,9 +37,9 @@ public class EBT_Sale_Request {
 
 		// Date & Time with Invoice Number
 
-		String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-		String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-		String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+		String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+		String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+		String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 		try {
 			// Load the XML file
@@ -84,9 +84,9 @@ public class EBT_Sale_Request {
 
 		// Date & Time with Invoice Number
 
-		String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-		String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-		String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+		String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+		String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+		String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 		try {
 			// Load the XML file

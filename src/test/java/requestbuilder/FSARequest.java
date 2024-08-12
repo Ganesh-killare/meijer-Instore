@@ -19,13 +19,14 @@ import org.w3c.dom.Text;
 
 import com.github.javafaker.Faker;
 
-import utilities.DateUtilities;
+import base.SessionIdManager;
+import utilities.Utils;
 
 public class FSARequest {
 
-	static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	static String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	// amount genaration
 
@@ -76,7 +77,7 @@ public class FSARequest {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId", "12345");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "CardType", "MCS");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
@@ -84,7 +85,7 @@ public class FSARequest {
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
 			 appendElementWithValue(doc, transRequestElement, "CRMToken", "");
-			appendElementWithValue(doc, transRequestElement, "CashBackFlag", "1");
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 
 			// TransAmountDetails
 			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
@@ -114,7 +115,7 @@ public class FSARequest {
 			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 			
@@ -201,7 +202,7 @@ public class FSARequest {
 			DecimalFormat df = new DecimalFormat("0.00");
 			String formattedFamount = df.format(Famount);
 			String formattedTotalamount = df.format(Totalamount);
-			formattedTotalamount = "0.00";
+		//	formattedTotalamount = "0.00";
 
 			System.out.println("FSA AMOUNT : " + formattedFamount);
 			System.out.println("Total AMOUNT : " + formattedTotalamount);

@@ -11,16 +11,18 @@ import requestbuilder.ByPass;
 import requestbuilder.GetUserInput;
 import requestbuilder.ShowScreen;
 import responsevalidator.Response_Parameters;
-import utilities.DateUtilities;
+import utilities.Utils;
+import xmlrequestbuilder.Close_Transaction;
 
 public class POS_APIs extends BaseClass {
 
 	public void beforeGetCardBinAPIs() throws Exception, IOException, InterruptedException {
 
 		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
-		Thread.sleep(300);
+		
+		Thread.sleep(1000);
 
-		sendRequestToAESDK(ByPass.Option2());
+		sendRequestToAESDK(ByPass.Random());
 		receiveResponseFromAESDK();
 
 	}
@@ -29,7 +31,7 @@ public class POS_APIs extends BaseClass {
 			throws UnknownHostException, IOException, InterruptedException, JDOMException {
 		sendRequestToAESDK(ShowScreen.showScreenRequest(amount));
 		String confirmResponse = receiveResponseFromAESDK();
-		try {
+		try {   
 			Response_Parameters confirmresponse = new Response_Parameters(confirmResponse);
 			Assert.assertEquals("01", confirmresponse.getParameterValue("ButtonReturn"));
 		} catch (Exception e) {
@@ -45,14 +47,14 @@ public class POS_APIs extends BaseClass {
 
 		POS_APIs pa = new POS_APIs();
 
-		if (DateUtilities.getEnvironment().toUpperCase().contains("P")) {
+		if (Utils.getEnvironment().toUpperCase().contains("P")) {
 			roundedAmountString = "0.01";
 		} else {
 			roundedAmountString = String.valueOf(new Random().nextInt(100) + 1);
 			roundedAmountString = roundedAmountString + ".00";
 		}
 
-		pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM
+//		pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM
 																// transactions
 		return roundedAmountString;
 	}
@@ -61,9 +63,9 @@ public class POS_APIs extends BaseClass {
 		// POS APIs 1
 
 		Random random = new Random();
-		int randomNumber = random.nextInt(7);
+	//	int randomNumber = random.nextInt(7);
 
-		// int randomNumber = 0;
+		 int randomNumber = 1;
 //		System.out.println(randomNumber);
 
 		switch (randomNumber) {

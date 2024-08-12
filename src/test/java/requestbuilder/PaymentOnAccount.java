@@ -15,13 +15,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import utilities.DateUtilities;
+import base.SessionIdManager;
+import utilities.Utils;
 
 public class PaymentOnAccount {
 
-	private static String finalTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	private static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	private static String InvoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	private static String finalTime = Utils.generateDateTimeAndInvoice().get(0);
+	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	private static String InvoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	public static String buildXMLRequest() {
 		try {
@@ -50,7 +51,7 @@ public class PaymentOnAccount {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId", "18");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "CardType", "PLC");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
@@ -86,7 +87,7 @@ public class PaymentOnAccount {
 			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", null);
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 

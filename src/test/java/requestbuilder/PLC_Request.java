@@ -1,5 +1,7 @@
 package requestbuilder;
+
 import base.POS_APIs;
+import base.SessionIdManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,13 +23,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import utilities.DateUtilities;
+import utilities.Utils;
 
 public class PLC_Request {
 
-	static String formattedTime = DateUtilities.generateDateTimeAndInvoice().get(0);
-	static String finalDate = DateUtilities.generateDateTimeAndInvoice().get(1);
-	static String invoiceNumber = DateUtilities.generateDateTimeAndInvoice().get(2);
+	static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
 	public static String buildXMLRequest() {
 		try {
@@ -56,14 +58,14 @@ public class PLC_Request {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId", "12345");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "CardType", "VIC");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
-			appendElementWithValue(doc, transRequestElement, "CashBackFlag", "1");
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 			appendElementWithValue(doc, transRequestElement, "TransactionType", "01");
 			appendElementWithValue(doc, transRequestElement, "InvoiceNumber", invoiceNumber);
 			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "");
@@ -81,7 +83,7 @@ public class PLC_Request {
 			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 

@@ -9,24 +9,25 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import base.BaseClass;
+import base.SessionIdManager;
 import requestbuilder.ByPass;
-import utilities.DateUtilities;
+import utilities.Utils;
 import xmlrequestbuilder.Close_Transaction;
 
 public class TC_CreditAndDebit extends BaseClass {
 
-	@Test(invocationCount = 10)
+	@Test(invocationCount = 15)
 	public void RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performCreditDebitSale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {        
-			performRefundTransaction(saleResult);
-		}
+		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {                   
+			performRefundTransaction(saleResult);   
+		}   
 
-	}
+	}    
 
 	@Test(invocationCount = 100)
 	public void VoidOfSale() throws IOException, Exception {
@@ -60,7 +61,8 @@ public class TC_CreditAndDebit extends BaseClass {
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(DateUtilities.setFileName(fileName));
+		excelWriter.saveExcelFile(Utils.setFileName(fileName));
+	//	SessionIdManager.incrementAndGetSessionId();
 
 	}
 
