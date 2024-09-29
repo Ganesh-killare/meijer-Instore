@@ -9,7 +9,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-public class Close_Transaction {
+public class CloseRequest {
 	public static String Close_Transaction_Request() throws JDOMException, IOException {
 
 		File xmlFile = new File("./src\\test\\resources\\credit_debit\\close.xml");

@@ -86,16 +86,14 @@ public class PrepaidXL {
 
 			int endRow = rowIndex + 3;
 
-			if (!isRegionMerged(rowIndex, 0, endRow, 0)) {
-				mergeCells(sheet, rowIndex, endRow, 0);
-			}
-
-			if (!isRegionMerged(rowIndex, 1, endRow, 1)) {
-				mergeCells(sheet, rowIndex, endRow, 1);
-			}
-			if (!isRegionMerged(rowIndex, 2, endRow, 2)) {
-				mergeCells(sheet, rowIndex, endRow, 2);
-			}
+			/*
+			 * if (!isRegionMerged(rowIndex, 0, endRow, 0)) { mergeCells(sheet, rowIndex,
+			 * endRow, 0); }
+			 * 
+			 * if (!isRegionMerged(rowIndex, 1, endRow, 1)) { mergeCells(sheet, rowIndex,
+			 * endRow, 1); } if (!isRegionMerged(rowIndex, 2, endRow, 2)) {
+			 * mergeCells(sheet, rowIndex, endRow, 2); }
+			 */
 
 			cardTokenCell.setCellValue(cardTokens.get(i));
 			CRMTokenCell.setCellValue(CRMTokens.get(i));
@@ -113,7 +111,7 @@ public class PrepaidXL {
 			// row.createCell(10).setCellValue(data.get(9));
 
 			// Set cell style for cell 10 based on "Approve" or "Reject"
-			if (data.get(9).equalsIgnoreCase("Approved")) {
+			if (data.get(9).equalsIgnoreCase("APPROVAL") || data.get(9).equalsIgnoreCase("Approved")) {
 				CellStyle approveCellStyle = workbook.createCellStyle();
 				Font approveFont = workbook.createFont();
 				approveFont.setBold(true);
@@ -167,7 +165,7 @@ public class PrepaidXL {
 
 		rowIndex++;
 		round++;
-		startRow = rowIndex + 3;
+		startRow = rowIndex + 1;
 	}
 
 	private static List<String> generateCardTokens(String cardToken) {

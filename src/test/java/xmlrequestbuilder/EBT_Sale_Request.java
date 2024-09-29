@@ -28,12 +28,12 @@ public class EBT_Sale_Request {
 
 		  
 		   String  amt = POS_APIs.generateTransactionAmount();
-		  	
-			String transactionAmount = amt+".00";
+		   String transactionAmount = "11.00";
 			if(transactionAmount.equalsIgnoreCase("45.00")) {
 				transactionAmount= "10.00";
 				
 			}
+			transactionAmount = "12.00";
 
 		// Date & Time with Invoice Number
 
@@ -87,6 +87,7 @@ public class EBT_Sale_Request {
 		String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
 		String finalDate = Utils.generateDateTimeAndInvoice().get(1);
 		String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
+		amt = "10.00";
 
 		try {
 			// Load the XML file

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="3" total="4" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-08-07T11:04:24 IST" name="Default suite" finished-at="2024-08-07T11:04:54 IST" duration-ms="29766">
+  <suite started-at="2024-09-28T14:09:57 IST" name="Default suite" finished-at="2024-09-28T14:10:40 IST" duration-ms="43201">
     <groups>
     </groups>
-    <test started-at="2024-08-07T11:04:24 IST" name="Default test" finished-at="2024-08-07T11:04:54 IST" duration-ms="29766">
-      <class name="mtestcases.TC_Check">
-        <test-method is-config="true" signature="incrementSessionId()[pri:0, instance:mtestcases.TC_Check@6404f418]" started-at="2024-08-07T11:04:24 IST" name="incrementSessionId" finished-at="2024-08-07T11:04:24 IST" duration-ms="4" status="PASS">
+    <test started-at="2024-09-28T14:09:57 IST" name="Default test" finished-at="2024-09-28T14:10:40 IST" duration-ms="43201">
+      <class name="mtestcases.TC_OTC">
+        <test-method is-config="true" signature="incrementSessionId()[pri:0, instance:mtestcases.TC_OTC@21282ed8]" started-at="2024-09-28T14:09:57 IST" name="incrementSessionId" finished-at="2024-09-28T14:09:57 IST" duration-ms="5" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- incrementSessionId -->
-        <test-method signature="voidOfCheckTransaction()[pri:0, instance:mtestcases.TC_Check@6404f418]" started-at="2024-08-07T11:04:24 IST" name="voidOfCheckTransaction" finished-at="2024-08-07T11:04:49 IST" duration-ms="25300" status="PASS">
+        <test-method signature="InComm_RefundOfSale()[pri:0, instance:mtestcases.TC_OTC@21282ed8]" started-at="2024-09-28T14:09:57 IST" name="InComm_RefundOfSale" finished-at="2024-09-28T14:10:37 IST" duration-ms="40181" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- voidOfCheckTransaction -->
-        <test-method is-config="true" signature="saveXLFile()[pri:0, instance:mtestcases.TC_Check@6404f418]" started-at="2024-08-07T11:04:49 IST" name="saveXLFile" finished-at="2024-08-07T11:04:54 IST" duration-ms="4432" status="PASS">
+        </test-method> <!-- InComm_RefundOfSale -->
+        <test-method is-config="true" signature="saveXLFile()[pri:0, instance:mtestcases.TC_OTC@21282ed8]" started-at="2024-09-28T14:10:37 IST" name="saveXLFile" finished-at="2024-09-28T14:10:40 IST" duration-ms="2985" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- saveXLFile -->
-      </class> <!-- mtestcases.TC_Check -->
+      </class> <!-- mtestcases.TC_OTC -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

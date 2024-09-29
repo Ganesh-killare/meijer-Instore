@@ -169,6 +169,29 @@ public class ByPass {
 			return null;
 		}
 	}
+	
+	public static String Option(int option) {
+		try {
+			// take a basic request
+			String xml = buildXMLRequest();
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
+			
+			String options = String.valueOf(option);
+
+			// Modify specific tag values
+			setTagValue(document, "ByPassOptions", options);
+
+			// Convert the modified document back to a string
+			return documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 
 	public static String Random() {
 		try {

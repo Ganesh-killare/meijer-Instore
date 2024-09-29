@@ -1,0 +1,2213 @@
+
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>45.00</TenderAmount>
+    <TransactionTotal>45.00</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712323</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>123235</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>45.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000032</CardIdentifier>
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>024887638</ProcessorMerchantId>
+      <TransactionSequenceNumber>000002</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>192242401110299540</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 45.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:004128</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:A9654EBC4A49A022</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 45.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:004128</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:A9654EBC4A49A022</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>000000000018</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>004128</ApprovalCode>
+      <TransactionAmount>45.00</TransactionAmount>
+      <TransactionTime>030502</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~024887638      [FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~030502</EMVData>
+      <VoidData />
+      <AuthorizedAmount>45.00</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002298</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>224240111029960164</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712324</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>123249</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>100.17</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier />
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000004</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>O24082754611606001</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 100.17</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:OL000004</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:2E109227C57E26A8</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:3</Line>
+            <Line>Processor Sequence Number:000001</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 100.17</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:OL000004</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:2E109227C57E26A8</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:3</Line>
+        <Line>Processor Sequence Number:000001</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>092000536419</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>OL000004</ApprovalCode>
+      <TransactionAmount>100.17</TransactionAmount>
+      <TransactionTime>030531</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>99</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~030531</EMVData>
+      <VoidData />
+      <AuthorizedAmount>100.17</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>O24082754611606001</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>45.00</TenderAmount>
+    <TransactionTotal>45.00</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712355</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>123555</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>45.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000032</CardIdentifier>
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>024887638</ProcessorMerchantId>
+      <TransactionSequenceNumber>000007</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>191242401130302957</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 45.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:004153</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:9847300BD741F234</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 45.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:004153</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:9847300BD741F234</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>000000000018</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>004153</ApprovalCode>
+      <TransactionAmount>45.00</TransactionAmount>
+      <TransactionTime>030823</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~024887638      [FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~030823</EMVData>
+      <VoidData />
+      <AuthorizedAmount>45.00</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002298</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>124240113030290051</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712361</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>123618</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>0.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3035</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier />
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000009</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>291242401132842252</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Declined</Line>
+            <Line>AMOUNT:USD 0.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:000000</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:05</Line>
+            <Line>APPLICATION CRYPTOGRAM:A5FBCB6A1E0AD30A</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:3</Line>
+            <Line>Processor Sequence Number:000002</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Declined</Line>
+        <Line>AMOUNT:USD 0.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:000000</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:05</Line>
+        <Line>APPLICATION CRYPTOGRAM:A5FBCB6A1E0AD30A</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:3</Line>
+        <Line>Processor Sequence Number:000002</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>20006</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>091000536421</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>000000</ApprovalCode>
+      <TransactionAmount>0.00</TransactionAmount>
+      <TransactionTime>030848</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>05</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~05[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~030848</EMVData>
+      <VoidData />
+      <AuthorizedAmount>0.00</AuthorizedAmount>
+      <ResponseText>AUTH. DECLINED</ResponseText>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum />
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712363</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>123637</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>0.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3035</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier />
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000011</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>291242401134812416</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Declined</Line>
+            <Line>AMOUNT:USD 0.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:000000</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:05</Line>
+            <Line>APPLICATION CRYPTOGRAM:933D3964B80EFD87</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:3</Line>
+            <Line>Processor Sequence Number:000003</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Declined</Line>
+        <Line>AMOUNT:USD 0.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:000000</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:05</Line>
+        <Line>APPLICATION CRYPTOGRAM:933D3964B80EFD87</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:3</Line>
+        <Line>Processor Sequence Number:000003</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>20006</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>091000536422</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>000000</ApprovalCode>
+      <TransactionAmount>0.00</TransactionAmount>
+      <TransactionTime>030908</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>05</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~05[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~030908</EMVData>
+      <VoidData />
+      <AuthorizedAmount>0.00</AuthorizedAmount>
+      <ResponseText>AUTH. DECLINED</ResponseText>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum />
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712365</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>123657</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>0.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3035</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier />
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000013</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>291242401136734436</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Declined</Line>
+            <Line>AMOUNT:USD 0.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:000000</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:05</Line>
+            <Line>APPLICATION CRYPTOGRAM:BE827D4C51797D4D</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:3</Line>
+            <Line>Processor Sequence Number:000005</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Declined</Line>
+        <Line>AMOUNT:USD 0.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:000000</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:05</Line>
+        <Line>APPLICATION CRYPTOGRAM:BE827D4C51797D4D</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:3</Line>
+        <Line>Processor Sequence Number:000005</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>20006</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>091000536424</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>000000</ApprovalCode>
+      <TransactionAmount>0.00</TransactionAmount>
+      <TransactionTime>030927</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>05</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~05[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~030927</EMVData>
+      <VoidData />
+      <AuthorizedAmount>0.00</AuthorizedAmount>
+      <ResponseText>AUTH. DECLINED</ResponseText>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum />
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712371</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>123718</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>0.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3035</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier />
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000015</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>291242401138830064</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Declined</Line>
+            <Line>AMOUNT:USD 0.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:000000</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:05</Line>
+            <Line>APPLICATION CRYPTOGRAM:F62F5D12F88F7606</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:3</Line>
+            <Line>Processor Sequence Number:000006</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Declined</Line>
+        <Line>AMOUNT:USD 0.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:000000</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:05</Line>
+        <Line>APPLICATION CRYPTOGRAM:F62F5D12F88F7606</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:3</Line>
+        <Line>Processor Sequence Number:000006</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>20006</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>091000536425</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>000000</ApprovalCode>
+      <TransactionAmount>0.00</TransactionAmount>
+      <TransactionTime>030948</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>05</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~05[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~030948</EMVData>
+      <VoidData />
+      <AuthorizedAmount>0.00</AuthorizedAmount>
+      <ResponseText>AUTH. DECLINED</ResponseText>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum />
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>45.00</TenderAmount>
+    <TransactionTotal>45.00</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712455</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>124558</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>45.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000032</CardIdentifier>
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>024887638</ProcessorMerchantId>
+      <TransactionSequenceNumber>000018</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>192242401190513480</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 45.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:004241</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:3FC29DC6C6267E8F</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 45.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:004241</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:3FC29DC6C6267E8F</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>000000000018</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>004241</ApprovalCode>
+      <TransactionAmount>45.00</TransactionAmount>
+      <TransactionTime>031825</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~024887638      [FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~031825</EMVData>
+      <VoidData />
+      <AuthorizedAmount>45.00</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002298</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>224240119051340058</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712462</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>374245110081006</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>124623</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>374245XXXXX1006</CardNumber>
+      <TotalApprovedAmount>0.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA000000025010402%1ETVR%7E8000008000%1EIAD%7E06020103A02000%1ETSI%7E6800%1EARC%7E3035</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier />
+      <ProcessorToken>374245XXXXX1006</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000020</TransactionSequenceNumber>
+      <CardToken>374245XXXXX1006</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>AXC</CardType>
+      <TransactionIdentifier>291242401193236586</TransactionIdentifier>
+      <CardExpiryDate>1224</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Declined</Line>
+            <Line>AMOUNT:USD 0.00</Line>
+            <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+            <Line>APPROVAL CODE:000000</Line>
+            <Line>AID:A000000025010402</Line>
+            <Line>TVR:8000008000</Line>
+            <Line>IAD:06020103A02000</Line>
+            <Line>TSI:6800</Line>
+            <Line>ARC:05</Line>
+            <Line>APPLICATION CRYPTOGRAM:C133CF9FB155AF26</Line>
+            <Line>APPLICATION PREFERRED NAME:American Express</Line>
+            <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:3</Line>
+            <Line>Processor Sequence Number:000008</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>T</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName />
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Declined</Line>
+        <Line>AMOUNT:USD 0.00</Line>
+        <Line>CARD:AMEX XXXX1006 CREDIT CTLS EMV</Line>
+        <Line>APPROVAL CODE:000000</Line>
+        <Line>AID:A000000025010402</Line>
+        <Line>TVR:8000008000</Line>
+        <Line>IAD:06020103A02000</Line>
+        <Line>TSI:6800</Line>
+        <Line>ARC:05</Line>
+        <Line>APPLICATION CRYPTOGRAM:C133CF9FB155AF26</Line>
+        <Line>APPLICATION PREFERRED NAME:American Express</Line>
+        <Line>APPLICATION LABEL:AMERICAN EXPRESS</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:3</Line>
+        <Line>Processor Sequence Number:000008</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>20006</ResponseCode>
+      <ReceiptToken>374245110081006</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>091000536428</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>0</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>000000</ApprovalCode>
+      <TransactionAmount>0.00</TransactionAmount>
+      <TransactionTime>031852</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>05</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~05[FS]ISO~00[FS]AID~A000000025010402[FS]TVR~8000008000[FS]TSI~6800[FS]IAD~06020103A02000[FS]App Pref Name~American Express[FS]App Label~AMERICAN EXPRESS[FS]RespDate~08272024[FS]RespTime~031852</EMVData>
+      <VoidData />
+      <AuthorizedAmount>0.00</AuthorizedAmount>
+      <ResponseText>AUTH. DECLINED</ResponseText>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum />
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712465</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>2223601100130329</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>124657</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>222360XXXXXX0329</CardNumber>
+      <TotalApprovedAmount>100.17</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA0000000041010%1ETVR%7E0000008000%1EIAD%7E0110A74009020000000000000000000000FF%1ETSI%7EE800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000047</CardIdentifier>
+      <ProcessorToken>222360XXXXXX0329</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000022</TransactionSequenceNumber>
+      <CardToken>222360XXXXXX0329</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>MCC</CardType>
+      <TransactionIdentifier>192242401196567930</TransactionIdentifier>
+      <CardExpiryDate>1225</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 100.17</Line>
+            <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+            <Line>APPROVAL CODE:368483</Line>
+            <Line>AID:A0000000041010</Line>
+            <Line>TVR:0000008000</Line>
+            <Line>IAD:0110A74009020000000000000000000000FF</Line>
+            <Line>TSI:E800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:C12DAEEBEFFF2C80</Line>
+            <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+            <Line>APPLICATION LABEL:MASTERCARD</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:1</Line>
+            <Line>Processor Sequence Number:000009</Line>
+            <Line>CVM:Verified By PIN</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>I</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName>Test Card 21       UAT USA</CustomerName>
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 100.17</Line>
+        <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+        <Line>APPROVAL CODE:368483</Line>
+        <Line>AID:A0000000041010</Line>
+        <Line>TVR:0000008000</Line>
+        <Line>IAD:0110A74009020000000000000000000000FF</Line>
+        <Line>TSI:E800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:C12DAEEBEFFF2C80</Line>
+        <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+        <Line>APPLICATION LABEL:MASTERCARD</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:1</Line>
+        <Line>Processor Sequence Number:000009</Line>
+        <Line>CVM:Verified By PIN</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>2223601100130329</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>092000536430</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>2</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>368483</ApprovalCode>
+      <TransactionAmount>100.17</TransactionAmount>
+      <TransactionTime>031925</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000000041010[FS]TVR~0000008000[FS]TSI~E800[FS]IAD~0110A74009020000000000000000000000FF[FS]App Pref Name~Mastercard[FS]App Label~MASTERCARD[FS]RespDate~08272024[FS]RespTime~031925</EMVData>
+      <VoidData />
+      <AuthorizedAmount>100.17</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002506</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>224240119656790079</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712473</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>2223601100130329</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>124737</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>222360XXXXXX0329</CardNumber>
+      <TotalApprovedAmount>100.17</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA0000000041010%1ETVR%7E0000008000%1EIAD%7E0110A74009020000000000000000000000FF%1ETSI%7EE800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000047</CardIdentifier>
+      <ProcessorToken>222360XXXXXX0329</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000024</TransactionSequenceNumber>
+      <CardToken>222360XXXXXX0329</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>MCC</CardType>
+      <TransactionIdentifier>192242401200536703</TransactionIdentifier>
+      <CardExpiryDate>1225</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 100.17</Line>
+            <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+            <Line>APPROVAL CODE:939402</Line>
+            <Line>AID:A0000000041010</Line>
+            <Line>TVR:0000008000</Line>
+            <Line>IAD:0110A74009020000000000000000000000FF</Line>
+            <Line>TSI:E800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:DF8234F54FC7E8EE</Line>
+            <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+            <Line>APPLICATION LABEL:MASTERCARD</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:1</Line>
+            <Line>Processor Sequence Number:000010</Line>
+            <Line>CVM:Verified By PIN</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>I</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName>Test Card 21       UAT USA</CustomerName>
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 100.17</Line>
+        <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+        <Line>APPROVAL CODE:939402</Line>
+        <Line>AID:A0000000041010</Line>
+        <Line>TVR:0000008000</Line>
+        <Line>IAD:0110A74009020000000000000000000000FF</Line>
+        <Line>TSI:E800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:DF8234F54FC7E8EE</Line>
+        <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+        <Line>APPLICATION LABEL:MASTERCARD</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:1</Line>
+        <Line>Processor Sequence Number:000010</Line>
+        <Line>CVM:Verified By PIN</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>2223601100130329</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>092000536431</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>2</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>939402</ApprovalCode>
+      <TransactionAmount>100.17</TransactionAmount>
+      <TransactionTime>032005</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000000041010[FS]TVR~0000008000[FS]TSI~E800[FS]IAD~0110A74009020000000000000000000000FF[FS]App Pref Name~Mastercard[FS]App Label~MASTERCARD[FS]RespDate~08272024[FS]RespTime~032005</EMVData>
+      <VoidData />
+      <AuthorizedAmount>100.17</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002506</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>224240120053670086</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712480</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>2223601100130329</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>124807</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>222360XXXXXX0329</CardNumber>
+      <TotalApprovedAmount>100.17</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA0000000041010%1ETVR%7E0000008000%1EIAD%7E0110A74009020000000000000000000000FF%1ETSI%7EE800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000047</CardIdentifier>
+      <ProcessorToken>222360XXXXXX0329</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000026</TransactionSequenceNumber>
+      <CardToken>222360XXXXXX0329</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>MCC</CardType>
+      <TransactionIdentifier>191242401203572779</TransactionIdentifier>
+      <CardExpiryDate>1225</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 100.17</Line>
+            <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+            <Line>APPROVAL CODE:529371</Line>
+            <Line>AID:A0000000041010</Line>
+            <Line>TVR:0000008000</Line>
+            <Line>IAD:0110A74009020000000000000000000000FF</Line>
+            <Line>TSI:E800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:4102BB97DD86943A</Line>
+            <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+            <Line>APPLICATION LABEL:MASTERCARD</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:1</Line>
+            <Line>Processor Sequence Number:000011</Line>
+            <Line>CVM:Verified By PIN</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>I</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName>Test Card 21       UAT USA</CustomerName>
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 100.17</Line>
+        <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+        <Line>APPROVAL CODE:529371</Line>
+        <Line>AID:A0000000041010</Line>
+        <Line>TVR:0000008000</Line>
+        <Line>IAD:0110A74009020000000000000000000000FF</Line>
+        <Line>TSI:E800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:4102BB97DD86943A</Line>
+        <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+        <Line>APPLICATION LABEL:MASTERCARD</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:1</Line>
+        <Line>Processor Sequence Number:000011</Line>
+        <Line>CVM:Verified By PIN</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>2223601100130329</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>091000536432</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>2</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>529371</ApprovalCode>
+      <TransactionAmount>100.17</TransactionAmount>
+      <TransactionTime>032035</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000000041010[FS]TVR~0000008000[FS]TSI~E800[FS]IAD~0110A74009020000000000000000000000FF[FS]App Pref Name~Mastercard[FS]App Label~MASTERCARD[FS]RespDate~08272024[FS]RespTime~032035</EMVData>
+      <VoidData />
+      <AuthorizedAmount>100.17</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002506</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>124240120357270221</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.17</TenderAmount>
+    <TransactionTotal>100.17</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008712483</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>2223601100130329</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>124837</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>222360XXXXXX0329</CardNumber>
+      <TotalApprovedAmount>100.17</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA0000000041010%1ETVR%7E0000008000%1EIAD%7E0110A74009020000000000000000000000FF%1ETSI%7EE800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000047</CardIdentifier>
+      <ProcessorToken>222360XXXXXX0329</ProcessorToken>
+      <ProcessorMerchantId>577000322896</ProcessorMerchantId>
+      <TransactionSequenceNumber>000028</TransactionSequenceNumber>
+      <CardToken>222360XXXXXX0329</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>MCC</CardType>
+      <TransactionIdentifier>192242401206543269</TransactionIdentifier>
+      <CardExpiryDate>1225</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 100.17</Line>
+            <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+            <Line>APPROVAL CODE:913879</Line>
+            <Line>AID:A0000000041010</Line>
+            <Line>TVR:0000008000</Line>
+            <Line>IAD:0110A74009020000000000000000000000FF</Line>
+            <Line>TSI:E800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:32E3BE8BA25EDFC3</Line>
+            <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+            <Line>APPLICATION LABEL:MASTERCARD</Line>
+            <Line>Processor Batch Date:240</Line>
+            <Line>Processor Batch Number:000003</Line>
+            <Line>Card Class:1</Line>
+            <Line>Processor Sequence Number:000012</Line>
+            <Line>CVM:Verified By PIN</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>I</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName>Test Card 21       UAT USA</CustomerName>
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 100.17</Line>
+        <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+        <Line>APPROVAL CODE:913879</Line>
+        <Line>AID:A0000000041010</Line>
+        <Line>TVR:0000008000</Line>
+        <Line>IAD:0110A74009020000000000000000000000FF</Line>
+        <Line>TSI:E800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:32E3BE8BA25EDFC3</Line>
+        <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+        <Line>APPLICATION LABEL:MASTERCARD</Line>
+        <Line>Processor Batch Date:240</Line>
+        <Line>Processor Batch Number:000003</Line>
+        <Line>Card Class:1</Line>
+        <Line>Processor Sequence Number:000012</Line>
+        <Line>CVM:Verified By PIN</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>2223601100130329</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>092000536433</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>2</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>913879</ApprovalCode>
+      <TransactionAmount>100.17</TransactionAmount>
+      <TransactionTime>032105</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000000041010[FS]TVR~0000008000[FS]TSI~E800[FS]IAD~0110A74009020000000000000000000000FF[FS]App Pref Name~Mastercard[FS]App Label~MASTERCARD[FS]RespDate~08272024[FS]RespTime~032105</EMVData>
+      <VoidData />
+      <AuthorizedAmount>100.17</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002506</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>224240120654320099</AurusPayTicketNum>
+</TransResponse>
+==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>45.00</TenderAmount>
+    <TransactionTotal>45.00</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>01</TransactionType>
+  <InvoiceNumber>0827242345008713365</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>2223601100130329</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>08272024</TransactionDate>
+  <TransactionTime>133655</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<?xml version="1.0" encoding="UTF-8"?>
+<TransResponse>
+  <CCTID>01</CCTID>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <TransDetailsData>
+    <TransDetailData>
+      <CardNumber>222360XXXXXX0329</CardNumber>
+      <TotalApprovedAmount>45.00</TotalApprovedAmount>
+      <EMVDataInTLVFormat>AID%7EA0000000041010%1ETVR%7E0000008000%1EIAD%7E0110A74009020000000000000000000000FF%1ETSI%7EE800%1EARC%7E3030</EMVDataInTLVFormat>
+      <EBTType />
+      <CardIdentifier>2000000000000047</CardIdentifier>
+      <ProcessorToken>222360XXXXXX0329</ProcessorToken>
+      <ProcessorMerchantId>024887638</ProcessorMerchantId>
+      <TransactionSequenceNumber>000036</TransactionSequenceNumber>
+      <CardToken>222360XXXXXX0329</CardToken>
+      <LanguageIndicator>00</LanguageIndicator>
+      <DCCDetails>
+        <DCCMinorUnits />
+        <DCCMarginRatePercent />
+        <DCCAlphaCurrencyCode />
+        <DCCExchRateSrcName />
+        <DCCOffered>0</DCCOffered>
+        <DCCResponseCode />
+        <DCCValidHours />
+        <DCCExchRateSrcTime />
+        <DCCCurrencyCode />
+      </DCCDetails>
+      <CardType>MCC</CardType>
+      <TransactionIdentifier>193242401496265939</TransactionIdentifier>
+      <CardExpiryDate>1225</CardExpiryDate>
+      <PartialApprovedFlag>N</PartialApprovedFlag>
+      <TransactionTypeCode>1</TransactionTypeCode>
+      <ReceiptDetails>
+        <ReceiptData>
+          <LanguageIndicator>00</LanguageIndicator>
+          <ReceiptInfo>
+            <Line>Approved</Line>
+            <Line>AMOUNT:USD 45.00</Line>
+            <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+            <Line>APPROVAL CODE:114822</Line>
+            <Line>AID:A0000000041010</Line>
+            <Line>TVR:0000008000</Line>
+            <Line>IAD:0110A74009020000000000000000000000FF</Line>
+            <Line>TSI:E800</Line>
+            <Line>ARC:00</Line>
+            <Line>APPLICATION CRYPTOGRAM:6DB809DB6D7F2C22</Line>
+            <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+            <Line>APPLICATION LABEL:MASTERCARD</Line>
+            <Line>CVM:Verified By PIN</Line>
+          </ReceiptInfo>
+        </ReceiptData>
+      </ReceiptDetails>
+      <FallbackIndicator>0</FallbackIndicator>
+      <CardEntryMode>I</CardEntryMode>
+      <TipAmount>0.00</TipAmount>
+      <CustomerName>Test Card 21       UAT USA</CustomerName>
+      <TransactionDate>08272024</TransactionDate>
+      <AdditionalReceiptInfo>
+        <Line>Approved</Line>
+        <Line>AMOUNT:USD 45.00</Line>
+        <Line>CARD:MASTERCARD XXXX0329 CREDIT EMV</Line>
+        <Line>APPROVAL CODE:114822</Line>
+        <Line>AID:A0000000041010</Line>
+        <Line>TVR:0000008000</Line>
+        <Line>IAD:0110A74009020000000000000000000000FF</Line>
+        <Line>TSI:E800</Line>
+        <Line>ARC:00</Line>
+        <Line>APPLICATION CRYPTOGRAM:6DB809DB6D7F2C22</Line>
+        <Line>APPLICATION PREFERRED NAME:Mastercard</Line>
+        <Line>APPLICATION LABEL:MASTERCARD</Line>
+        <Line>CVM:Verified By PIN</Line>
+      </AdditionalReceiptInfo>
+      <CashBackAmount>0.00</CashBackAmount>
+      <AddressVerification />
+      <ResponseCode>00000</ResponseCode>
+      <ReceiptToken>2223601100130329</ReceiptToken>
+      <BalanceAmount>0.00</BalanceAmount>
+      <ReferenceNumber>000000000018</ReferenceNumber>
+      <GiftCardTypePassCode />
+      <LangIndicator>00</LangIndicator>
+      <EMVFlag>1</EMVFlag>
+      <SignatureReceiptFlag>2</SignatureReceiptFlag>
+      <ECOMMInfo>
+        <OneOrderToken />
+      </ECOMMInfo>
+      <ApprovalCode>114822</ApprovalCode>
+      <TransactionAmount>45.00</TransactionAmount>
+      <TransactionTime>040922</TransactionTime>
+      <LoyaltyInfo />
+      <ProcessorResponseCode>00</ProcessorResponseCode>
+      <EMVData>[FS]MerchantID~024887638      [FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000000041010[FS]TVR~0000008000[FS]TSI~E800[FS]IAD~0110A74009020000000000000000000000FF[FS]App Pref Name~Mastercard[FS]App Label~MASTERCARD[FS]RespDate~08272024[FS]RespTime~040922</EMVData>
+      <VoidData />
+      <AuthorizedAmount>45.00</AuthorizedAmount>
+      <ResponseText>APPROVAL</ResponseText>
+      <CRMToken>8980000010000002506</CRMToken>
+    </TransDetailData>
+  </TransDetailsData>
+  <BatchNumber>240001</BatchNumber>
+  <AurusPayTicketNum>324240149626602447</AurusPayTicketNum>
+</TransResponse>
+==================================================

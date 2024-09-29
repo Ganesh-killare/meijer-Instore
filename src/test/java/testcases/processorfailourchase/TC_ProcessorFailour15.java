@@ -19,7 +19,7 @@ import utilities.Utils;
 import utilities.ExcelUtility;
 import utilities.P_XL_Utility;
 import utilities.ProcessorFailourXL;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 import xmlrequestbuilder.EBT_Sale_Request;
 import xmlrequestbuilder.Ewic_BalanceInquiry;
 import xmlrequestbuilder.Ewic_Sale_Request;
@@ -113,7 +113,7 @@ public class TC_ProcessorFailour15 {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(1));
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
@@ -187,7 +187,7 @@ public class TC_ProcessorFailour15 {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			
 
@@ -255,7 +255,7 @@ public class TC_ProcessorFailour15 {
 				xl.writeDataForVoid(data);
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 		
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
@@ -265,7 +265,7 @@ public class TC_ProcessorFailour15 {
 
 	// There are 1 E-wic sale
 
-	@Test(invocationCount = 1, priority = 3)
+	@Test(invocationCount = 2, priority = 3)
 	public void Ewic_Transactions() throws Exception, Exception {   
 		System.out.println("PLEASE USE E-WIC CARDS");
 		try {
@@ -321,7 +321,7 @@ public class TC_ProcessorFailour15 {
 			}
 
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 			cp.receiveResponseFromAESDK();
@@ -332,7 +332,7 @@ public class TC_ProcessorFailour15 {
 
 	// There are 2 EBT Sales (Normal Sales)
 
-	@Test(invocationCount = 2, priority = 4)
+//	@Test(invocationCount = 2, priority = 4)
 
 	public void P_EBT() throws Exception {
 		System.out.println("PLEASE USE EBT CARD");
@@ -388,7 +388,7 @@ public class TC_ProcessorFailour15 {
 				xl.writeDataForVoid(data);
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
@@ -461,7 +461,7 @@ public class TC_ProcessorFailour15 {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
@@ -475,7 +475,7 @@ public class TC_ProcessorFailour15 {
 	// One FSA Transaction using amount 100.15
 	
 	// There are 1 FSA Sales (After Failour transactions should be go through wordpay)
-		@Test(priority = 6)
+		@Test(priority = 6, invocationCount = 2)
 		public void P_HardCode__FSA() throws Exception, Exception {
 			System.out.println("PLEASE USE FSA CARD  :: This sale is using amount 100.15");
 
@@ -534,7 +534,7 @@ public class TC_ProcessorFailour15 {
 					xl.writeDataForVoid(data);
 				}
 			} finally {
-				cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 				cp.receiveResponseFromAESDK();
 				xlWriter.saveExcelFile(Utils.setFileName(fileName));
 				xl.saveExcelFile();
@@ -547,7 +547,7 @@ public class TC_ProcessorFailour15 {
 		// Two EBT Transactions Using 100.15 amount
 		
 		
-@Test(invocationCount = 1 , priority = 7)
+//@Test(invocationCount = 1 , priority = 7)
 		public void P_HardCode__EBT() throws Exception {
 			System.out.println("PLEASE USE EBT CARD  :: This sale is using amount 100.15");      
 
@@ -603,7 +603,7 @@ public class TC_ProcessorFailour15 {
 					xl.writeDataForVoid(data);
 				}
 			} finally {
-				cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 				cp.receiveResponseFromAESDK();
 				xlWriter.writeHeadline(headlines.get(2));
 				xlWriter.saveExcelFile(Utils.setFileName(fileName));
@@ -680,7 +680,7 @@ public class TC_ProcessorFailour15 {
 				xl.writeDataForVoid(data);
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
@@ -690,7 +690,7 @@ public class TC_ProcessorFailour15 {
 	}
 
 	// There are 1 FSA Sales (After Failour transactions should be go through wordpay)
-	@Test(priority = 9)
+	@Test(priority = 9, invocationCount = 2)
 	public void P_SECOUNDARY__FSA() throws Exception, Exception {
 		System.out.println("PLEASE USE FSA CARD");
 
@@ -749,7 +749,7 @@ public class TC_ProcessorFailour15 {
 				xl.writeDataForVoid(data);
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
@@ -758,7 +758,7 @@ public class TC_ProcessorFailour15 {
 	}
 
 	// There are 2 EBT Sales (After Failour transactions should be go through	// wordpay)
-	@Test(invocationCount = 2, priority = 10)
+	//@Test(invocationCount = 2, priority = 10)
 
 	public void P_SECOUNDARY__EBT() throws Exception {
 		System.out.println("PLEASE USE EBT CARD");
@@ -816,7 +816,7 @@ public class TC_ProcessorFailour15 {
 				xl.writeDataForVoid(data);
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
@@ -862,7 +862,7 @@ public class TC_ProcessorFailour15 {
 			}
 
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 		}
@@ -953,7 +953,7 @@ public class TC_ProcessorFailour15 {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(3));
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
@@ -963,7 +963,7 @@ public class TC_ProcessorFailour15 {
 
 	// After counter reset performed 2 CREDIT OR DEBIT Sales
 
-	@Test(invocationCount = 2, priority = 13)
+	@Test(invocationCount = 3, priority = 13)
 	public void afterResetDebitSale() throws Exception, Exception {
 		System.out.println("PLEASE USE CREDIT OR DEBIT CARD");
 
@@ -1026,7 +1026,7 @@ public class TC_ProcessorFailour15 {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
@@ -1035,7 +1035,7 @@ public class TC_ProcessorFailour15 {
 
 	// After counter reset performed 2 EBT Transactions
 
-	@Test(invocationCount = 2, priority = 14)
+	//@Test(invocationCount = 2, priority = 14)
 	public void P_AfterReset_EBT() throws Exception {
 		System.out.println("PLEASE USE EBT CARD");
 
@@ -1090,7 +1090,7 @@ public class TC_ProcessorFailour15 {
 				xl.writeDataForVoid(data);
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
@@ -1157,7 +1157,7 @@ public class TC_ProcessorFailour15 {
 				xl.writeDataForVoid(data);
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(4));
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
@@ -1231,7 +1231,7 @@ public class TC_ProcessorFailour15 {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			invocationCount ++ ;
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
@@ -1288,7 +1288,7 @@ public class TC_ProcessorFailour15 {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			// xl.saveExcelFile();

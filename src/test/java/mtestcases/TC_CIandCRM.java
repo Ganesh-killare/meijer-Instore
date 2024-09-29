@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jdom2.JDOMException;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -15,13 +18,14 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import requestbuilder.ByPass;
+import requestbuilder.GCBRequest;
 import requestbuilder.GetUserInput;
 import requestbuilder.ShowScreen;
 import responsevalidator.Response_Parameters;
 import utilities.Utils;
 import utilities.ExcelUtility;
 import utilities.TransactionXL;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 import xmlrequestbuilder.GCB_Modification;
 import xmlrequestbuilder.PLCC_Sale_Request_Modification;
 import xmlrequestbuilder.Refund_Request_Modification;
@@ -33,80 +37,29 @@ public class TC_CIandCRM extends BaseClass {
 
 	TransactionXL excelWriter = new TransactionXL();
 
-	@BeforeClass
-	public void setXLfile() throws Exception, IOException, InterruptedException {
-		try {
-
-			// GCB Started
-
-			String req = GCB_Modification.GCB_Request_Modified();
-			sendRequestToAESDK(req);
-			// System.out.println(req);
-			String res = receiveResponseFromAESDK();
-			// System.out.println(res);
-			Response_Parameters GCBPrameter = new Response_Parameters(res);
-
-			String Sale_Request = Sale_Request_Modification.modified_Sale_Request(
-					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
-					GCBPrameter.getParameterValue("CRMToken"), "01");
-			List<String> GCBXLData = GCBPrameter.print_Response("GCB", parameters);
-
-			excelWriter.WriteGCBData(GCBXLData, "GCB");
-			String result = GCBPrameter.getParameterValue("ResponseText");
-
-			if (result.equalsIgnoreCase("Approved")) {
-
-				// GCBPrameter.print_GCB_Response(GCB_Response);
-
-				// Sale Satrted
-
-				sendRequestToAESDK(Sale_Request);
-				// System.out.println(Sale_Request);
-				String sale_Respose = receiveResponseFromAESDK();
-				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
-				List<String> saleData = saleResponse.print_Response(" Sale  : ", parameters);
-				saleData.add(3, "Sale");
-				excelWriter.writeCICRMTransactionData(saleData);
-
-				String cardType = saleResponse.getParameterValue("CardType");
-				// Assert.assertEquals(cardType, "MCD");
-				String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");
-				// Assert.assertEquals(transactionIdentifier.substring(0, 1), "1");
-				String responseText = saleResponse.getParameterValue("ResponseText");
-				// Assert.assertEquals(responseText, "APPROVAL");
-				String AurusPayTicketNum = saleResponse.getParameterValue("AurusPayTicketNum");
-				String Amount = saleResponse.getParameterValue("TransactionAmount");
-				if (responseText.equalsIgnoreCase("APPROVAL")) {
-					String RefundRequest = Refund_Request_Modification.modified_Refund_Request("02", Amount,
-							AurusPayTicketNum, transactionIdentifier);
-					sendRequestToAESDK(RefundRequest);
-
-					String refund = receiveResponseFromAESDK();
-
-					Response_Parameters VoidResponse = new Response_Parameters(refund); // IMP
-
-					List<String> VoidData = VoidResponse.print_Response("Refund", parameters);
-					VoidData.add(3, "Refund");
-					excelWriter.writeCICRMTransactionData(VoidData);
-				}
-
-			}
-		} finally {
-
-		}
-
-	}
-
-//	@BeforeMethod
+	@BeforeMethod
 	public void POS_APIs() throws Exception, IOException, InterruptedException {
 		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
+		Thread.sleep(800);
 		sendRequestToAESDK(ByPass.Option1());
+		receiveResponseFromAESDK();
 		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());
+		Thread.sleep(800);
 		sendRequestToAESDK(ByPass.Random());
+		receiveResponseFromAESDK();
+		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
+		Thread.sleep(20);
+		sendRequestToAESDK(ByPass.Option0());   
+		receiveResponseFromAESDK();
+		
+		
 	}
 
-	@Test(dataProvider = "CI_Data", dataProviderClass = TC_CIandCRM.class, priority = 1)
+	@Test(dataProvider = "CI_Data", dataProviderClass = TC_CIandCRM.class, priority = 1)    
 	public void testCIRefundOfSale(String CI, String cardType) throws Exception, InterruptedException, JDOMException {
+
+		Utils.checkEligibleTender(cardType);
+
 		try {
 			System.out.println("Transaction performed using this CI :" + CI);
 			if (cardType.equalsIgnoreCase("PLC")) {
@@ -154,6 +107,9 @@ public class TC_CIandCRM extends BaseClass {
 
 	@Test(dataProvider = "CI_Data", dataProviderClass = TC_CIandCRM.class, priority = 2)
 	public void testCIVoidOfSale(String CI, String cardType) throws Exception, InterruptedException, JDOMException {
+		
+		
+		Utils.checkEligibleTender(cardType);
 		try {
 			System.out.println("Transaction performed using this CI :" + CI);
 
@@ -203,6 +159,8 @@ public class TC_CIandCRM extends BaseClass {
 	@Test(dataProvider = "CI_Data", dataProviderClass = TC_CIandCRM.class, priority = 3)
 	public void testCIVoidOfRefundwithoutsale(String CI, String cardType)
 			throws Exception, InterruptedException, JDOMException {
+		
+		Utils.checkEligibleTender(cardType);
 		try {
 			System.out.println("Transaction performed using this CI :" + CI);
 
@@ -250,6 +208,9 @@ public class TC_CIandCRM extends BaseClass {
 
 	@Test(dataProvider = "CRM_Data", dataProviderClass = TC_CIandCRM.class, priority = 4)
 	public void testCRMRefundOfSale(String CRM, String cardType) throws Exception, InterruptedException, JDOMException {
+
+		Utils.checkEligibleTender(cardType);
+
 		try {
 			System.out.println("Transaction performed using this CRM :" + CRM);
 
@@ -297,6 +258,8 @@ public class TC_CIandCRM extends BaseClass {
 
 	@Test(dataProvider = "CRM_Data", dataProviderClass = TC_CIandCRM.class, priority = 5)
 	public void testCRMVoidOfSale(String CRM, String cardType) throws Exception, InterruptedException, JDOMException {
+		
+		Utils.checkEligibleTender(cardType);
 		try {
 			System.out.println("Transaction performed using this CRM :" + CRM);
 
@@ -345,6 +308,7 @@ public class TC_CIandCRM extends BaseClass {
 	@Test(dataProvider = "CRM_Data", dataProviderClass = TC_CIandCRM.class, priority = 6)
 	public void testCRMVoidOfRefundwithoutsale(String CRM, String cardType)
 			throws Exception, InterruptedException, JDOMException {
+		Utils.checkEligibleTender(cardType);
 		try {
 			System.out.println("Transaction performed using this CRM :" + CRM);
 
@@ -449,13 +413,22 @@ public class TC_CIandCRM extends BaseClass {
 
 	}
 
-	@AfterMethod
-	public void afterMethod() throws Exception, Exception, InterruptedException, JDOMException {
-	//	sendRequestToAESDK(ByPass.Option1());
-		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
-		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));
+	// @AfterClass
 
+	@AfterMethod
+	public void afterMethod(ITestResult result) throws Exception, InterruptedException, JDOMException {   
+	    // Check if the test method failed
+	    if (result.getStatus() == ITestResult.FAILURE) {
+	      //  System.out.println("Test failed. Skipping after method execution.");      
+	        return; // Exit the method if the test failed
+	    }
+	    
+	    // Proceed with the original operations if the test passed
+	    sendRequestToAESDK(ByPass.Option1());
+	    receiveResponseFromAESDK();
+	    sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
+	    receiveResponseFromAESDK();
+	    excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));
 	}
 
 }

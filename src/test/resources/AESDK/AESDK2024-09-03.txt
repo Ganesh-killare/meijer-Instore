@@ -1,0 +1,266 @@
+
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.18</TenderAmount>
+    <TransactionTotal>100.18</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>02</TransactionType>
+  <InvoiceNumber>0903242345008711313</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>6011970011180138</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>09032024</TransactionDate>
+  <TransactionTime>113139</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<TransResponse><CCTID>01</CCTID><POSID>S00784R0100</POSID><APPID>01</APPID><TransDetailsData><TransDetailData><CardNumber>601197XXXXXX0138</CardNumber><TotalApprovedAmount>100.18</TotalApprovedAmount><EMVDataInTLVFormat>AID%7EA0000001524010%1ETVR%7E8000008000%1EIAD%7E0115209000040000B000%1ETSI%7E0800%1EARC%7E3030</EMVDataInTLVFormat><EBTType/><CardIdentifier>2000000000032957</CardIdentifier><ProcessorToken>601197XXXXXX0138</ProcessorToken><ProcessorMerchantId>577000322896</ProcessorMerchantId><TransactionSequenceNumber>000046</TransactionSequenceNumber><CardToken>601197XXXXXX0138</CardToken><LanguageIndicator>00</LanguageIndicator><DCCDetails><DCCMinorUnits/><DCCMarginRatePercent/><DCCAlphaCurrencyCode/><DCCExchRateSrcName/><DCCOffered>0</DCCOffered><DCCResponseCode/><DCCValidHours/><DCCExchRateSrcTime/><DCCCurrencyCode/></DCCDetails><CardType>NVC</CardType><TransactionIdentifier>191242470745297255</TransactionIdentifier><CardExpiryDate>0526</CardExpiryDate><PartialApprovedFlag>N</PartialApprovedFlag><TransactionTypeCode>2</TransactionTypeCode><ReceiptDetails><ReceiptData><LanguageIndicator>00</LanguageIndicator><ReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748264</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:65D4296B4D28F5BA</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000001</Line></ReceiptInfo></ReceiptData></ReceiptDetails><FallbackIndicator>0</FallbackIndicator><CardEntryMode>T</CardEntryMode><TipAmount>0.00</TipAmount><CustomerName/><TransactionDate>09032024</TransactionDate><AdditionalReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748264</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:65D4296B4D28F5BA</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000001</Line></AdditionalReceiptInfo><CashBackAmount>0.00</CashBackAmount><AddressVerification/><ResponseCode>00000</ResponseCode><ReceiptToken>6011970011180138</ReceiptToken><BalanceAmount>0.00</BalanceAmount><ReferenceNumber>091000540489</ReferenceNumber><GiftCardTypePassCode/><LangIndicator>00</LangIndicator><EMVFlag>1</EMVFlag><SignatureReceiptFlag>0</SignatureReceiptFlag><ECOMMInfo><OneOrderToken/></ECOMMInfo><ApprovalCode>748264</ApprovalCode><TransactionAmount>100.18</TransactionAmount><TransactionTime>020412</TransactionTime><LoyaltyInfo></LoyaltyInfo><ProcessorResponseCode>00</ProcessorResponseCode><EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000001524010[FS]TVR~8000008000[FS]TSI~0800[FS]IAD~0115209000040000B000[FS]App Pref Name~[FS]App Label~US DEBIT        [FS]RespDate~09032024[FS]RespTime~020412</EMVData><VoidData/><AuthorizedAmount>100.18</AuthorizedAmount><ResponseText>APPROVAL</ResponseText><CRMToken>8930000010000121050</CRMToken></TransDetailData></TransDetailsData><BatchNumber>247001</BatchNumber><AurusPayTicketNum>124247074529721444</AurusPayTicketNum></TransResponse>==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.18</TenderAmount>
+    <TransactionTotal>100.18</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>02</TransactionType>
+  <InvoiceNumber>0903242345008711315</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>6011970011180138</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>09032024</TransactionDate>
+  <TransactionTime>113157</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<TransResponse><CCTID>01</CCTID><POSID>S00784R0100</POSID><APPID>01</APPID><TransDetailsData><TransDetailData><CardNumber>601197XXXXXX0138</CardNumber><TotalApprovedAmount>100.18</TotalApprovedAmount><EMVDataInTLVFormat>AID%7EA0000001524010%1ETVR%7E8000008000%1EIAD%7E0115209000040000B000%1ETSI%7E0800%1EARC%7E3030</EMVDataInTLVFormat><EBTType/><CardIdentifier>2000000000032957</CardIdentifier><ProcessorToken>601197XXXXXX0138</ProcessorToken><ProcessorMerchantId>577000322896</ProcessorMerchantId><TransactionSequenceNumber>000048</TransactionSequenceNumber><CardToken>601197XXXXXX0138</CardToken><LanguageIndicator>00</LanguageIndicator><DCCDetails><DCCMinorUnits/><DCCMarginRatePercent/><DCCAlphaCurrencyCode/><DCCExchRateSrcName/><DCCOffered>0</DCCOffered><DCCResponseCode/><DCCValidHours/><DCCExchRateSrcTime/><DCCCurrencyCode/></DCCDetails><CardType>NVC</CardType><TransactionIdentifier>192242470747078136</TransactionIdentifier><CardExpiryDate>0526</CardExpiryDate><PartialApprovedFlag>N</PartialApprovedFlag><TransactionTypeCode>2</TransactionTypeCode><ReceiptDetails><ReceiptData><LanguageIndicator>00</LanguageIndicator><ReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748265</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:2F98A1DAE9270540</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000002</Line></ReceiptInfo></ReceiptData></ReceiptDetails><FallbackIndicator>0</FallbackIndicator><CardEntryMode>T</CardEntryMode><TipAmount>0.00</TipAmount><CustomerName/><TransactionDate>09032024</TransactionDate><AdditionalReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748265</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:2F98A1DAE9270540</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000002</Line></AdditionalReceiptInfo><CashBackAmount>0.00</CashBackAmount><AddressVerification/><ResponseCode>00000</ResponseCode><ReceiptToken>6011970011180138</ReceiptToken><BalanceAmount>0.00</BalanceAmount><ReferenceNumber>092000540490</ReferenceNumber><GiftCardTypePassCode/><LangIndicator>00</LangIndicator><EMVFlag>1</EMVFlag><SignatureReceiptFlag>0</SignatureReceiptFlag><ECOMMInfo><OneOrderToken/></ECOMMInfo><ApprovalCode>748265</ApprovalCode><TransactionAmount>100.18</TransactionAmount><TransactionTime>020430</TransactionTime><LoyaltyInfo></LoyaltyInfo><ProcessorResponseCode>00</ProcessorResponseCode><EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000001524010[FS]TVR~8000008000[FS]TSI~0800[FS]IAD~0115209000040000B000[FS]App Pref Name~[FS]App Label~US DEBIT        [FS]RespDate~09032024[FS]RespTime~020430</EMVData><VoidData/><AuthorizedAmount>100.18</AuthorizedAmount><ResponseText>APPROVAL</ResponseText><CRMToken>8930000010000121050</CRMToken></TransDetailData></TransDetailsData><BatchNumber>247001</BatchNumber><AurusPayTicketNum>224247074707810506</AurusPayTicketNum></TransResponse>==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.18</TenderAmount>
+    <TransactionTotal>100.18</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>02</TransactionType>
+  <InvoiceNumber>0903242345008711321</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>6011970011180138</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>09032024</TransactionDate>
+  <TransactionTime>113216</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<TransResponse><CCTID>01</CCTID><POSID>S00784R0100</POSID><APPID>01</APPID><TransDetailsData><TransDetailData><CardNumber>601197XXXXXX0138</CardNumber><TotalApprovedAmount>100.18</TotalApprovedAmount><EMVDataInTLVFormat>AID%7EA0000001524010%1ETVR%7E8000008000%1EIAD%7E0115209000040000B000%1ETSI%7E0800%1EARC%7E3030</EMVDataInTLVFormat><EBTType/><CardIdentifier>2000000000032957</CardIdentifier><ProcessorToken>601197XXXXXX0138</ProcessorToken><ProcessorMerchantId>577000322896</ProcessorMerchantId><TransactionSequenceNumber>000050</TransactionSequenceNumber><CardToken>601197XXXXXX0138</CardToken><LanguageIndicator>00</LanguageIndicator><DCCDetails><DCCMinorUnits/><DCCMarginRatePercent/><DCCAlphaCurrencyCode/><DCCExchRateSrcName/><DCCOffered>0</DCCOffered><DCCResponseCode/><DCCValidHours/><DCCExchRateSrcTime/><DCCCurrencyCode/></DCCDetails><CardType>NVC</CardType><TransactionIdentifier>191242470749026982</TransactionIdentifier><CardExpiryDate>0526</CardExpiryDate><PartialApprovedFlag>N</PartialApprovedFlag><TransactionTypeCode>2</TransactionTypeCode><ReceiptDetails><ReceiptData><LanguageIndicator>00</LanguageIndicator><ReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748267</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:F844BC350682603F</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000003</Line></ReceiptInfo></ReceiptData></ReceiptDetails><FallbackIndicator>0</FallbackIndicator><CardEntryMode>T</CardEntryMode><TipAmount>0.00</TipAmount><CustomerName/><TransactionDate>09032024</TransactionDate><AdditionalReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748267</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:F844BC350682603F</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000003</Line></AdditionalReceiptInfo><CashBackAmount>0.00</CashBackAmount><AddressVerification/><ResponseCode>00000</ResponseCode><ReceiptToken>6011970011180138</ReceiptToken><BalanceAmount>0.00</BalanceAmount><ReferenceNumber>091000540491</ReferenceNumber><GiftCardTypePassCode/><LangIndicator>00</LangIndicator><EMVFlag>1</EMVFlag><SignatureReceiptFlag>0</SignatureReceiptFlag><ECOMMInfo><OneOrderToken/></ECOMMInfo><ApprovalCode>748267</ApprovalCode><TransactionAmount>100.18</TransactionAmount><TransactionTime>020450</TransactionTime><LoyaltyInfo></LoyaltyInfo><ProcessorResponseCode>00</ProcessorResponseCode><EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000001524010[FS]TVR~8000008000[FS]TSI~0800[FS]IAD~0115209000040000B000[FS]App Pref Name~[FS]App Label~US DEBIT        [FS]RespDate~09032024[FS]RespTime~020450</EMVData><VoidData/><AuthorizedAmount>100.18</AuthorizedAmount><ResponseText>APPROVAL</ResponseText><CRMToken>8930000010000121050</CRMToken></TransDetailData></TransDetailsData><BatchNumber>247001</BatchNumber><AurusPayTicketNum>124247074902691451</AurusPayTicketNum></TransResponse>==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.18</TenderAmount>
+    <TransactionTotal>100.18</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>02</TransactionType>
+  <InvoiceNumber>0903242345008711323</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>6011970011180138</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>09032024</TransactionDate>
+  <TransactionTime>113230</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<TransResponse><CCTID>01</CCTID><POSID>S00784R0100</POSID><APPID>01</APPID><TransDetailsData><TransDetailData><CardNumber>601197XXXXXX0138</CardNumber><TotalApprovedAmount>100.18</TotalApprovedAmount><EMVDataInTLVFormat>AID%7EA0000001524010%1ETVR%7E8000008000%1EIAD%7E0115209000040000B000%1ETSI%7E0800%1EARC%7E3030</EMVDataInTLVFormat><EBTType/><CardIdentifier>2000000000032957</CardIdentifier><ProcessorToken>601197XXXXXX0138</ProcessorToken><ProcessorMerchantId>577000322896</ProcessorMerchantId><TransactionSequenceNumber>000052</TransactionSequenceNumber><CardToken>601197XXXXXX0138</CardToken><LanguageIndicator>00</LanguageIndicator><DCCDetails><DCCMinorUnits/><DCCMarginRatePercent/><DCCAlphaCurrencyCode/><DCCExchRateSrcName/><DCCOffered>0</DCCOffered><DCCResponseCode/><DCCValidHours/><DCCExchRateSrcTime/><DCCCurrencyCode/></DCCDetails><CardType>NVC</CardType><TransactionIdentifier>192242470750355253</TransactionIdentifier><CardExpiryDate>0526</CardExpiryDate><PartialApprovedFlag>N</PartialApprovedFlag><TransactionTypeCode>2</TransactionTypeCode><ReceiptDetails><ReceiptData><LanguageIndicator>00</LanguageIndicator><ReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748268</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:87490A771BCBA9AA</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000004</Line></ReceiptInfo></ReceiptData></ReceiptDetails><FallbackIndicator>0</FallbackIndicator><CardEntryMode>T</CardEntryMode><TipAmount>0.00</TipAmount><CustomerName/><TransactionDate>09032024</TransactionDate><AdditionalReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748268</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:87490A771BCBA9AA</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000004</Line></AdditionalReceiptInfo><CashBackAmount>0.00</CashBackAmount><AddressVerification/><ResponseCode>00000</ResponseCode><ReceiptToken>6011970011180138</ReceiptToken><BalanceAmount>0.00</BalanceAmount><ReferenceNumber>092000540492</ReferenceNumber><GiftCardTypePassCode/><LangIndicator>00</LangIndicator><EMVFlag>1</EMVFlag><SignatureReceiptFlag>0</SignatureReceiptFlag><ECOMMInfo><OneOrderToken/></ECOMMInfo><ApprovalCode>748268</ApprovalCode><TransactionAmount>100.18</TransactionAmount><TransactionTime>020503</TransactionTime><LoyaltyInfo></LoyaltyInfo><ProcessorResponseCode>00</ProcessorResponseCode><EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000001524010[FS]TVR~8000008000[FS]TSI~0800[FS]IAD~0115209000040000B000[FS]App Pref Name~[FS]App Label~US DEBIT        [FS]RespDate~09032024[FS]RespTime~020503</EMVData><VoidData/><AuthorizedAmount>100.18</AuthorizedAmount><ResponseText>APPROVAL</ResponseText><CRMToken>8930000010000121050</CRMToken></TransDetailData></TransDetailsData><BatchNumber>247001</BatchNumber><AurusPayTicketNum>224247075035530510</AurusPayTicketNum></TransResponse>==================================================
+AESDK Request
+<TransRequest>
+  <POSID>S00784R0100</POSID>
+  <APPID>01</APPID>
+  <CCTID>01</CCTID>
+  <ADSDKSpecVer>6.14.8</ADSDKSpecVer>
+  <SessionId>12345</SessionId>
+  <CardPresent>Y</CardPresent>
+  <CardType />
+  <PurchaserPresent>Y</PurchaserPresent>
+  <KeyedEntryAVSFlag>N</KeyedEntryAVSFlag>
+  <GiftPurchaseAuthIndicator>N</GiftPurchaseAuthIndicator>
+  <ProcessingMode>0</ProcessingMode>
+  <CashBackFlag>1</CashBackFlag>
+  <TransAmountDetails>
+    <TenderAmount>100.18</TenderAmount>
+    <TransactionTotal>100.18</TransactionTotal>
+    <TaxAmount>.00</TaxAmount>
+  </TransAmountDetails>
+  <TransactionType>02</TransactionType>
+  <InvoiceNumber>0903242345008711324</InvoiceNumber>
+  <CardExpiryDate />
+  <CardToken>6011970011180138</CardToken>
+  <ECOMMInfo>
+    <CardIdentifier />
+  </ECOMMInfo>
+  <CRMToken />
+  <ReferenceNumber>18</ReferenceNumber>
+  <ReceiptNumber>18</ReceiptNumber>
+  <ClerkID>000000551</ClerkID>
+  <CurrencyCode>840</CurrencyCode>
+  <TransactionDate>09032024</TransactionDate>
+  <TransactionTime>113242</TransactionTime>
+  <TipEligible>0</TipEligible>
+  <AmountNoBar>1</AmountNoBar>
+  <SignatureFlag>N</SignatureFlag>
+  <OrigAurusPayTicketNum />
+  <OrigTransactionIdentifier />
+  <PartialAllowed>0</PartialAllowed>
+  <ShowResponse>0</ShowResponse>
+  <ECommerceIndicator>N</ECommerceIndicator>
+  <POSType>1</POSType>
+  <BillingAddress>
+    <BillingZip>1325</BillingZip>
+  </BillingAddress>
+</TransRequest>
+
+__________________________________________________
+
+
+AESDK Response
+
+<TransResponse><CCTID>01</CCTID><POSID>S00784R0100</POSID><APPID>01</APPID><TransDetailsData><TransDetailData><CardNumber>601197XXXXXX0138</CardNumber><TotalApprovedAmount>100.18</TotalApprovedAmount><EMVDataInTLVFormat>AID%7EA0000001524010%1ETVR%7E8000008000%1EIAD%7E0115209000040000B000%1ETSI%7E0800%1EARC%7E3030</EMVDataInTLVFormat><EBTType/><CardIdentifier>2000000000032957</CardIdentifier><ProcessorToken>601197XXXXXX0138</ProcessorToken><ProcessorMerchantId>577000322896</ProcessorMerchantId><TransactionSequenceNumber>000054</TransactionSequenceNumber><CardToken>601197XXXXXX0138</CardToken><LanguageIndicator>00</LanguageIndicator><DCCDetails><DCCMinorUnits/><DCCMarginRatePercent/><DCCAlphaCurrencyCode/><DCCExchRateSrcName/><DCCOffered>0</DCCOffered><DCCResponseCode/><DCCValidHours/><DCCExchRateSrcTime/><DCCCurrencyCode/></DCCDetails><CardType>NVC</CardType><TransactionIdentifier>191242470751569831</TransactionIdentifier><CardExpiryDate>0526</CardExpiryDate><PartialApprovedFlag>N</PartialApprovedFlag><TransactionTypeCode>2</TransactionTypeCode><ReceiptDetails><ReceiptData><LanguageIndicator>00</LanguageIndicator><ReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748269</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:692F535D0A72BA60</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000005</Line></ReceiptInfo></ReceiptData></ReceiptDetails><FallbackIndicator>0</FallbackIndicator><CardEntryMode>T</CardEntryMode><TipAmount>0.00</TipAmount><CustomerName/><TransactionDate>09032024</TransactionDate><AdditionalReceiptInfo><Line>Approved</Line><Line>:USD $100.18</Line><Line>CARD:DISCOVER XXXX0138 CREDIT CTLS EMV</Line><Line>APPROVAL CODE:748269</Line><Line>AID:A0000001524010</Line><Line>TVR:8000008000</Line><Line>IAD:0115209000040000B000</Line><Line>TSI:0800</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:692F535D0A72BA60</Line><Line>APPLICATION PREFERRED NAME:</Line><Line>APPLICATION LABEL:US DEBIT        </Line><Line>Processor Batch Date:247</Line><Line>Processor Batch Number:000001</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000005</Line></AdditionalReceiptInfo><CashBackAmount>0.00</CashBackAmount><AddressVerification/><ResponseCode>00000</ResponseCode><ReceiptToken>6011970011180138</ReceiptToken><BalanceAmount>0.00</BalanceAmount><ReferenceNumber>091000540493</ReferenceNumber><GiftCardTypePassCode/><LangIndicator>00</LangIndicator><EMVFlag>1</EMVFlag><SignatureReceiptFlag>0</SignatureReceiptFlag><ECOMMInfo><OneOrderToken/></ECOMMInfo><ApprovalCode>748269</ApprovalCode><TransactionAmount>100.18</TransactionAmount><TransactionTime>020515</TransactionTime><LoyaltyInfo></LoyaltyInfo><ProcessorResponseCode>00</ProcessorResponseCode><EMVData>[FS]MerchantID~577000322896[FS]TerminalID~[FS]ARC~00[FS]ISO~00[FS]AID~A0000001524010[FS]TVR~8000008000[FS]TSI~0800[FS]IAD~0115209000040000B000[FS]App Pref Name~[FS]App Label~US DEBIT        [FS]RespDate~09032024[FS]RespTime~020515</EMVData><VoidData/><AuthorizedAmount>100.18</AuthorizedAmount><ResponseText>APPROVAL</ResponseText><CRMToken>8930000010000121050</CRMToken></TransDetailData></TransDetailsData><BatchNumber>247001</BatchNumber><AurusPayTicketNum>124247075156991456</AurusPayTicketNum></TransResponse>==================================================

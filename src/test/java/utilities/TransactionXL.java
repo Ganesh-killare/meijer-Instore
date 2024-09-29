@@ -308,11 +308,42 @@ public class TransactionXL {
 	}
 
 	public void writeCICRMTransactionData(List<String> data) {
+
+		if (this.sheet == null) {
+			setupWorkBook();
+		}
+		List<String> Headers = BaseClass.ResponseParameter;
+
+		Headers.add(3, "TransType");
+
+		startRow = sheet.getLastRowNum() + 3;
+
+		if (startRow == 2) {
+
+			Row headerRow = sheet.createRow(0);
+
+			for (int i = 0; i < Headers.size(); i++) {
+
+				headerRow.createCell(i).setCellValue((String) Headers.get(i));
+
+				// Create a cell style for header cells
+				CellStyle headerCellStyle = workbook.createCellStyle();
+				Font headerFont = workbook.createFont();
+				headerFont.setBold(true); // Make the header text bold
+				headerFont.setColor(IndexedColors.WHITE.getIndex()); // Set the font color to blue
+				headerCellStyle.setFont(headerFont);
+				headerCellStyle.setFillForegroundColor(IndexedColors.DARK_GREEN.getIndex()); // Set the fill color
+				headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND); // Set the fill pattern
+
+				// Apply the header cell style to the current cell
+				headerRow.getCell(i).setCellStyle(headerCellStyle);
+			}
+		}
 		int currentRow = sheet.getLastRowNum() + 1;
 		int currentColumn = 0;
 
 		Row row = sheet.createRow(currentRow);
-		for (int i = 0; i < data.size(); i++) {
+		for (int i = 0; i < data.size(); i++) {   
 
 			Cell cell = row.createCell(currentColumn++);
 			String value = data.get(i);
@@ -364,12 +395,17 @@ public class TransactionXL {
 	}
 
 	public void saveExcelFile(String fileName) {
-		try (FileOutputStream outputStream = new FileOutputStream("./transactionsXLfiles\\" + fileName)) {
-			workbook.write(outputStream);
-			System.out.println("=".repeat(150));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	    if (workbook == null) {
+	        return; // Exit the method if the workbook is null
+	    }
+
+	    try (FileOutputStream outputStream = new FileOutputStream("./transactionsXLfiles/" + fileName)) {
+	        workbook.write(outputStream);
+	        System.out.println("=".repeat(150));
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
+
 
 }

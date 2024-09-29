@@ -11,32 +11,28 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import requestbuilder.ByPass;
 import utilities.Utils;
-import xmlrequestbuilder.Close_Transaction;
 
-public class TC_EBT extends BaseClass {
+public class TC_EBT extends BaseClass {    
+	
 
 	@Test(invocationCount = 2)
 	public void RefundOfSale() throws IOException, Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();      
+		fileName = new Exception().getStackTrace()[0].getMethodName();    
 		System.out.println(fileName);
-   
+
 		List<String> saleResult = performEBTSale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {   
-			performRefundTransaction(saleResult);   
+			performRefundTransaction(saleResult);
 		}
-	}
 
 	@Test(invocationCount = 2)
 	public void VoidOfSale() throws IOException, Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();   
+		fileName = new Exception().getStackTrace()[0].getMethodName();     
 		System.out.println(fileName);
 
 		List<String> saleResult = performEBTSale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {  
-			performVoidTransaction(saleResult);
-		}
+			performVoidTransaction(saleResult);   
 
 	}
 
@@ -45,21 +41,19 @@ public class TC_EBT extends BaseClass {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
-		List<String> saleResult = performEBT_RW_Sale();
+		List<String> saleResult = performEBT_RW_Sale();   
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {
 			performVoidTransaction(saleResult);
-		}
 
 	}
 
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {   
+	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();
-		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());   
-		receiveResponseFromAESDK();
+		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
+		receiveResponseFromAESDK();   
 		excelWriter.saveExcelFile(Utils.setFileName("EBT"));
 
 	}

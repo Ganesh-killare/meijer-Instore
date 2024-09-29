@@ -205,8 +205,8 @@ public class CD_Sale_Request {
 
 			// Modify specific tag values
 			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
+			setTagValue(document, "CRMToken", CRM);
+			setTagValue(document, "CardIdentifier", CI);
 			setTagValue(document, "TransactionTotal", transactionAmount);
 			setTagValue(document, "TenderAmount", transactionAmount);
 			setTagValue(document, "TransactionType", "02");
@@ -231,8 +231,8 @@ public class CD_Sale_Request {
 
 			// Modify specific tag values
 			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
+			setTagValue(document, "CRMToken", CRM);
+			setTagValue(document, "CardIdentifier", CI);
 			setTagValue(document, "TransactionTotal", amount);
 			setTagValue(document, "TenderAmount", amount);
 

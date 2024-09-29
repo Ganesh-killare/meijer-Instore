@@ -11,57 +11,53 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import requestbuilder.ByPass;
 import utilities.Utils;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 
-public class TC_PLC extends BaseClass {   
+public class TC_PLC extends BaseClass {
 
-	@Test(invocationCount = 40)   
+	@Test(invocationCount = 600)
 	public void PLC_RefundOfSale() throws IOException, Exception {       
-		fileName = new Exception().getStackTrace()[0].getMethodName();       
-		System.out.println(fileName);
-
-		List<String> saleResult = performPLCSale();
-
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {        
-			performRefundTransaction(saleResult);
-		}
-	}
-
-	@Test(invocationCount = 40)   
-	public void PLC_VoidOfSale() throws IOException, Exception {    
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performPLCSale();
+    // Utils.printResults(saleResult);
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {         
-			performVoidTransaction(saleResult);
-		}
+			performRefundTransaction(saleResult);      
+	}   
+
+	@Test(invocationCount = 600)
+	public void PLC_VoidOfSale() throws IOException, Exception {   
+		fileName = new Exception().getStackTrace()[0].getMethodName();                
+		System.out.println(fileName);    
+
+		List<String> saleResult = performPLCSale();
+	//	Utils.printResults(saleResult);
+
+			 performVoidTransaction(saleResult);   
 
 	}
 
-	@Test(invocationCount = 4)
-	public void PLC_VoidOfRefundWithoutsale() throws IOException, Exception {         
-		fileName = new Exception().getStackTrace()[0].getMethodName();    
+	@Test(invocationCount = 60)
+	public void PLC_VoidOfRefundWithoutsale() throws IOException, Exception {       
+		fileName = new Exception().getStackTrace()[0].getMethodName();     
 		System.out.println(fileName);
 
-		List<String> saleResult = performPLC_RWSale();
-    
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {    
-			performVoidTransaction(saleResult);    
-		}
+		List<String> saleResult = performPLC_RWSale();     
 
+			performVoidTransaction(saleResult);
+     
 	}
 
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {   
 
 		sendRequestToAESDK(ByPass.Option2());
+		receiveResponseFromAESDK();  
+		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();
-		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());    
-		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(Utils.setFileName(fileName));   
+		excelWriter.saveExcelFile(Utils.setFileName("PLC"));    
 
 	}
 
-}
+}   

@@ -10,58 +10,72 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import utilities.Utils;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 
 public class TC_POA extends BaseClass {
 	@Test(priority = 1)
 	public void SSN_paymentOnAccountWithCheck() throws Exception, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 		List<String> ALUData = performALUwithSSN();
 		List<String> SaleData = performCheckTransaction();
-		performPOA(SaleData.get(3), SaleData.get(2), ALUData.get(2), "CH");
+		performPOA(SaleData.get(8), SaleData.get(12), ALUData.get(1), "CH");
 
 	}
-    
+
 	@Test(priority = 2)
-	public void SSN_paymentOnAccountWithCash() throws IOException, InterruptedException, Exception {   
+	public void SSN_paymentOnAccountWithCash() throws IOException, InterruptedException, Exception {  
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 		List<String> ALUData = performALUwithSSN();
 
-		performPOA("10.00", null, ALUData.get(2), "CA");
+		performPOA("10.00", null, ALUData.get(1), "CA");
 	}
 
 	@Test(priority = 6)
 	public void SSN_paymentOnAccountWithDebit() throws IOException, InterruptedException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 		List<String> ALUData = performALUwithSSN();
 		List<String> saleResult = performCreditDebitSale();
-		performPOA(saleResult.get(3), saleResult.get(2), ALUData.get(2), "DB");
+		performPOA(saleResult.get(8), saleResult.get(12), ALUData.get(1), "DB");
 	}
 
 	@Test(priority = 3)
-	public void KEY_paymentOnAccountWithCheck() throws IOException, InterruptedException, Exception {    
+	public void KEY_paymentOnAccountWithCheck() throws IOException, InterruptedException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
+
 		List<String> ALUData = performALUwithKey();
 		List<String> SaleData = performCheckTransaction();
-		performPOA(SaleData.get(3), SaleData.get(2), ALUData.get(2), "CH");
+		performPOA(SaleData.get(8), SaleData.get(12), ALUData.get(1), "CH");
 	}
 
 	@Test(priority = 4)
 	public void KEY_paymentOnAccountWithCash() throws IOException, InterruptedException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 		List<String> ALUData = performALUwithKey();
 
-		performPOA("10.00", null, ALUData.get(2), "CA");
+		performPOA("10.00", null, ALUData.get(1), "CA");
 	}
 
 	@Test(priority = 5)
 	public void KEY_paymentOnAccountWithDebit() throws IOException, InterruptedException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 		List<String> ALUData = performALUwithKey();
 		List<String> saleResult = performCreditDebitSale();
-		performPOA(saleResult.get(3), saleResult.get(2), ALUData.get(2), "DB");
+		performPOA(saleResult.get(8), saleResult.get(12), ALUData.get(1), "DB");
+
 	}
 
 	@AfterMethod
 	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
 
-		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(Utils.setFileName("POA_TRANSACTIONS"));
+		excelWriter.saveExcelFile(Utils.setFileName("POA"));
 
 	}
 

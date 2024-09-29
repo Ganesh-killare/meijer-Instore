@@ -13,8 +13,14 @@ public class Response_Parameters {
     private Document document;
 
     public Response_Parameters(String xml) throws Exception {
-        SAXBuilder saxBuilder = new SAXBuilder();
-        document = saxBuilder.build(new StringReader(xml));
+    	try {
+    		 SAXBuilder saxBuilder = new SAXBuilder();
+    	        document = saxBuilder.build(new StringReader(xml));
+		} catch (Exception e) {
+			System.err.println("We are getting something fishy in XML");
+			System.out.println(xml);
+		}
+       
     }
 
     public String getParameterValue(String elementName) {

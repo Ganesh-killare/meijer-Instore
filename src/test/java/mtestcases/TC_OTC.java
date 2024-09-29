@@ -11,38 +11,52 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import requestbuilder.ByPass;
 import utilities.Utils;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 
-public class OTC extends BaseClass {
+public class TC_OTC extends BaseClass {
 
 	@Test(invocationCount = 1)
-	public void InComm_VoidOfSale() throws Exception {      
-		fileName = new Exception().getStackTrace()[0].getMethodName();  
+	public void InComm_VoidOfSale() throws Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 		List<String> SaleResult = IncommTransaction();
-		System.out.println(SaleResult);
-		if (SaleResult.get(0).equalsIgnoreCase(ApprovedText)) {          
-			performVoidTransaction(SaleResult);
-		}   
+		// System.out.println(SaleResult);
+		performVoidTransaction(SaleResult);
+	}
+
+	@Test(invocationCount = 1)
+	public void InComm_RefundOfSale() throws Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();     
+		System.out.println(fileName);
+		List<String> SaleResult = IncommTransaction();   
+		// System.out.println(SaleResult);
+		performRefundTransaction(SaleResult);
 	}
 
 	@Test(invocationCount = 1)
 	public void SolotronVoidOfSale() throws Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();  
-		System.out.println(fileName);   
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 		List<String> SaleResult = SlutronTransactions();
-		System.out.println(SaleResult);
-		if (SaleResult.get(0).equalsIgnoreCase(ApprovedText)) {          
-			performVoidTransaction(SaleResult);
-		} 
+		// System.out.println(SaleResult);
+		performVoidTransaction(SaleResult);
+	}
+
+	@Test(invocationCount = 1)   
+	public void SolotronRefundOfSale() throws Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
+		List<String> SaleResult = SlutronTransactions();
+		// System.out.println(SaleResult);
+		performRefundTransaction(SaleResult);
 	}
 
 	@AfterMethod
 	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
 
 		sendRequestToAESDK(ByPass.Option2());
-		receiveResponseFromAESDK();  
-		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());   
+		receiveResponseFromAESDK();
+		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();
 		excelWriter.saveExcelFile(Utils.setFileName("OTC"));
 

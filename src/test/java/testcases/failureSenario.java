@@ -16,7 +16,7 @@ import utilities.Utils;
 import utilities.P_XL_Utility;
 import utilities.ProcessorFailourXL;
 import utilities.TransactionXL;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 import xmlrequestbuilder.GCB_Modification;
 import xmlrequestbuilder.Refund_Request_Modification;
 import xmlrequestbuilder.Sale_Request_Modification;
@@ -111,7 +111,7 @@ public class failureSenario {
 
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(1));
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
@@ -185,7 +185,7 @@ public class failureSenario {
 
 				}
 			} finally {
-				cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 				cp.receiveResponseFromAESDK();
 				xlWriter.saveExcelFile(Utils.setFileName(fileName));
 				xl.saveExcelFile();
@@ -260,7 +260,7 @@ public class failureSenario {
 					xl.writeDataForVoid(data);
 				}
 			} finally {
-				cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 				cp.receiveResponseFromAESDK();
 				xlWriter.saveExcelFile(Utils.setFileName(fileName));
 				xl.saveExcelFile();
@@ -304,7 +304,7 @@ public class failureSenario {
 				}
 
 			} finally {
-				cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 				cp.receiveResponseFromAESDK();
 				xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			}

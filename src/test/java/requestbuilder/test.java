@@ -8,6 +8,8 @@ import java.net.UnknownHostException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Scanner;
@@ -15,10 +17,12 @@ import java.util.Scanner;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.util.Assert;
+
 import base.BaseClass;
 import utilities.GIft_Data;
 
-public class test  {
+public class test {
 	@Test(dataProvider = "GIFT_DATA", dataProviderClass = GIft_Data.class, priority = 1)
 	public void testRequests(String transactionType, String amount, String cardNumber, String entrySource,
 			String transtype, String subtransType, String upsdata) {
@@ -58,16 +62,41 @@ public class test  {
 		String ipAddress = localhost.getHostAddress();
 		return ipAddress;
 	}
-	
-	
-	@BeforeMethod
 
-	@Test(invocationCount = 15)
+//	@BeforeMethod
+
+	@Test(invocationCount = 5)
 	public void testRequest() throws IOException {
+		List<String> Data = Arrays.asList("APPROVAL", "192242463559683905", "224246355968393323", "10.00", "VIC");
+		List<String> tokens = Arrays.asList("CardToken", "CI", "CRM");
+		/*
+		 * System.out.println(SoloTronRequest.Request("611233055256456565",
+		 * getHostIP()));
+		 * 
+		 * System.out.println(":".repeat(150));
+		 * 
+		 * System.out.println(SoloTronRequest.returnRequest(Data));
+		 */
 
-		System.out.println(AccountLookUp.withSSNandPhoneNumber());
-		System.out.println(CD_Sale_Request.CD_RW_SALE_REQUEST(getHostIP(), getHostIP(), getHostIP()));
-
+		/*
+		 * System.out.println(IncommIQTransRequest.Request(getHostIP(), getHostIP()));
+		 * System.out.println(":".repeat(150));
+		 * System.out.println(SoloTronRequest.Request(getHostIP(), getHostIP()));
+		 */
+		
+	System.out.println(FSARequest.FSA_RW_SALE_REQUEST(getHostIP(), getHostIP(), getHostIP()));	 
 	}
 
+	
+//	@BeforeMethod
+	public void testMethod() {
+		org.testng.Assert.assertEquals("gg", "gr");
+	}
+	
+	@Test(invocationCount = 5)
+	public void tesrt() {
+		FSARequest.FSA_RW_SALE_REQUEST(getHostIP(), getHostIP(), getHostIP());
+		System.out.println("++++++++++++++++++++++++++");
+
+	}
 }

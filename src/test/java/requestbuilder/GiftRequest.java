@@ -64,7 +64,7 @@ public class GiftRequest {
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
-			appendElementWithValue(doc, transRequestElement, "CashBackFlag",Utils.getCashBackValue());
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 
 // TransAmountDetails
 			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
@@ -91,7 +91,7 @@ public class GiftRequest {
 			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse",Utils.getShowResponseValue());
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "1221");
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
@@ -161,13 +161,15 @@ public class GiftRequest {
 
 	public static String GIFT_REQUEST(String amount, String cardNumber, String EntrySource, String SubTransType,
 			String transtype, String Upc, String cardToken) {
+		
+		String UPC_DATA = Upc ;
 
 		amount.trim();
 		cardNumber.trim();
 		EntrySource.trim();
 		SubTransType.trim();
 		transtype.trim();
-		Upc.trim();
+		UPC_DATA.trim();
 		try {
 
 // take a basic request
@@ -187,6 +189,10 @@ public class GiftRequest {
 				cardNumber = null;
 				EntrySource = null;
 			}
+			if (!(cardToken == null)) {
+				 UPC_DATA = getUPCdata(cardToken);
+
+			}
 
 // Modify specific tag values
 			setTagValue(document, "TransactionTotal", amount);
@@ -196,10 +202,8 @@ public class GiftRequest {
 			setTagValue(document, "SubTransType", subtrans);
 			setTagValue(document, "TransactionType", transtype);
 			setTagValue(document, "CardToken", cardToken);
-			setTagValue(document, "BlackHawkUpc", Upc);
+			setTagValue(document, "BlackHawkUpc", UPC_DATA.trim());
 			setTagValue(document, "CardToken", cardToken);
-			
-		
 
 // Convert the modified document back to a string
 			return documentToString(document);

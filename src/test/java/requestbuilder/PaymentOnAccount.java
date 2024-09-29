@@ -58,7 +58,7 @@ public class PaymentOnAccount {
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
-
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 			// Add <TransAmountDetails> element with its children
 			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
 			transRequestElement.appendChild(transAmountDetailsElement);
@@ -163,11 +163,15 @@ public class PaymentOnAccount {
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
 			// Modify specific tag values
-			if (cardIdentifier == null || !cardIdentifier.isBlank()) {
-			    cardIdentifier = "2000000000033550";
-			    System.out.println(cardIdentifier);
+			if (cardIdentifier == null || cardIdentifier.isBlank()) {
+				cardIdentifier = "2000000000028261";
+				System.out.println(cardIdentifier);
 			}
 			
+			if(AMT.equalsIgnoreCase("0.00")) {
+				AMT = "10.00";
+			}
+
 			setTagValue(document, "CardIdentifier", cardIdentifier);
 			setTagValue(document, "PLCCPaymentMethod", paymentMethod);
 			setTagValue(document, "TenderAmount", AMT);

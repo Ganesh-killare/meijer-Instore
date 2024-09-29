@@ -8,7 +8,7 @@ import base.BaseClass;
 import responsevalidator.Response_Parameters;
 import utilities.EXLUtility;
 import utilities.TransactionXL;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 import xmlrequestbuilder.Ewic_BalanceInquiry;
 import xmlrequestbuilder.Ewic_Sale_Request;
 import xmlrequestbuilder.Ewic_Void_Request;
@@ -80,7 +80,7 @@ public class TC_E_WicTransactions {
 			}
 
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			xl.saveExcelFile();
 			Thread.sleep(5000); 
 		}

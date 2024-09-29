@@ -2,6 +2,7 @@ package requestbuilder;
 
 import java.io.StringWriter;
 import java.text.DecimalFormat;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,6 +30,23 @@ public class IncommIQTransRequest {
 	public static String Request(String cardToken, String TransType) {
 		try {
 			Document transRequestDocument = createSampleTransRequestDocument(cardToken, TransType);
+
+			// Convert the modified document back to a string
+			return documentToString(transRequestDocument);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static String returnRequest(List<String> saleData) {
+
+		String transID = saleData.get(11);
+		String AurusPayTicketNum = saleData.get(12);
+		String Amount = saleData.get(8);
+
+		try {
+			Document transRequestDocument = createSampleRefundRequestDocument(transID, AurusPayTicketNum, Amount);
 
 			// Convert the modified document back to a string
 			return documentToString(transRequestDocument);
@@ -126,7 +144,9 @@ public class IncommIQTransRequest {
 			// EPPDetailsInfo
 			Element eppDetailsInfoElement = doc.createElement("EPPDetailsInfo");
 			transRequestElement.appendChild(eppDetailsInfoElement);
-			appendElementWithValue(doc, eppDetailsInfoElement, "AmountDue", "0.00");
+			if (TransType.equalsIgnoreCase("01")) {
+			appendElementWithValue(doc, eppDetailsInfoElement, "AmountDue", amount);
+			}
 			appendElementWithValue(doc, eppDetailsInfoElement, "ProductCount", ProductCount);
 			appendElementWithValue(doc, eppDetailsInfoElement, "POSCapability",
 					"BAR.UNK.CAT.UNK.00010000000000001000000000000000");
@@ -135,6 +155,115 @@ public class IncommIQTransRequest {
 			Element eppDetailsElement = doc.createElement("EPPDetails");
 			eppDetailsInfoElement.appendChild(eppDetailsElement);
 
+			// Loop to add EPPProductData
+
+			if (TransType.equalsIgnoreCase("82")) {
+				for (int i = 1; i <= productValues; i++) {
+					Element eppProductDataElement = doc.createElement("EPPProductData");
+					eppDetailsElement.appendChild(eppProductDataElement);
+					appendElementWithValue(doc, eppProductDataElement, "ItemCode", "00003800000120");
+					appendElementWithValue(doc, eppProductDataElement, "ItemReferenceNumber", String.format("%04d", i));
+					appendElementWithValue(doc, eppProductDataElement, "Price", "01.00");
+					appendElementWithValue(doc, eppProductDataElement, "Quantity", "001");
+					appendElementWithValue(doc, eppProductDataElement, "SignIndicator", "C");
+				}
+			}
+
+			if (TransType.equalsIgnoreCase("01")) {
+
+				for (int i = 1; i <= productValues; i++) {
+					Element eppProductDataElement = doc.createElement("EPPProductData");
+					eppDetailsElement.appendChild(eppProductDataElement);
+					appendElementWithValue(doc, eppProductDataElement, "ItemCode", "00003800000120");
+					appendElementWithValue(doc, eppProductDataElement, "ItemReferenceNumber", String.format("%04d", i));
+					appendElementWithValue(doc, eppProductDataElement, "RedemptionReqAmount", "01.00");
+					appendElementWithValue(doc, eppProductDataElement, "Quantity", "001");
+				}
+
+			}
+
+			if (TransType.equalsIgnoreCase("12")) {
+
+				for (int i = 1; i <= productValues; i++) {
+					Element eppProductDataElement = doc.createElement("EPPProductData");
+					eppDetailsElement.appendChild(eppProductDataElement);
+					appendElementWithValue(doc, eppProductDataElement, "ItemCode", "00003800000120");  
+					appendElementWithValue(doc, eppProductDataElement, "ItemReferenceNumber", String.format("%04d", i));
+					appendElementWithValue(doc, eppProductDataElement, "SignIndicator", "C");
+					appendElementWithValue(doc, eppProductDataElement, "Quantity", "001");
+					appendElementWithValue(doc, eppProductDataElement, "Price", "01.00");
+					appendElementWithValue(doc, eppProductDataElement, "MBASQuantityDiscount", "0.00");
+				}
+
+			}
+
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private static Document createSampleRefundRequestDocument(String transactionId, String AurusPayTicketNum,
+			String Amount) {
+
+		double amount = Double.valueOf(Amount);
+
+		double productValues = amount / 1.00;
+
+		// Using DecimalFormat to format to two decimal places
+
+		String ProductCount = Amount.split("\\.")[0];
+
+		// Ensure ProductCount is three digits
+		if (ProductCount.length() == 2) {
+			ProductCount = "0" + ProductCount;
+		} else if (ProductCount.length() == 1) {
+			ProductCount = "00" + ProductCount;
+		}
+		System.out.println("We have Product count: " + ProductCount + " And Amount is: " + amount);
+
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+
+			// Create root element
+			Element transRequestElement = doc.createElement("TransRequest");
+			doc.appendChild(transRequestElement);
+
+			// Add child elements in the desired sequence
+			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
+			appendElementWithValue(doc, transRequestElement, "POSID", "01");
+			appendElementWithValue(doc, transRequestElement, "APPID", "01");
+			appendElementWithValue(doc, transRequestElement, "CardToken", null);
+			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
+			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "1229");
+			appendElementWithValue(doc, transRequestElement, "EntrySource", "");
+			appendElementWithValue(doc, transRequestElement, "EcommerceIndicator", "N");
+			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
+
+			// Add TransAmountDetails
+			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
+			transRequestElement.appendChild(transAmountDetailsElement);
+			appendElementWithValue(doc, transAmountDetailsElement, "TenderAmount", Amount);
+			appendElementWithValue(doc, transAmountDetailsElement, "TransactionTotal", Amount);
+
+			appendElementWithValue(doc, transRequestElement, "TransactionType", "02");
+
+			// Add EPPDetailsInfo
+			Element eppDetailsInfoElement = doc.createElement("EPPDetailsInfo");
+			transRequestElement.appendChild(eppDetailsInfoElement);
+			appendElementWithValue(doc, eppDetailsInfoElement, "AmountDue", "");
+			appendElementWithValue(doc, eppDetailsInfoElement, "ProductCount", ProductCount);
+			appendElementWithValue(doc, eppDetailsInfoElement, "POSCapability",
+					"BAR.UNK.CAT.UNK.00010000000000001000000000000000");
+
+			// Add EPPDetails with EPPProductData
+			Element eppDetailsElement = doc.createElement("EPPDetails");
+			eppDetailsInfoElement.appendChild(eppDetailsElement);
 			// Loop to add EPPProductData
 			for (int i = 1; i <= productValues; i++) {
 				Element eppProductDataElement = doc.createElement("EPPProductData");
@@ -146,6 +275,22 @@ public class IncommIQTransRequest {
 				appendElementWithValue(doc, eppProductDataElement, "MBASQuantityDiscount", "0.00");
 				appendElementWithValue(doc, eppProductDataElement, "SignIndicator", "C");
 			}
+			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", AurusPayTicketNum);
+
+			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", transactionId);
+
+			appendElementWithValue(doc, transRequestElement, "InvoiceNumber", invoiceNumber);
+			appendElementWithValue(doc, transRequestElement, "TipEligible", "0");
+			appendElementWithValue(doc, transRequestElement, "ReceiptNumber", "873");
+			appendElementWithValue(doc, transRequestElement, "ReferenceNumber", "157");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
+			appendElementWithValue(doc, transRequestElement, "CurrencyCode", "840");
+
+			appendElementWithValue(doc, transRequestElement, "ClerkID", "1111");
+			appendElementWithValue(doc, transRequestElement, "TransactionDate", finalDate);
+			appendElementWithValue(doc, transRequestElement, "TransactionTime", formattedTime);
+			appendElementWithValue(doc, transRequestElement, "BatchNumber", "");
+			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "1");
 
 			return doc;
 		} catch (Exception e) {

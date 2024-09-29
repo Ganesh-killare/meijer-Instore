@@ -27,6 +27,9 @@ public class FSARequest {
 	static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
 	static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
 	static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
+	private static int currentValue = 1;
+	private static String EmptyValueFormat = "0.00";
+	private static int VoidCount = 1;
 
 	// amount genaration
 
@@ -49,6 +52,32 @@ public class FSARequest {
 // Format the double to have exactly 2 decimal places
 
 	static String transactionAmount = df.format(amount);
+
+	public static int getNextSequentialValueForVoid() {
+		int value = VoidCount;
+
+		// Update the current value, reset if exceeding the maximum value (5 in this
+		// case)
+		VoidCount++;
+		if (VoidCount > 5) {
+			VoidCount = 1; // Reset to 1 if exceeding the max value
+		}
+
+		return value;
+	}
+	
+	public static int getNextSequentialValue() {
+		int value = currentValue;
+
+		// Update the current value, reset if exceeding the maximum value (3 in this
+		// case)
+		currentValue++;
+		if (currentValue > 5) {
+			currentValue = 1; // Reset to 1 if exceeding the max value
+		}
+
+		return value;
+	}
 
 	public static String buildXMLRequest() {
 		try {
@@ -78,13 +107,12 @@ public class FSARequest {
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
 			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
-			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "CardType", "MCS");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
-			 appendElementWithValue(doc, transRequestElement, "CRMToken", "");
+			appendElementWithValue(doc, transRequestElement, "CRMToken", "");
 			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 
 			// TransAmountDetails
@@ -118,10 +146,10 @@ public class FSARequest {
 			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
 			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
-			
-		     Element ecommInfoElement = doc.createElement("ECOMMInfo");
-	            transRequestElement.appendChild(ecommInfoElement);
-	            appendElementWithValue(doc, ecommInfoElement, "CardIdentifier", null); 
+
+			Element ecommInfoElement = doc.createElement("ECOMMInfo");
+			transRequestElement.appendChild(ecommInfoElement);
+			appendElementWithValue(doc, ecommInfoElement, "CardIdentifier", null);
 
 			// BillingAddress
 			Element billingAddressElement = doc.createElement("BillingAddress");
@@ -186,31 +214,76 @@ public class FSARequest {
 
 	public static String FSA_SALE_REQUEST(String CardToken, String CI, String CRM) {
 		try {
-
 			Faker faker = new Faker();
+			// Generate random amounts as integers (representing cents)
+			int prescription = faker.number().numberBetween(1, 5); // Range 0 to 500 inclusive
+			int visionOptical = faker.number().numberBetween(1, 5);
+			int coPayment = faker.number().numberBetween(1, 5);
+			int dental = faker.number().numberBetween(1, 5);
 
-			double Prescription = faker.number().randomDouble(2, 00, 01);
-			double VisionOptical = faker.number().randomDouble(2, 00, 01);
-			double CoPayment = faker.number().randomDouble(2, 00, 01);
-			double Dental = faker.number().randomDouble(2, 00, 01);
+			// Calculate total amount as integer
+			int totalAmountInCents = prescription + visionOptical + coPayment + dental;
+			// int finalAmountInCents = totalAmountInCents; // Add 100 cents (1.00)
 
-			// double Dental = AMT; // Adjusted to make the total 100.13
-
-			double Famount = Prescription + VisionOptical + CoPayment + Dental;
-			double Totalamount = Famount + 1.00;
-
+			// Format amounts for output
 			DecimalFormat df = new DecimalFormat("0.00");
-			String formattedFamount = df.format(Famount);
-			String formattedTotalamount = df.format(Totalamount);
-		//	formattedTotalamount = "0.00";
+			String formattedPrescription = df.format(prescription);
+			String formattedVisionOptical = df.format(visionOptical);
+			String formattedCoPayment = df.format(coPayment);
+			String formattedDental = df.format(dental);
+			String formattedTotalAmount = null;
+			String formattedFinalAmount = null;
 
-			System.out.println("FSA AMOUNT : " + formattedFamount);
-			System.out.println("Total AMOUNT : " + formattedTotalamount);
+			int decVer = getNextSequentialValue();
+			switch (decVer) {
+			case 1:
+				formattedTotalAmount = df.format(totalAmountInCents);
+				formattedFinalAmount = df.format(totalAmountInCents);
+				// For all Amounts are 0.00
+				formattedVisionOptical = EmptyValueFormat;
+				formattedCoPayment = EmptyValueFormat;
+				formattedDental = EmptyValueFormat;
+				break;
 
-			String PrescriptionAmount = df.format(Prescription);
-			String VisionOpticalAmount = df.format(VisionOptical);
-			String CoPaymentAmount = df.format(CoPayment);
-			String DentalAmount = df.format(Dental);
+			case 2:
+				formattedTotalAmount = df.format(totalAmountInCents);
+				formattedFinalAmount = EmptyValueFormat;
+				formattedPrescription = EmptyValueFormat;
+				// For all Amounts are 0.00
+				formattedVisionOptical = EmptyValueFormat;
+				formattedCoPayment = EmptyValueFormat;
+				formattedDental = EmptyValueFormat;
+				break;
+
+			case 3:
+
+				formattedTotalAmount = df.format(totalAmountInCents);
+				formattedFinalAmount = df.format(totalAmountInCents);
+				break;
+
+			case 4:
+				formattedTotalAmount = EmptyValueFormat;
+				formattedFinalAmount = df.format(totalAmountInCents);
+				// For all Amounts are 0.00
+				formattedVisionOptical = EmptyValueFormat;
+				formattedCoPayment = EmptyValueFormat;
+				formattedDental = EmptyValueFormat;
+				break;
+
+			default:
+				String Sale_Request = CD_Sale_Request.CD_SALE_REQUEST(CardToken, CI, CRM);
+				return Sale_Request;
+
+			}
+
+			// Print results
+
+			System.out.println("Total Amount: " + formattedTotalAmount);
+			System.out.println("FSA Amount: " + formattedFinalAmount);
+			System.out.println("PrescriptionAmount  :  " + formattedPrescription);
+			System.out.println("VisionOpticalAmount  :  " + formattedVisionOptical);
+			System.out.println("CoPaymentAmount  :  " + formattedCoPayment);
+			System.out.println("DentalAmount  :  " + formattedDental);
 
 			// take a basic request
 			String xml = buildXMLRequest();
@@ -218,21 +291,27 @@ public class FSARequest {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
+			
+			if ((CRM != null || CI != null) && formattedTotalAmount.equalsIgnoreCase("0.00")) {
+			    formattedTotalAmount = formattedFinalAmount;
+			    System.out.println("Updated Total Amount is: " + formattedTotalAmount);   
+			}
+
 
 			// Modify specific tag values
 			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CRM);
+			setTagValue(document, "CRMToken", CRM);   
 			setTagValue(document, "CardIdentifier", CI);
 
-			setTagValue(document, "TenderAmount", formattedTotalamount);
-			setTagValue(document, "TransactionTotal", formattedTotalamount);
-			setTagValue(document, "FSAAmount", formattedFamount);
-			setTagValue(document, "HealthCareAmount", formattedFamount);
-			setTagValue(document, "PrescriptionAmount", PrescriptionAmount);
-			setTagValue(document, "VisionOpticalAmount", VisionOpticalAmount);
-			setTagValue(document, "CoPaymentAmount", CoPaymentAmount);
-			setTagValue(document, "DentalAmount", DentalAmount);
-			setTagValue(document, "TaxAmount", "0.00");
+			setTagValue(document, "TenderAmount", formattedTotalAmount);
+			setTagValue(document, "TransactionTotal", formattedTotalAmount);
+			setTagValue(document, "FSAAmount", formattedFinalAmount);
+			setTagValue(document, "HealthCareAmount", formattedFinalAmount);
+			setTagValue(document, "PrescriptionAmount", formattedPrescription);
+			setTagValue(document, "VisionOpticalAmount", formattedVisionOptical);
+			setTagValue(document, "CoPaymentAmount", formattedCoPayment);
+			setTagValue(document, "DentalAmount", formattedDental);
+			setTagValue(document, "TaxAmount", "0.23");
 
 			// Convert the modified document back to a string
 			return documentToString(document);
@@ -244,56 +323,183 @@ public class FSARequest {
 
 	public static String FSA_RW_SALE_REQUEST(String CardToken, String CI, String CRM) {
 		try {
-			// Amount settelement
+
 			Faker faker = new Faker();
+			// Generate random amounts as integers (representing cents)
+			int prescription = faker.number().numberBetween(1, 5); // Range 0 to 500 inclusive
+			int visionOptical = faker.number().numberBetween(1, 5);
+			int coPayment = faker.number().numberBetween(1, 5);
+			int dental = faker.number().numberBetween(1, 5);
 
-			double Prescription = faker.number().randomDouble(2, 01, 05); // Generates a random double between 10.00 and
-																			// 50.00
-			double VisionOptical = faker.number().randomDouble(2, 01, 05); // Generates a random double between 10.00
-																			// and 50.00
-			double CoPayment = faker.number().randomDouble(2, 01, 05); // Generates a random double between 50.00 and
-																		// 100.00
+			// Calculate total amount as integer
+			int totalAmountInCents = prescription + visionOptical + coPayment + dental;
+			// int finalAmountInCents = totalAmountInCents; // Add 100 cents (1.00)
 
-			// double Dental = AMT; // Adjusted to make the total 100.13
-
-			double Famount = Prescription + VisionOptical + CoPayment + Dental;
-			double Totalamount = Famount + 5.00;
-
+			// Format amounts for output
 			DecimalFormat df = new DecimalFormat("0.00");
-			String formattedFamount = df.format(Famount);
-			String formattedTotalamount = df.format(Totalamount);
+			String formattedPrescription = df.format(prescription);
+			String formattedVisionOptical = df.format(visionOptical);
+			String formattedCoPayment = df.format(coPayment);
+			String formattedDental = df.format(dental);
+			String formattedTotalAmount;
+			String formattedFinalAmount;
 
-			System.out.println("FSA AMOUNT : " + formattedFamount);
-			System.out.println("Total AMOUNT : " + formattedTotalamount);
+			/*
+			 * formattedTotalAmount = df.format(totalAmountInCents); formattedFinalAmount =
+			 * df.format(totalAmountInCents) ;
+			 */
 
-			String PrescriptionAmount = df.format(Prescription);
-			String VisionOpticalAmount = df.format(VisionOptical);
-			String CoPaymentAmount = df.format(CoPayment);
-			String DentalAmount = df.format(Dental);
+			// Determine if the visionOptical amount is even or odd
 
+			int decVer = getNextSequentialValue();
+			switch (decVer) {
+			case 1:
+				formattedTotalAmount = df.format(totalAmountInCents);
+				formattedFinalAmount = df.format(totalAmountInCents);
+				// For all Amounts are 0.00
+				formattedVisionOptical = EmptyValueFormat;
+				formattedCoPayment = EmptyValueFormat;
+				formattedDental = EmptyValueFormat;
+				break;
+
+			case 2:
+				formattedTotalAmount = df.format(totalAmountInCents);
+				formattedFinalAmount = EmptyValueFormat;
+				formattedPrescription = EmptyValueFormat;
+				// For all Amounts are 0.00
+				formattedVisionOptical = EmptyValueFormat;
+				formattedCoPayment = EmptyValueFormat;
+				formattedDental = EmptyValueFormat;
+				break;
+
+			case 3:
+
+				formattedTotalAmount = df.format(totalAmountInCents);
+				formattedFinalAmount = df.format(totalAmountInCents);
+				break;
+
+			case 4:
+				formattedTotalAmount = EmptyValueFormat;
+				formattedFinalAmount = df.format(totalAmountInCents);
+				// For all Amounts are 0.00
+				formattedVisionOptical = EmptyValueFormat;
+				formattedCoPayment = EmptyValueFormat;
+				formattedDental = EmptyValueFormat;
+				break;
+
+			default:
+
+				String Sale_Request = CD_Sale_Request.CD_RW_SALE_REQUEST(CardToken, CI, CRM);
+				return Sale_Request;
+
+			}
+
+			/*
+			 * formattedPrescription = ""; formattedTotalAmount = ""; formattedVisionOptical
+			 * = ""; formattedCoPayment = ""; formattedDental = "";
+			 */
+
+			// Print results
+
+			System.out.println("Total Amount: " + formattedTotalAmount);
+			System.out.println("FSA Amount: " + formattedFinalAmount);
+			System.out.println("PrescriptionAmount  :  " + formattedPrescription);
+			System.out.println("VisionOpticalAmount  :  " + formattedVisionOptical);
+			System.out.println("CoPaymentAmount  :  " + formattedCoPayment);
+			System.out.println("DentalAmount  :  " + formattedDental);
 			// take a basic request
 			String xml = buildXMLRequest();
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
+			
+			if ((CRM != null || CI != null) && formattedTotalAmount.equalsIgnoreCase("0.00")) {
+			    formattedTotalAmount = formattedFinalAmount;
+			    System.out.println("Updated Total Amount is: " + formattedTotalAmount);   
+			}
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
+			setTagValue(document, "CardToken", CardToken);   
+			setTagValue(document, "CRMToken", CRM);
+			setTagValue(document, "CardIdentifier", CI);
+
 			setTagValue(document, "TransactionType", "02");
 
-			setTagValue(document, "TenderAmount", formattedTotalamount);
-			setTagValue(document, "TransactionTotal", formattedTotalamount);
-			setTagValue(document, "FSAAmount", formattedFamount);
-			setTagValue(document, "HealthCareAmount", formattedFamount);
-			setTagValue(document, "PrescriptionAmount", PrescriptionAmount);
-			setTagValue(document, "VisionOpticalAmount", VisionOpticalAmount);
-			setTagValue(document, "CoPaymentAmount", CoPaymentAmount);
-			setTagValue(document, "DentalAmount", DentalAmount);
-			setTagValue(document, "TaxAmount", "0.00");
+			setTagValue(document, "TenderAmount", formattedTotalAmount);
+			setTagValue(document, "TransactionTotal", formattedTotalAmount);
+			setTagValue(document, "FSAAmount", formattedFinalAmount);
+			setTagValue(document, "HealthCareAmount", formattedFinalAmount);
+			setTagValue(document, "PrescriptionAmount", formattedPrescription);
+			setTagValue(document, "VisionOpticalAmount", formattedVisionOptical);
+			setTagValue(document, "CoPaymentAmount", formattedCoPayment);
+			setTagValue(document, "DentalAmount", formattedDental);
+			setTagValue(document, "TaxAmount", "0.23");
 
+			// Convert the modified document back to a string
+			return documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static String FSA_VOID_REQUEST(String transID, String AuruspayTicketNum, String amount) {
+		try {
+
+			
+			String xml = buildXMLRequest();
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
+
+			setTagValue(document, "TenderAmount", amount);
+			setTagValue(document, "TransactionTotal", amount);
+			setTagValue(document, "FSAAmount", amount);
+			setTagValue(document, "HealthCareAmount", amount);
+
+			int decVer = getNextSequentialValueForVoid();
+			switch (decVer) {
+			case 1:
+				setTagValue(document, "PrescriptionAmount", amount);
+				setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
+				setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
+				setTagValue(document, "DentalAmount",EmptyValueFormat );
+				break;
+
+			case 2:
+				setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				setTagValue(document, "VisionOpticalAmount", amount);
+				setTagValue(document, "CoPaymentAmount", EmptyValueFormat);
+				setTagValue(document, "DentalAmount", EmptyValueFormat);
+				break;
+
+			case 3:
+				setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
+				setTagValue(document, "CoPaymentAmount",amount );
+				setTagValue(document, "DentalAmount",EmptyValueFormat );
+				break;
+
+			default:
+				
+				setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				setTagValue(document, "VisionOpticalAmount",EmptyValueFormat );
+				setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
+				setTagValue(document, "DentalAmount",amount );
+				break;
+			}
+
+			
+
+			setTagValue(document, "TaxAmount", "0.23");
+			setTagValue(document, "OrigAurusPayTicketNum", AuruspayTicketNum);
+			setTagValue(document, "OrigTransactionIdentifier", transID);
+			setTagValue(document, "TransactionType", "06");
+			
+			
+			
 			// Convert the modified document back to a string
 			return documentToString(document);
 		} catch (Exception e) {
@@ -305,7 +511,7 @@ public class FSARequest {
 	public static String FSA_SALE_REQUEST(String CardToken, String CI, String CRM, double AMT) {
 		try {
 
-			// Amount settelement
+			
 
 			double Prescription = 25.00;
 			double VisionOptical = 20.00;

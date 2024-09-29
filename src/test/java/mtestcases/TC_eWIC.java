@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import requestbuilder.ByPass;
 import utilities.Utils;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 
 public class TC_eWIC extends BaseClass {
 	@Test(invocationCount = 2)
@@ -22,22 +22,20 @@ public class TC_eWIC extends BaseClass {
 
 			List<String> saleResult = perform_eWICSale();
 
-			if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {
-				performVoidTransaction(saleResult);
-			}
+			performVoidTransaction(saleResult);
 
 		} catch (Exception e) {
-			System.out.println(e);   
+			System.out.println(e);
 		}
 
 	}
 
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {  
+	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();
-		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();
 		excelWriter.saveExcelFile(Utils.setFileName("eWIC"));
 

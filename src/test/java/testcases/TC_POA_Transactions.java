@@ -14,7 +14,7 @@ import utilities.Utils;
 import utilities.TransactionXL;
 import xmlrequestbuilder.A_L_Key_Request_Modification;
 import xmlrequestbuilder.CheckRequestModification;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 import xmlrequestbuilder.PLCC_Sale_Request_Modification;
 import xmlrequestbuilder.POA_RequestModification;
 import xmlrequestbuilder.Sale_Request_Modification;
@@ -90,11 +90,11 @@ public class TC_POA_Transactions {
 					List<String> POAData = POA_Response.print_Response("POA", parameters);
 					POAData.add(3, "POA");
 					excelWriter.writeDataRefundOfSale(POAData);
-					cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+					cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 				}
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			Thread.sleep(5000);
 			excelWriter.saveExcelFile(Utils.setFileName("PLCC Transactions"));
 
@@ -134,10 +134,10 @@ public class TC_POA_Transactions {
 				List<String> POAData = POA_Response.print_Response("POA", parameters);
 				POAData.add(3, "POA");
 				excelWriter.writeDataRefundOfSale(POAData);
-				cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			}
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			Thread.sleep(5000);
 			excelWriter.saveExcelFile(Utils.setFileName("PLCC Transactions"));
 
@@ -215,15 +215,15 @@ public class TC_POA_Transactions {
 						List<String> POAData = POA_Response.print_Response("POA", parameters);
 						POAData.add(3, "POA");
 						excelWriter.writeDataRefundOfSale(POAData);
-						cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+						cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 					} else
-						cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+						cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 				}
 
 			}
 
 		} finally {
-			cp.sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			Thread.sleep(5000);
 			excelWriter.saveExcelFile(Utils.setFileName("PLCC Transactions"));   
 

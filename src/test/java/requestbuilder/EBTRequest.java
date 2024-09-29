@@ -164,8 +164,8 @@ public class EBTRequest {
 
 			// Modify specific tag values
 			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
+			setTagValue(document, "CRMToken", CRM);
+			setTagValue(document, "CardIdentifier", CI);
 			setTagValue(document, "TransactionTotal", transactionAmount);
 			setTagValue(document, "TenderAmount", transactionAmount);
 			setTagValue(document, "EBTAmount", transactionAmount);
@@ -194,8 +194,8 @@ public class EBTRequest {
 
 			// Modify specific tag values
 			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
+			setTagValue(document, "CRMToken", CRM);
+			setTagValue(document, "CardIdentifier", CI);
 			setTagValue(document, "TransactionTotal", transactionAmount);
 			setTagValue(document, "TenderAmount", transactionAmount);
 			setTagValue(document, "EBTAmount", transactionAmount);

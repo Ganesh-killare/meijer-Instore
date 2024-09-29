@@ -11,20 +11,17 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import requestbuilder.ByPass;
 import utilities.Utils;
-import xmlrequestbuilder.Close_Transaction;
 
 public class ManualProcessorFailure extends BaseClass {
 
 	@Test(invocationCount = 2)
-	public void CREDIT_DEBIT_RefundOfSale() throws IOException, Exception {                  
+	public void CREDIT_DEBIT_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performCreditDebitSale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {           
-			performRefundTransaction(saleResult);
-		}
+		performRefundTransaction(saleResult);
 
 	}
 
@@ -35,72 +32,60 @@ public class ManualProcessorFailure extends BaseClass {
 
 		List<String> saleResult = performCreditDebitSale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {   
-			performVoidTransaction(saleResult);
-		}
+		performVoidTransaction(saleResult);
 
 	}
-	
+
 	@Test(invocationCount = 2)
 	public void EBT_RefundOfSale() throws IOException, Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();         
+		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
-   
+
 		List<String> saleResult = performEBTSale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {   
-			performRefundTransaction(saleResult);   
-		}
+		performRefundTransaction(saleResult);
 	}
 
 //	@Test(invocationCount = 2)
 	public void EBT_VoidOfSale() throws IOException, Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();       
+		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performEBTSale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {
-			performVoidTransaction(saleResult);
-		}
+		performVoidTransaction(saleResult);
 
 	}
-	
 
-//	@Test(invocationCount = 1)
+	// @Test(invocationCount = 1)
 	public void FSA_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performFSASale();
 
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {      
-			performRefundTransaction(saleResult);  
-		}
+		performRefundTransaction(saleResult);
 	}
 
 	@Test(invocationCount = 1)
-	public void FSA_VoidOfSale() throws IOException, Exception {      
-		fileName = new Exception().getStackTrace()[0].getMethodName();      
+	public void FSA_VoidOfSale() throws IOException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performFSASale();
-   
-		if (saleResult.get(0).equalsIgnoreCase(ApprovedText)) {        
-			performVoidTransaction(saleResult);
-		}
 
+		performVoidTransaction(saleResult);
 	}
-	@AfterMethod      
+
+	@AfterMethod
 	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();
-		sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();
 		excelWriter.saveExcelFile(Utils.setFileName("ManualProcessorFailure"));
 
 	}
-
 
 }

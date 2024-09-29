@@ -17,7 +17,7 @@ import responsevalidator.Response_Parameters;
 import utilities.Utils;
 import utilities.GIft_Data;
 import utilities.GiftDataXLwriting;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 import xmlrequestbuilder.GCB_Modification;
 import xmlrequestbuilder.Gift_Request_Modification;
 
@@ -75,28 +75,28 @@ public class TC_Gift_Activation extends BaseClass {
 	@Test(dataProvider = "GIFT_DATA", dataProviderClass = GIft_Data.class, priority = 1)
 	public void test_Gift(String transactionType, String amount, String cardNumber, String entrySource,
 			String transtype, String subtransType, String upsdata)
-			throws UnknownHostException, IOException, InterruptedException, Exception {
+			throws UnknownHostException, IOException, InterruptedException, Exception {    
 
 		try {
 
 			String giftRequest = GiftRequest.GIFT_REQUEST(amount, cardNumber, entrySource, subtransType, transtype,
 					upsdata, null);
-			// System.out.println(giftRequest);
+		//	System.out.println(giftRequest);
 
 			sendRequestToAESDK(giftRequest);
 			String giftResponse = receiveResponseFromAESDK();
 			Response_Parameters giftparameters = new Response_Parameters(giftResponse);
-			List<String> gift_Activation = giftparameters.print_Response(transactionType, parameters);
+			List<String> gift_Activation = giftparameters.print_Response(transactionType, parameters);   
 
 			if (transactionType.contains("Pre-Auth activation")) {
-				exceldata.WriteActivationData(gift_Activation, Parameters);
+				exceldata.WriteActivationData(gift_Activation, Parameters); 
 			} else {
 				gift_Activation.add(3, transactionType);
 				exceldata.writeDataRefundOfSale(gift_Activation);
 			}
 
 		} finally {
-			sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			receiveResponseFromAESDK();
 			exceldata.saveExcelFile(Utils.setFileName("gift_Transactions"));
 
@@ -104,32 +104,33 @@ public class TC_Gift_Activation extends BaseClass {
 
 	}
 
+	
+	// Use this method for GCB Swipe 
+	
 	@Test(dataProvider = "GIFT_DATA_S_M", dataProviderClass = GIft_Data.class, priority = 1)
 	public void testGiftTransactionsUsingGCBFlow(String transactionType, String amount, String cardNumber,
 			String entrySource, String transtype, String subtransType, String upsdata)
-			throws UnknownHostException, IOException, InterruptedException, Exception {
+			throws UnknownHostException, IOException, InterruptedException, Exception {   
 
 		try {
 
-			// GCB Started
+			// GCB        
 
-			String req = GCB_Modification.GCB_Request_Modified();
-			sendRequestToAESDK(req);
-			// System.out.println(req);
-			String res = receiveResponseFromAESDK();
-			// System.out.println(res);
+			String req = GCB_Modification.GCB_Request_Modified();   
+			sendRequestToAESDK(req); // System.out.println(req);
+			String res = receiveResponseFromAESDK(); // System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
-			String CardToken = GCBPrameter.getParameterValue("CardToken");
+			String CardToken = GCBPrameter.getParameterValue("CardToken");   
 			upsdata = GiftRequest.getUPCdata(CardToken);
 
-			GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);    
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 			if (result.equalsIgnoreCase("Approved")) {
 
 				String giftRequest = GiftRequest.GIFT_REQUEST(amount, cardNumber, entrySource, subtransType, transtype,
-						upsdata, CardToken);
-				// System.out.println(giftRequest);
+						upsdata, CardToken); //
+			//	System.out.println(giftRequest);
 
 				sendRequestToAESDK(giftRequest);
 				String giftResponse = receiveResponseFromAESDK();
@@ -144,7 +145,7 @@ public class TC_Gift_Activation extends BaseClass {
 				}
 			}
 		} finally {
-			sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			receiveResponseFromAESDK();
 			exceldata.saveExcelFile(Utils.setFileName("gift_Transactions"));
 
@@ -189,7 +190,7 @@ public class TC_Gift_Activation extends BaseClass {
 			}
 
 		} finally {
-			sendRequestToAESDK(Close_Transaction.Close_Transaction_Request());
+			sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			Thread.sleep(5000);
 			exceldata.saveExcelFile(Utils.setFileName("gift_Transactions"));
 

@@ -12,7 +12,7 @@ import requestbuilder.GetUserInput;
 import requestbuilder.ShowScreen;
 import responsevalidator.Response_Parameters;
 import utilities.Utils;
-import xmlrequestbuilder.Close_Transaction;
+import xmlrequestbuilder.CloseRequest;
 
 public class POS_APIs extends BaseClass {
 
@@ -26,6 +26,8 @@ public class POS_APIs extends BaseClass {
 		receiveResponseFromAESDK();
 
 	}
+	
+
 
 	private void performTransamountConfirmation(String amount)
 			throws UnknownHostException, IOException, InterruptedException, JDOMException {
@@ -33,6 +35,7 @@ public class POS_APIs extends BaseClass {
 		String confirmResponse = receiveResponseFromAESDK();
 		try {   
 			Response_Parameters confirmresponse = new Response_Parameters(confirmResponse);
+		
 			Assert.assertEquals("01", confirmresponse.getParameterValue("ButtonReturn"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -52,9 +55,12 @@ public class POS_APIs extends BaseClass {
 		} else {
 			roundedAmountString = String.valueOf(new Random().nextInt(100) + 1);
 			roundedAmountString = roundedAmountString + ".00";
+			
+		//	roundedAmountString = "05" + ".08";
+		//	roundedAmountString = "100" + ".16";
 		}
 
-//		pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM
+//	pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM
 																// transactions
 		return roundedAmountString;
 	}
@@ -63,9 +69,9 @@ public class POS_APIs extends BaseClass {
 		// POS APIs 1
 
 		Random random = new Random();
-	//	int randomNumber = random.nextInt(7);
+		int randomNumber = random.nextInt(7);
 
-		 int randomNumber = 1;
+		// int randomNumber = randomNumber;
 //		System.out.println(randomNumber);
 
 		switch (randomNumber) {
