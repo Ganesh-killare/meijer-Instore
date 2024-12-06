@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -52,6 +53,12 @@ public class TC_NegativeBOSenario {
 	@BeforeClass   
 	public void setHeadlines() throws Exception, Exception, InterruptedException {   
 		
+		
+		System.out.println("Call Indrajeet to Rest the Counter");
+		Scanner sc = new Scanner(System.in);
+		String Status = sc.nextLine();
+		System.out.println(Status);
+		sc.close();
 		
 		System.out.println("PLEASE USE CREDIT CARD");
 

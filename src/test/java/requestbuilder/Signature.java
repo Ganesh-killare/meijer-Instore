@@ -23,7 +23,7 @@ public class Signature {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 			// Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -91,39 +91,7 @@ public class Signature {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
-	}
+	
 
 	public static String Request(String transID) {
 		try {
@@ -135,10 +103,10 @@ public class Signature {
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
 			// Modify specific tag values
-			setTagValue(document, "TransactionIdentifier", transID);
+			RequestUtils.setTagValue(document, "TransactionIdentifier", transID);
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -155,11 +123,11 @@ public class Signature {
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
 			// Modify specific tag values
-			setTagValue(document, "SignUploadFlag", "N");
-			setTagValue(document, "ECAFlag", "0");
+			RequestUtils.setTagValue(document, "SignUploadFlag", "N");
+			RequestUtils.setTagValue(document, "ECAFlag", "0");
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

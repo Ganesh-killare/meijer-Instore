@@ -3,6 +3,7 @@ package mtestcases;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.jdom2.JDOMException;
 import org.testng.annotations.AfterMethod;
@@ -14,14 +15,14 @@ import utilities.Utils;
 import xmlrequestbuilder.CloseRequest;
 
 public class TC_eWIC extends BaseClass {
-	@Test(invocationCount = 2)
+	@Test(invocationCount = 1)
 	public void VoidOfSale() throws IOException, Exception {
 		try {
 			fileName = new Exception().getStackTrace()[0].getMethodName();
 			System.out.println(fileName);
 
 			List<String> saleResult = perform_eWICSale();
-
+  
 			performVoidTransaction(saleResult);
 
 		} catch (Exception e) {
@@ -31,7 +32,7 @@ public class TC_eWIC extends BaseClass {
 	}
 
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();

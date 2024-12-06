@@ -3,6 +3,7 @@ package base;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import org.jdom2.JDOMException;
 import org.testng.Assert;
@@ -19,23 +20,21 @@ public class POS_APIs extends BaseClass {
 	public void beforeGetCardBinAPIs() throws Exception, IOException, InterruptedException {
 
 		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
-		
+
 		Thread.sleep(1000);
 
 		sendRequestToAESDK(ByPass.Random());
 		receiveResponseFromAESDK();
 
 	}
-	
-
 
 	private void performTransamountConfirmation(String amount)
-			throws UnknownHostException, IOException, InterruptedException, JDOMException {
+			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 		sendRequestToAESDK(ShowScreen.showScreenRequest(amount));
 		String confirmResponse = receiveResponseFromAESDK();
-		try {   
+		try {
 			Response_Parameters confirmresponse = new Response_Parameters(confirmResponse);
-		
+
 			Assert.assertEquals("01", confirmresponse.getParameterValue("ButtonReturn"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -55,13 +54,13 @@ public class POS_APIs extends BaseClass {
 		} else {
 			roundedAmountString = String.valueOf(new Random().nextInt(100) + 1);
 			roundedAmountString = roundedAmountString + ".00";
-			
-		//	roundedAmountString = "05" + ".08";
-		//	roundedAmountString = "100" + ".16";
+
+			// roundedAmountString = "05" + ".08";
+			 roundedAmountString = "00.00";
 		}
 
 //	pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM
-																// transactions
+		// transactions
 		return roundedAmountString;
 	}
 
@@ -120,6 +119,9 @@ public class POS_APIs extends BaseClass {
 
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
+
+			sendRequestToAESDK(ShowScreen.receiptOptionsRequest());
+			sendRequestToAESDK(ByPass.Option2());
 
 			// Get User Input
 			sendRequestToAESDK(GetUserInput.MperkPINRequest());

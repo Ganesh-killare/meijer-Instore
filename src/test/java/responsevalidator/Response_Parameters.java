@@ -15,7 +15,9 @@ public class Response_Parameters {
     public Response_Parameters(String xml) throws Exception {
     	try {
     		 SAXBuilder saxBuilder = new SAXBuilder();
-    	        document = saxBuilder.build(new StringReader(xml));
+    		 String sanitizedXml = xml.replaceAll("[^\\x20-\\x7E]", "");
+    		 
+    	        document = saxBuilder.build(new StringReader(sanitizedXml));
 		} catch (Exception e) {
 			System.err.println("We are getting something fishy in XML");
 			System.out.println(xml);

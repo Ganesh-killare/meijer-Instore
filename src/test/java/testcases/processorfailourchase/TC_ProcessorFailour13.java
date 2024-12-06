@@ -1,7 +1,6 @@
 
 package testcases.processorfailourchase;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,13 +27,13 @@ import xmlrequestbuilder.GCB_Modification;
 import xmlrequestbuilder.Refund_Request_Modification;
 import xmlrequestbuilder.Sale_Request_Modification;
 
-public class TC_ProcessorFailour13 {  
-	String fileName = "C_ProcessorFailure_100.13";  
+public class TC_ProcessorFailour13 {
+	String fileName = "C_ProcessorFailure_100.13";
 	String transType = "01"; // Change accordingly
-    String transName = "sale"; // Change accordingly
+	String transName = "sale"; // Change accordingly   
 
 	BaseClass cp = new BaseClass();
-	ProcessorFailourXL xlWriter = new ProcessorFailourXL();       
+	ProcessorFailourXL xlWriter = new ProcessorFailourXL();
 	AESDKData ad = new AESDKData();
 
 	String[] parameters = { "CardToken", "CardIdentifier", "CRMToken", "CardEntryMode", "TransactionTypeCode",
@@ -43,20 +42,18 @@ public class TC_ProcessorFailour13 {
 	List<String> GCB_Parameters = new ArrayList<>(Arrays.asList(parameters));
 	P_XL_Utility xl = new P_XL_Utility();
 
-	
-	List<String> headlines =  xlWriter.headlineSetter("91", "ISSUER OR SWITCH OPERATIVE", "CHASE");
+	List<String> headlines = xlWriter.headlineSetter("91", "ISSUER OR SWITCH OPERATIVE", "CHASE");
 
 	private static int invocationCount = 1;
 
-	@BeforeClass   
-	public void setHeadlines() throws Exception, Exception, InterruptedException {   
-		
-		
-		System.out.println("PLEASE USE CREDIT CARD");
+	@BeforeClass
+	public void setHeadlines() throws Exception, Exception, InterruptedException {
 
+		System.out.println("PLEASE USE CREDIT CARD");
+   
 		try {
 
-			BaseClass cp = new BaseClass();   
+			BaseClass cp = new BaseClass();
 
 			// GCB Started
 
@@ -67,14 +64,12 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String Sale_Request = Sale_Request_Modification.P_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"),     
-					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"), transType,
-					"45.00");
+			String Sale_Request = Sale_Request_Modification.P_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"),
+					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"),
+					transType, "45.00");
 
-			 GCBPrameter.print_Response("GCB", parameters);
-			 
+			GCBPrameter.print_Response("GCB", parameters);
 
-		
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
 			if (result.equalsIgnoreCase("Approved")) {
@@ -88,16 +83,15 @@ public class TC_ProcessorFailour13 {
 				String sale_Respose = cp.receiveResponseFromAESDK();
 				// System.out.println(sale_Respose);
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
-				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
+				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);   
 				saleData.add(3, transName);
-				
-			
-					xlWriter.writeHeadline(headlines.get(0));
-					List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
-					saleData.add(0, expectedList.get(0));
-					saleData.add(saleData.size()-1 , expectedList.get(5));
-				
-					xlWriter.writeTransactionData(saleData);
+
+				xlWriter.writeHeadline(headlines.get(0));
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
+				saleData.add(0, expectedList.get(0));
+				saleData.add(saleData.size() - 1, expectedList.get(5));
+
+				xlWriter.writeTransactionData(saleData);
 				ad.writeAESDKRequestAndResponse(Sale_Request, sale_Respose);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -117,13 +111,13 @@ public class TC_ProcessorFailour13 {
 			cp.receiveResponseFromAESDK();
 			xlWriter.writeHeadline(headlines.get(1));
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
-		
+
 		}
 	}
-	// 2 Credit or Debit sale are there   
-	      
-	@Test(invocationCount = 2, priority = 1)   
-	public void DebitSale() throws Exception, Exception {  
+	// 2 Credit or Debit sale are there
+
+	@Test(invocationCount = 2, priority = 1)
+	public void Normal_DebitSale() throws Exception, Exception {
 		System.out.println("PLEASE USE CREDIT OR DEBIT CARD");
 
 		try {
@@ -137,17 +131,14 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(req);
 			String res = cp.receiveResponseFromAESDK();
 			// System.out.println(res);
-			Response_Parameters GCBPrameter = new Response_Parameters(res);   
+			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
 			String Sale_Request = Sale_Request_Modification.modified_Sale_Request(
-					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),   
+					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
 					GCBPrameter.getParameterValue("CRMToken"), transType);
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
-			 
-
-		
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
 			if (result.equalsIgnoreCase("Approved")) {
@@ -164,13 +155,11 @@ public class TC_ProcessorFailour13 {
 
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-				
 
-				
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(5));
-			
+				saleData.add(saleData.size() - 1, expectedList.get(5));
+
 				xlWriter.writeTransactionData(saleData);
 				ad.writeAESDKRequestAndResponse(Sale_Request, sale_Respose);
 
@@ -182,24 +171,22 @@ public class TC_ProcessorFailour13 {
 				String AurusPayTicketNum = saleResponse.getParameterValue("AurusPayTicketNum");
 				String Amount = saleResponse.getParameterValue("TransactionAmount");
 				String PMI = saleResponse.getParameterValue("ProcessorMerchantId");
-				List<String> data = Arrays.asList(transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI);  
+				List<String> data = Arrays.asList(transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI);
 				xl.writeDataForVoid(data);
 
 			}
 		} finally {
 			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			
 
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
 
-
 	// There are 1 FSA Sales (Normal Sales)
 	@Test(priority = 2)
-	public void P_FSA() throws Exception, Exception {  
+	public void Noraml_FSA() throws Exception, Exception {
 		System.out.println("PLEASE USE FSA CARD");
 		try {
 
@@ -212,15 +199,14 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(req);
 			String res = cp.receiveResponseFromAESDK();
 			// System.out.println(res);
-			Response_Parameters GCBPrameter = new Response_Parameters(res);   
+			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-
-			String Sale_Request = FSA_Sale_Request.modified_FSA_SALE_Request(
-					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
-					GCBPrameter.getParameterValue("CRMToken"), transType);
+			String Sale_Request = FSA_Sale_Request.modified_FSA_SALE_Request(GCBPrameter.getParameterValue("CardToken"),
+					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"),
+					transType);
 			// System.out.println(Sale_Request);
-			 GCBPrameter.print_Response("GCB", parameters);
-			 
+			GCBPrameter.print_Response("GCB", parameters);
+
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
 			if (result.equalsIgnoreCase("Approved")) {
@@ -236,15 +222,15 @@ public class TC_ProcessorFailour13 {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-			 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(5));
-			
+				saleData.add(saleData.size() - 1, expectedList.get(5));
+
 				xlWriter.writeTransactionData(saleData);
 
 				// Assert.assertEquals(cardType, "MCD");
-				String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");  
+				String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");
 				// Assert.assertEquals(transactionIdentifier.substring(0, 1), "1");
 
 				// Assert.assertEquals(responseText, "APPROVAL");
@@ -257,7 +243,7 @@ public class TC_ProcessorFailour13 {
 		} finally {
 			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-		
+
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
@@ -266,7 +252,7 @@ public class TC_ProcessorFailour13 {
 	// There are 1 E-wic sale
 
 	@Test(invocationCount = 1, priority = 3)
-	public void Ewic_Transactions() throws Exception, Exception {   
+	public void Normal_Ewic_Transactions() throws Exception, Exception {
 		System.out.println("PLEASE USE E-WIC CARDS");
 		try {
 
@@ -280,8 +266,8 @@ public class TC_ProcessorFailour13 {
 			String res = cp.receiveResponseFromAESDK();
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
-			 GCBPrameter.print_Response("GCB", parameters);
-			 
+			GCBPrameter.print_Response("GCB", parameters);
+
 			String cardToken = GCBPrameter.getParameterValue("CardToken");
 			String saleRequest = Ewic_Sale_Request.modified_Ewic_Sale_Request(cardToken);
 
@@ -293,7 +279,6 @@ public class TC_ProcessorFailour13 {
 			Response_Parameters BalanceResponse = new Response_Parameters(BalanceInRes);
 			List<String> BI_Data = BalanceResponse.print_Response(" Balance Inquiry  : ", parameters);
 			BI_Data.add(3, "Balance Inquiry");
-			
 
 			String BIresponseText = BalanceResponse.getParameterValue("ResponseText");
 
@@ -308,13 +293,13 @@ public class TC_ProcessorFailour13 {
 				String PMI = saleResponse.getParameterValue("ProcessorMerchantId");
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-				
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(5));
-			
+				saleData.add(saleData.size() - 1, expectedList.get(5));
+
 				xlWriter.writeTransactionData(saleData);
-				
+
 				List<String> data = Arrays.asList(transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI);
 				xl.writeDataForVoid(data);
 
@@ -325,16 +310,16 @@ public class TC_ProcessorFailour13 {
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 			cp.receiveResponseFromAESDK();
-		
+
 		}
 
 	}
-
+ 
 	// There are 2 EBT Sales (Normal Sales)
 
 	@Test(invocationCount = 2, priority = 4)
 
-	public void P_EBT() throws Exception {
+	public void Noraml_P_EBT() throws Exception {
 		System.out.println("PLEASE USE EBT CARD");
 
 		try {
@@ -350,10 +335,11 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String Sale_Request = EBT_Sale_Request.modified_Sale_Request(GCBPrameter.getParameterValue("CardToken"), transType);
+			String Sale_Request = EBT_Sale_Request.modified_Sale_Request(GCBPrameter.getParameterValue("CardToken"),
+					transType);
 
-			 GCBPrameter.print_Response("GCB", parameters);
-			 
+			GCBPrameter.print_Response("GCB", parameters);
+
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
 			if (result.equalsIgnoreCase("Approved")) {
@@ -369,12 +355,11 @@ public class TC_ProcessorFailour13 {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-			
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(5));
-			
+				saleData.add(saleData.size() - 1, expectedList.get(5));
+
 				xlWriter.writeTransactionData(saleData);
 				// Assert.assertEquals(cardType, "MCD");
 				String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");
@@ -397,9 +382,8 @@ public class TC_ProcessorFailour13 {
 
 	// There are 3 CREDIT OR DEBIT Sales (Using Amount 100.13)
 	@Test(invocationCount = 3, priority = 5)
-	public void F_creditSale() throws Exception, Exception {    
-	
-		
+	public void Failure_creditSale() throws Exception, Exception {
+
 		System.out.println("PLEASE USE CREDIT CARD  :: This sale is using amount 100.13");
 		// excelWriter.writeHeadlineData(notes.get(1));
 
@@ -414,13 +398,13 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(req);
 			String res = cp.receiveResponseFromAESDK();
 			// System.out.println(res);
-			Response_Parameters GCBPrameter = new Response_Parameters(res);     
+			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
 			String Sale_Request = Sale_Request_Modification.P_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"),
 					(GCBPrameter.getParameterValue("CardIdentifier")), (GCBPrameter.getParameterValue("CRMToken")),
 					transType, "100.13");
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -437,14 +421,12 @@ public class TC_ProcessorFailour13 {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-				
-				
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
+
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
 				saleData.add(0, expectedList.get(1));
-				saleData.add(saleData.size()-1 , expectedList.get(6));
-				saleData.add(expectedList.get(expectedList.size()-1));
-				
-			
+				saleData.add(saleData.size() - 1, expectedList.get(6));
+				saleData.add(expectedList.get(expectedList.size() - 1));
+
 				xlWriter.writeTransactionData(saleData);
 				ad.writeAESDKRequestAndResponse(Sale_Request, sale_Respose);
 
@@ -465,156 +447,152 @@ public class TC_ProcessorFailour13 {
 			cp.receiveResponseFromAESDK();
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
-			invocationCount ++;
-			System.out.println(invocationCount);
+			invocationCount++;
+			System.out.println(invocationCount);    
 		}
 	}
-	
-	
-	
+
 	// One FSA Transaction using amount 100.13
-	
-	// There are 1 FSA Sales (After Failour transactions should be go through wordpay)
-		@Test(priority = 6)
-		public void P_HardCode__FSA() throws Exception, Exception {
-			System.out.println("PLEASE USE FSA CARD  :: This sale is using amount 100.13");
 
-			try {
+	// There are 1 FSA Sales (After Failour transactions should be go through
+	// wordpay)
+	@Test(priority = 6)
+	public void Failover_HardCode__FSA() throws Exception, Exception {
+		System.out.println("PLEASE USE FSA CARD  :: This sale is using amount 100.13");                    
 
-				BaseClass cp = new BaseClass();   
+		try {
 
-				// GCB Started
+			BaseClass cp = new BaseClass();
 
-				String req = GCB_Modification.fsa_GCB_Request_Modified();
-				cp.sendRequestToAESDK(req);
-				// System.out.println(req);
-				String res = cp.receiveResponseFromAESDK();
-				// System.out.println(res);
-				Response_Parameters GCBPrameter = new Response_Parameters(res);
+			// GCB Started
 
-				String Sale_Request = FSA_Sale_Request.P_FSA_SALE_Request(
-						GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
-						GCBPrameter.getParameterValue("CRMToken"), transType, 0.13);
+			String req = GCB_Modification.fsa_GCB_Request_Modified();
+			cp.sendRequestToAESDK(req);
+			// System.out.println(req);
+			String res = cp.receiveResponseFromAESDK();
+			// System.out.println(res);
+			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
+			String Sale_Request = FSA_Sale_Request.P_FSA_SALE_Request(GCBPrameter.getParameterValue("CardToken"),
+					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"),
+					transType, 0.13);
 
-				// System.out.println(Sale_Request);     
-				 GCBPrameter.print_Response("GCB", parameters);
+			// System.out.println(Sale_Request);
+			GCBPrameter.print_Response("GCB", parameters);
 
-				String result = GCBPrameter.getParameterValue("ResponseText");
+			String result = GCBPrameter.getParameterValue("ResponseText");
 
-				if (result.equalsIgnoreCase("Approved")) {
+			if (result.equalsIgnoreCase("Approved")) {
 
-					// GCBPrameter.print_Response(GCB_Response);
+				// GCBPrameter.print_Response(GCB_Response);
 
-					// Sale Satrted
+				// Sale Satrted
 
-					cp.sendRequestToAESDK(Sale_Request);
-					// System.out.println(Sale_Request);
-					String sale_Respose = cp.receiveResponseFromAESDK();
-					// System.out.println(sale_Respose);
-					Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
-					List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
-					saleData.add(3, transName);
-					List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
-					saleData.add(0, expectedList.get(1));
-					saleData.add(saleData.size()-1 , expectedList.get(6));
-					saleData.add(expectedList.get(expectedList.size()-1));
-					
-				
-					xlWriter.writeTransactionData(saleData);
-					// Assert.assertEquals(cardType, "MCD");
-					String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");
-					// Assert.assertEquals(transactionIdentifier.substring(0, 1), "1");
+				cp.sendRequestToAESDK(Sale_Request);
+				// System.out.println(Sale_Request);
+				String sale_Respose = cp.receiveResponseFromAESDK();
+				// System.out.println(sale_Respose);
+				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
+				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
+				saleData.add(3, transName);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
+				saleData.add(0, expectedList.get(1));
+				saleData.add(saleData.size() - 1, expectedList.get(6));
+				saleData.add(expectedList.get(expectedList.size() - 1));
 
-					// Assert.assertEquals(responseText, "APPROVAL");
-					String AurusPayTicketNum = saleResponse.getParameterValue("AurusPayTicketNum");
-					String Amount = saleResponse.getParameterValue("TransactionAmount");
-					String PMI = saleResponse.getParameterValue("ProcessorMerchantId");
-					List<String> data = Arrays.asList(transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI);
-					xl.writeDataForVoid(data);
-				}
-			} finally {
-				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
-				cp.receiveResponseFromAESDK();
-				xlWriter.saveExcelFile(Utils.setFileName(fileName));
-				xl.saveExcelFile();
-				invocationCount++ ;
+				xlWriter.writeTransactionData(saleData);
+				// Assert.assertEquals(cardType, "MCD");
+				String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");
+				// Assert.assertEquals(transactionIdentifier.substring(0, 1), "1");
 
+				// Assert.assertEquals(responseText, "APPROVAL");
+				String AurusPayTicketNum = saleResponse.getParameterValue("AurusPayTicketNum");
+				String Amount = saleResponse.getParameterValue("TransactionAmount");
+				String PMI = saleResponse.getParameterValue("ProcessorMerchantId");
+				List<String> data = Arrays.asList(transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI);
+				xl.writeDataForVoid(data);
 			}
+		} finally {
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
+			cp.receiveResponseFromAESDK();
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
+			xl.saveExcelFile();
+			invocationCount++;
+
 		}
-	
-	
-		// Two EBT Transactions Using 100.13 amount
-		
-		
-@Test(invocationCount = 1 , priority = 7)
-		public void P_HardCode__EBT() throws Exception {
-			System.out.println("PLEASE USE EBT CARD  :: This sale is using amount 100.13");      
+	}
 
-			try {
+	// Two EBT Transactions Using 100.13 amount
 
-				BaseClass cp = new BaseClass();
+	@Test(invocationCount = 1, priority = 7)
+	public void failover_HardCode__EBT() throws Exception {
+		System.out.println("PLEASE USE EBT CARD  :: This sale is using amount 100.13");
 
-				// GCB Started
+		try {
 
-				String req = GCB_Modification.GCB_Request_Modified();
-				cp.sendRequestToAESDK(req);
-				// System.out.println(req);
-				String res = cp.receiveResponseFromAESDK();
-				// System.out.println(res);
-				Response_Parameters GCBPrameter = new Response_Parameters(res);
+			BaseClass cp = new BaseClass();
 
-				String Sale_Request = EBT_Sale_Request.P_EBT_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"), transType, "100.13");  
+			// GCB Started
 
-				 GCBPrameter.print_Response("GCB", parameters);
+			String req = GCB_Modification.GCB_Request_Modified();
+			cp.sendRequestToAESDK(req);
+			// System.out.println(req);
+			String res = cp.receiveResponseFromAESDK();
+			// System.out.println(res);
+			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-				String result = GCBPrameter.getParameterValue("ResponseText");
+			String Sale_Request = EBT_Sale_Request.P_EBT_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"),
+					transType, "100.13");
 
-				if (result.equalsIgnoreCase("Approved")) {
+			GCBPrameter.print_Response("GCB", parameters);
 
-					// GCBPrameter.print_Response(GCB_Response);   
+			String result = GCBPrameter.getParameterValue("ResponseText");
 
-					// Sale Satrted
+			if (result.equalsIgnoreCase("Approved")) {
 
-					cp.sendRequestToAESDK(Sale_Request);
-					// System.out.println(Sale_Request);
-					String sale_Respose = cp.receiveResponseFromAESDK();
-					// System.out.println(sale_Respose);
-					Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
-					List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
-					saleData.add(3, transName);
-					List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
-					
-					saleData.add(0, expectedList.get(1));
-					saleData.add(saleData.size()-1 , expectedList.get(6));
-					saleData.add(expectedList.get(expectedList.size()-1));
-					xlWriter.writeTransactionData(saleData);
-					
-					// Assert.assertEquals(cardType, "MCD");
-					String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");  
-					// Assert.assertEquals(transactionIdentifier.substring(0, 1), "1");
+				// GCBPrameter.print_Response(GCB_Response);
 
-					// Assert.assertEquals(responseText, "APPROVAL");
-					String AurusPayTicketNum = saleResponse.getParameterValue("AurusPayTicketNum");
-					String Amount = saleResponse.getParameterValue("TransactionAmount");
-					String PMI = saleResponse.getParameterValue("ProcessorMerchantId");
+				// Sale Satrted
 
-					List<String> data = Arrays.asList(transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI);
-					xl.writeDataForVoid(data);
-				}
-			} finally {
-				cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
-				cp.receiveResponseFromAESDK();
-				xlWriter.writeHeadline(headlines.get(2));
-				xlWriter.saveExcelFile(Utils.setFileName(fileName));
-				xl.saveExcelFile();
-				invocationCount++;
+				cp.sendRequestToAESDK(Sale_Request);
+				// System.out.println(Sale_Request);
+				String sale_Respose = cp.receiveResponseFromAESDK();
+				// System.out.println(sale_Respose);
+				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
+				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
+				saleData.add(3, transName);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
 
+				saleData.add(0, expectedList.get(1));
+				saleData.add(saleData.size() - 1, expectedList.get(6));
+				saleData.add(expectedList.get(expectedList.size() - 1));
+				xlWriter.writeTransactionData(saleData);
+
+				// Assert.assertEquals(cardType, "MCD");
+				String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");
+				// Assert.assertEquals(transactionIdentifier.substring(0, 1), "1");
+
+				// Assert.assertEquals(responseText, "APPROVAL");
+				String AurusPayTicketNum = saleResponse.getParameterValue("AurusPayTicketNum");
+				String Amount = saleResponse.getParameterValue("TransactionAmount");
+				String PMI = saleResponse.getParameterValue("ProcessorMerchantId");
+
+				List<String> data = Arrays.asList(transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI);
+				xl.writeDataForVoid(data);
 			}
-		}
-		
+		} finally {
+			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
+			cp.receiveResponseFromAESDK();
+			xlWriter.writeHeadline(headlines.get(2));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));
+			xl.saveExcelFile();
+			invocationCount++;
 
-	// There are 3 CREDIT OR DEBIT Sales (After Failour transactions should be go through wordpay)
+		}
+	}
+
+	// There are 3 CREDIT OR DEBIT Sales (After Failour transactions should be go
+	// through wordpay)
 	@Test(invocationCount = 3, priority = 8)
 	public void SECOUNDARY_creditAndDebitSale() throws Exception, Exception {
 		System.out.println("PLEASE USE CREDIT OR DEBIT CARD");
@@ -626,7 +604,7 @@ public class TC_ProcessorFailour13 {
 
 			// GCB Started
 
-			String req = GCB_Modification.GCB_Request_Modified();   
+			String req = GCB_Modification.GCB_Request_Modified();
 			cp.sendRequestToAESDK(req);
 			// System.out.println(req);
 			String res = cp.receiveResponseFromAESDK();
@@ -641,7 +619,7 @@ public class TC_ProcessorFailour13 {
 			// Sale_Request_Modification.modified_Sale_Request(GCBResponse.getParameterValue("CardToken"),
 			// null, null);
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -658,14 +636,14 @@ public class TC_ProcessorFailour13 {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-				
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
-				
+
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
+
 				saleData.add(0, expectedList.get(2));
-				saleData.add(saleData.size()-1 , expectedList.get(7));
-				
+				saleData.add(saleData.size() - 1, expectedList.get(7));
+
 				xlWriter.writeTransactionData(saleData);
-				
+
 				ad.writeAESDKRequestAndResponse(Sale_Request, sale_Respose);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -689,7 +667,8 @@ public class TC_ProcessorFailour13 {
 
 	}
 
-	// There are 1 FSA Sales (After Failour transactions should be go through wordpay)
+	// There are 1 FSA Sales (After Failour transactions should be go through
+	// wordpay)
 	@Test(priority = 9)
 	public void P_SECOUNDARY__FSA() throws Exception, Exception {
 		System.out.println("PLEASE USE FSA CARD");
@@ -707,12 +686,12 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String Sale_Request = FSA_Sale_Request.modified_FSA_SALE_Request(
-					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
-					GCBPrameter.getParameterValue("CRMToken"), transType);
+			String Sale_Request = FSA_Sale_Request.modified_FSA_SALE_Request(GCBPrameter.getParameterValue("CardToken"),
+					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"),
+					transType);
 
 			// System.out.println(Sale_Request);
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -730,11 +709,11 @@ public class TC_ProcessorFailour13 {
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
-				
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
+
 				saleData.add(0, expectedList.get(2));
-				saleData.add(saleData.size()-1 , expectedList.get(7));
-				
+				saleData.add(saleData.size() - 1, expectedList.get(7));
+
 				xlWriter.writeTransactionData(saleData);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -757,7 +736,8 @@ public class TC_ProcessorFailour13 {
 		}
 	}
 
-	// There are 2 EBT Sales (After Failour transactions should be go through	// wordpay)   
+	// There are 2 EBT Sales (After Failour transactions should be go through //
+	// wordpay)
 	@Test(invocationCount = 2, priority = 10)
 
 	public void P_SECOUNDARY__EBT() throws Exception {
@@ -776,9 +756,10 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String Sale_Request = EBT_Sale_Request.modified_Sale_Request(GCBPrameter.getParameterValue("CardToken"), transType);  
+			String Sale_Request = EBT_Sale_Request.modified_Sale_Request(GCBPrameter.getParameterValue("CardToken"),
+					transType);
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -796,11 +777,11 @@ public class TC_ProcessorFailour13 {
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
-				
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
+
 				saleData.add(0, expectedList.get(2));
-				saleData.add(saleData.size()-1 , expectedList.get(7));
-				
+				saleData.add(saleData.size() - 1, expectedList.get(7));
+
 				xlWriter.writeTransactionData(saleData);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -824,7 +805,7 @@ public class TC_ProcessorFailour13 {
 		}
 	}
 
-	// All Void Transactions   
+	// All Void Transactions
 
 	@Test(priority = 11, dataProvider = "VoidData", dataProviderClass = TC_ProcessorFailour13.class)
 
@@ -832,30 +813,28 @@ public class TC_ProcessorFailour13 {
 			String PMI) throws Exception, Exception, InterruptedException {
 
 		try {
-			if (!amount.equalsIgnoreCase("0.00") && !amount.isEmpty() && !TransID.substring(0, 1).equalsIgnoreCase("O")) {
+			if (!amount.equalsIgnoreCase("0.00") && !amount.isEmpty()
+					&& !TransID.substring(0, 1).equalsIgnoreCase("O")) {
 				String VOid_Request = Refund_Request_Modification.modified_Refund_Request(transType, amount,
 						AurusPayTicketNumber, TransID);
 
 				cp.sendRequestToAESDK(VOid_Request);
-				String voidResponse = cp.receiveResponseFromAESDK(); 
+				String voidResponse = cp.receiveResponseFromAESDK();
 
 				Response_Parameters VoidResponse = new Response_Parameters(voidResponse); // IMP
 
 				List<String> VoidData = VoidResponse.print_Response("VOID", parameters);
 				VoidData.add(3, "Void");
-				
-				
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);  
-				
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
+
 				VoidData.add(0, expectedList.get(0));
-				VoidData.add(VoidData.size()-1 , expectedList.get(8));
+				VoidData.add(VoidData.size() - 1, expectedList.get(8));
 				VoidData.add("Parent transId is :- " + TransID + " ,  AurusPayTicketNumber :- " + AurusPayTicketNumber
 						+ " And sale Processor MID is :- " + PMI);
-				
+
 				xlWriter.writeTransactionData(VoidData);
-				
-			
+
 				String ProMerID = VoidResponse.getParameterValue("ProcessorMerchantId");
 				ad.writeAESDKRequestAndResponse(VOid_Request, voidResponse);
 				Assert.assertEquals(ProMerID, PMI, "Processor ID MissMatch.......");
@@ -869,7 +848,7 @@ public class TC_ProcessorFailour13 {
 
 	}
 
-	// This is the data provider method for the "Void Transactions"  
+	// This is the data provider method for the "Void Transactions"
 
 	@DataProvider(name = "VoidData")
 	public String[][] allTransactionsVoid() throws IOException {
@@ -896,7 +875,7 @@ public class TC_ProcessorFailour13 {
 	// This Test cases Dedicated for Counter reset
 	@Test(priority = 12)
 	public void ResetCount() throws Exception {
-		
+
 		System.out.println("PLEASE USE CREDIT CARD");
 
 		try {
@@ -912,11 +891,11 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String Sale_Request = Sale_Request_Modification.P_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"),     
-					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"), transType,
-					"45.00");
+			String Sale_Request = Sale_Request_Modification.P_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"),
+					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"),
+					transType, "45.00");
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -932,12 +911,12 @@ public class TC_ProcessorFailour13 {
 				// System.out.println(sale_Respose);
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
-				
+
 				saleData.add(3, transName);
 				xlWriter.writeHeadline(headlines.get(0));
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(5));
+				saleData.add(saleData.size() - 1, expectedList.get(5));
 				xlWriter.writeTransactionData(saleData);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -984,7 +963,7 @@ public class TC_ProcessorFailour13 {
 					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
 					GCBPrameter.getParameterValue("CRMToken"), transType);
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -1001,16 +980,13 @@ public class TC_ProcessorFailour13 {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-				
-				
-				
-			
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(9));
-				
+				saleData.add(saleData.size() - 1, expectedList.get(9));
+
 				xlWriter.writeTransactionData(saleData);
-				
+
 				ad.writeAESDKRequestAndResponse(Sale_Request, sale_Respose);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -1052,9 +1028,10 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String Sale_Request = EBT_Sale_Request.modified_Sale_Request(GCBPrameter.getParameterValue("CardToken"), transType);
+			String Sale_Request = EBT_Sale_Request.modified_Sale_Request(GCBPrameter.getParameterValue("CardToken"),
+					transType);
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -1072,10 +1049,10 @@ public class TC_ProcessorFailour13 {
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(9));
-				
+				saleData.add(saleData.size() - 1, expectedList.get(9));
+
 				xlWriter.writeTransactionData(saleData);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -1116,13 +1093,12 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-
-			String Sale_Request = FSA_Sale_Request.modified_FSA_SALE_Request(
-					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
-					GCBPrameter.getParameterValue("CRMToken"), transType);
+			String Sale_Request = FSA_Sale_Request.modified_FSA_SALE_Request(GCBPrameter.getParameterValue("CardToken"),
+					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"),
+					transType);
 
 			// System.out.println(Sale_Request);
-			 GCBPrameter.print_Response("GCB", parameters);     
+			GCBPrameter.print_Response("GCB", parameters);
 
 			String result = GCBPrameter.getParameterValue("ResponseText");
 
@@ -1140,11 +1116,11 @@ public class TC_ProcessorFailour13 {
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", 0);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(9));
+				saleData.add(saleData.size() - 1, expectedList.get(9));
 				xlWriter.writeTransactionData(saleData);
-				
+
 				// Assert.assertEquals(cardType, "MCD");
 				String transactionIdentifier = saleResponse.getParameterValue("TransactionIdentifier");
 				// Assert.assertEquals(transactionIdentifier.substring(0, 1), "1");
@@ -1162,7 +1138,7 @@ public class TC_ProcessorFailour13 {
 			xlWriter.writeHeadline(headlines.get(4));
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
-			invocationCount=1 ;
+			invocationCount = 1;
 		}
 	}
 
@@ -1186,13 +1162,13 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String Sale_Request = Sale_Request_Modification.P_SALE_REQUEST(
-					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
-					GCBPrameter.getParameterValue("CRMToken"), transType, "100.13");
+			String Sale_Request = Sale_Request_Modification.P_SALE_REQUEST(GCBPrameter.getParameterValue("CardToken"),
+					GCBPrameter.getParameterValue("CardIdentifier"), GCBPrameter.getParameterValue("CRMToken"),
+					transType, "100.13");
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
-			String result = GCBPrameter.getParameterValue("ResponseText");
+			String result = GCBPrameter.getParameterValue("ResponseText");   
 
 			if (result.equalsIgnoreCase("Approved")) {
 
@@ -1207,15 +1183,14 @@ public class TC_ProcessorFailour13 {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
-			
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
 				saleData.add(0, expectedList.get(1));
-				saleData.add(saleData.size()-1 , expectedList.get(6));
-				saleData.add(expectedList.get(expectedList.size()-1));
-				
+				saleData.add(saleData.size() - 1, expectedList.get(6));
+				saleData.add(expectedList.get(expectedList.size() - 1));
+
 				xlWriter.writeTransactionData(saleData);
-				
+
 				ad.writeAESDKRequestAndResponse(Sale_Request, sale_Respose);
 
 				// Assert.assertEquals(cardType, "MCD");
@@ -1233,13 +1208,13 @@ public class TC_ProcessorFailour13 {
 		} finally {
 			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			invocationCount ++ ;
+			invocationCount++;
 			xlWriter.saveExcelFile(Utils.setFileName(fileName));
 			xl.saveExcelFile();
 		}
 	}
 
-	// Performed Normal sale for the our reference   
+	// Performed Normal sale for the our reference
 	@Test(invocationCount = 1, priority = 17)
 	public void DebitSaleLastOne() throws Exception, Exception {
 		System.out.println("PLEASE USE CREDIT OR DEBIT CARD");
@@ -1255,16 +1230,16 @@ public class TC_ProcessorFailour13 {
 			// System.out.println(req);
 			String res = cp.receiveResponseFromAESDK();
 			// System.out.println(res);
-			Response_Parameters GCBPrameter = new Response_Parameters(res); 
+			Response_Parameters GCBPrameter = new Response_Parameters(res);
 
 			String Sale_Request = Sale_Request_Modification.modified_Sale_Request(
 					GCBPrameter.getParameterValue("CardToken"), GCBPrameter.getParameterValue("CardIdentifier"),
 					GCBPrameter.getParameterValue("CRMToken"), transType);
 
-			 GCBPrameter.print_Response("GCB", parameters);
+			GCBPrameter.print_Response("GCB", parameters);
 
-			String result = GCBPrameter.getParameterValue("ResponseText");
-
+			String result = GCBPrameter.getParameterValue("ResponseText");  
+                        
 			if (result.equalsIgnoreCase("Approved")) {
 
 				// GCBPrameter.print_Response(GCB_Response);
@@ -1279,18 +1254,18 @@ public class TC_ProcessorFailour13 {
 				List<String> saleData = saleResponse.print_Response(transName + "  :  ", parameters);
 				saleData.add(3, transName);
 
-				List<String> expectedList =  xlWriter.generateTransactionSteps("91", invocationCount);
+				List<String> expectedList = xlWriter.generateTransactionSteps("91", invocationCount);
 				saleData.add(0, expectedList.get(0));
-				saleData.add(saleData.size()-1 , expectedList.get(10));
+				saleData.add(saleData.size() - 1, expectedList.get(10));
 				xlWriter.writeTransactionData(saleData);
-				
+
 				ad.writeAESDKRequestAndResponse(Sale_Request, sale_Respose);
 
 			}
 		} finally {
 			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(Utils.setFileName(fileName));
+			xlWriter.saveExcelFile(Utils.setFileName(fileName));   
 			// xl.saveExcelFile();
 		}
 	}

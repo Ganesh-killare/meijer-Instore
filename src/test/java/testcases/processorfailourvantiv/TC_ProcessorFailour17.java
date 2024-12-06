@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -394,7 +395,7 @@ public class TC_ProcessorFailour17 {
 	}
 
 	// There are 3 CREDIT OR DEBIT Sales (Using Amount 100.17)
-	@Test(invocationCount = 5, priority = 5)
+	@Test(invocationCount = 3, priority = 5)
 	public void F_creditSale() throws Exception, Exception {    
 	
 		
@@ -473,7 +474,7 @@ public class TC_ProcessorFailour17 {
 	// One FSA Transaction using amount 100.17
 	
 	// There are 1 FSA Sales (After Failour transactions should be go through wordpay)
-		@Test(priority = 6, invocationCount = 2)
+		@Test(invocationCount = 1, priority = 6)
 		public void P_HardCode__FSA() throws Exception, Exception {
 			System.out.println("PLEASE USE FSA CARD  :: This sale is using amount 100.17");
 
@@ -545,7 +546,7 @@ public class TC_ProcessorFailour17 {
 		// Two EBT Transactions Using 100.17 amount
 		
 		
-//@Test(invocationCount = 1 , priority = 7)
+@Test(invocationCount = 1 , priority = 7)
 		public void P_HardCode__EBT() throws Exception {
 			System.out.println("PLEASE USE EBT CARD  :: This sale is using amount 100.17");      
 
@@ -756,7 +757,7 @@ public class TC_ProcessorFailour17 {
 	}
 
 	// There are 2 EBT Sales (After Failour transactions should be go through	// wordpay)
-	//@Test(invocationCount = 2, priority = 10)
+	@Test(invocationCount = 2, priority = 10)
 
 	public void P_SECOUNDARY__EBT() throws Exception {
 		System.out.println("PLEASE USE EBT CARD");
@@ -894,6 +895,13 @@ public class TC_ProcessorFailour17 {
 	// This Test cases Dedicated for Counter reset
 	@Test(priority = 12)
 	public void ResetCount() throws Exception {
+		
+		System.out.println("Call Indrajeet to Rest the Counter");
+		Scanner sc = new Scanner(System.in);
+		String Status = sc.nextLine();
+		System.out.println(Status);
+		sc.close();
+		
 		
 		System.out.println("PLEASE USE CREDIT CARD");
 
@@ -1033,7 +1041,7 @@ public class TC_ProcessorFailour17 {
 
 	// After counter reset performed 2 EBT Transactions
 
-	//@Test(invocationCount = 2, priority = 14)
+	@Test(invocationCount = 2, priority = 14)
 	public void P_AfterReset_EBT() throws Exception {
 		System.out.println("PLEASE USE EBT CARD");
 

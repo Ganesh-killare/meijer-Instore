@@ -19,124 +19,94 @@ import base.SessionIdManager;
 import utilities.Utils;
 
 public class CloseRequest {
-	
 
-	static String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
-	static String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
-	static String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
+	static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
+	public static String buildXMLRequest() {
+		try {
+			Document transRequestDocument = createSampleTransRequestDocument();
 
+			// Convert the modified document back to a string
+			return RequestUtils.documentToString(transRequestDocument);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    public static String buildXMLRequest() {
-        try {
-            Document transRequestDocument = createSampleTransRequestDocument();  
+	private static Document createSampleTransRequestDocument() {
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
 
-            // Convert the modified document back to a string
-            return documentToString(transRequestDocument);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			// Create root element
+			Element CloseTransactionRequest = doc.createElement("CloseTransactionRequest");
+			doc.appendChild(CloseTransactionRequest);
 
-    private static Document createSampleTransRequestDocument() {
-        try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.newDocument();
-
-            // Create root element
-            Element CloseTransactionRequest = doc.createElement("CloseTransactionRequest");
-            doc.appendChild(CloseTransactionRequest);
-
-            // Add child elements in the desired sequence
-            appendElementWithValue(doc, CloseTransactionRequest, "POSID", "S00784R0100");
-            appendElementWithValue(doc, CloseTransactionRequest, "APPID", "01");
-            appendElementWithValue(doc, CloseTransactionRequest, "CCTID", "01");
-            appendElementWithValue(doc, CloseTransactionRequest, "ADSDKSpecVer", "6.14.8");
+			// Add child elements in the desired sequence
+			appendElementWithValue(doc, CloseTransactionRequest, "POSID", "S00784R0100");
+			appendElementWithValue(doc, CloseTransactionRequest, "APPID", "01");
+			appendElementWithValue(doc, CloseTransactionRequest, "CCTID", "01");
+			appendElementWithValue(doc, CloseTransactionRequest, "ADSDKSpecVer", "6.14.8");
 			appendElementWithValue(doc, CloseTransactionRequest, "SessionId", SessionIdManager.getCurrentSessionId());
-            appendElementWithValue(doc, CloseTransactionRequest, "CloseReasonCode", "TRANSACTION_COMPLETE");
-            appendElementWithValue(doc, CloseTransactionRequest, "OrigAurusPayTicketNum", "");
-            appendElementWithValue(doc, CloseTransactionRequest, "OrigTransactionIdentifier", "");
-            appendElementWithValue(doc, CloseTransactionRequest, "InvoiceNumber", invoiceNumber);
-            appendElementWithValue(doc, CloseTransactionRequest, "TransactionTime", formattedTime);
-            appendElementWithValue(doc, CloseTransactionRequest, "TransactionDate", finalDate);
-            Element ecommInfoElement = doc.createElement("ECOMMInfo");
-            CloseTransactionRequest.appendChild(ecommInfoElement);
-            appendElementWithValue(doc, ecommInfoElement, "MerchantIdentifier", "111111111111"); // Set value to null for empty tag
-            appendElementWithValue(doc, ecommInfoElement, "StoreId", "11111"); // Set value to null for empty tag
-            appendElementWithValue(doc, ecommInfoElement, "TerminalId", "11111111"); // Set value to null for empty tag
-            
-            appendElementWithValue(doc, CloseTransactionRequest, "EndWIC", "0");
-            appendElementWithValue(doc, CloseTransactionRequest, "ProcessingMode","0");
-            appendElementWithValue(doc, CloseTransactionRequest, "LanguageIndicator","");
-            appendElementWithValue(doc, CloseTransactionRequest, "ClerkID", "111");
+			appendElementWithValue(doc, CloseTransactionRequest, "CloseReasonCode", "TRANSACTION_COMPLETE");
+			appendElementWithValue(doc, CloseTransactionRequest, "OrigAurusPayTicketNum", "");
+			appendElementWithValue(doc, CloseTransactionRequest, "OrigTransactionIdentifier", "");
+			appendElementWithValue(doc, CloseTransactionRequest, "InvoiceNumber", invoiceNumber);
+			appendElementWithValue(doc, CloseTransactionRequest, "TransactionTime", formattedTime);
+			appendElementWithValue(doc, CloseTransactionRequest, "TransactionDate", finalDate);
+			Element ecommInfoElement = doc.createElement("ECOMMInfo");
+			CloseTransactionRequest.appendChild(ecommInfoElement);
+			appendElementWithValue(doc, ecommInfoElement, "MerchantIdentifier", "111111111111"); // Set value to null
+																									// for empty tag
+			appendElementWithValue(doc, ecommInfoElement, "StoreId", "11111"); // Set value to null for empty tag
+			appendElementWithValue(doc, ecommInfoElement, "TerminalId", "11111111"); // Set value to null for empty tag
 
-            return doc;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			appendElementWithValue(doc, CloseTransactionRequest, "EndWIC", "0");
+			appendElementWithValue(doc, CloseTransactionRequest, "ProcessingMode", "0");
+			appendElementWithValue(doc, CloseTransactionRequest, "LanguageIndicator", "");
+			appendElementWithValue(doc, CloseTransactionRequest, "ClerkID", "111");
 
-    private static void appendElementWithValue(Document doc, Element parentElement, String tagName, String textContent) {
-        Element element = doc.createElement(tagName);
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-        if (textContent != null) {
-            element.appendChild(doc.createTextNode(textContent));
-        } else {
-            // Explicitly create an empty text node and append it
-            Text emptyTextNode = doc.createTextNode("");
-            element.appendChild(emptyTextNode);
-        }
+	private static void appendElementWithValue(Document doc, Element parentElement, String tagName,
+			String textContent) {
+		Element element = doc.createElement(tagName);
 
-        parentElement.appendChild(element);
-    }
+		if (textContent != null) {
+			element.appendChild(doc.createTextNode(textContent));
+		} else {
+			// Explicitly create an empty text node and append it
+			Text emptyTextNode = doc.createTextNode("");
+			element.appendChild(emptyTextNode);
+		}
 
+		parentElement.appendChild(element);
+	}
 
-    private static String documentToString(Document document) {
-        try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer = tf.newTransformer();
+	public static String CLOSE_REQUEST() {
+		try {
 
-            // Set properties for pretty formatting without the XML declaration
-            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			// take a basic request
+			String xml = buildXMLRequest();
 
-            // Remove unnecessary whitespace
-            document.normalize();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-            // Remove empty lines between tags
-            String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-   
-    public static String CLOSE_REQUEST() {
-        try {
-        	
-        	// take a basic request
-        	String xml = buildXMLRequest();
-        	
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
-         
-            
-            return documentToString(document);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			return RequestUtils.documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

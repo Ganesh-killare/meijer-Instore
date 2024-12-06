@@ -3,14 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="mtestcases.TC_OTC">
+      <class name="mtestcases.LMKKey">
         <methods>
-          <include name="SolotronVoidOfSale"/>
-          <include name="SolotronRefundOfSale"/>
           <include name="incrementSessionId"/>
           <include name="saveXLFile"/>
+          <include name="Test_VoidOfSale"/>
         </methods>
-      </class> <!-- mtestcases.TC_OTC -->
+      </class> <!-- mtestcases.LMKKey -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -1,219 +1,199 @@
-package testcases;import java.io.StringWriter;
-import java.text.DecimalFormat;
-import java.util.concurrent.ThreadLocalRandom;
+package testcases;
 
+import java.text.DecimalFormat;
+
+import java.util.concurrent.ThreadLocalRandom;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-
+import requestbuilder.RequestUtils;
 import utilities.Utils;
 
 public class XMLRequestBuilder {
-	
-	static String formattedTime =	Utils.generateDateTimeAndInvoice().get(0);
-	static String finalDate =	Utils.generateDateTimeAndInvoice().get(1);
-	static String invoiceNumber =	Utils.generateDateTimeAndInvoice().get(2);
-	
 
-    public static String buildXMLRequest() {
-        try {
-            Document transRequestDocument = createSampleTransRequestDocument();  
+	static String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
+	static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
+	static String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
 
-            // Convert the modified document back to a string
-            return documentToString(transRequestDocument);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+	public static String buildXMLRequest() {
+		try {
+			Document transRequestDocument = createSampleTransRequestDocument();
 
-    private static Document createSampleTransRequestDocument() {
-        try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.newDocument();
+			// Convert the modified document back to a string
+			return RequestUtils.documentToString(transRequestDocument);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-            // Create root element
-            Element transRequestElement = doc.createElement("TransRequest");
-            doc.appendChild(transRequestElement);
+	private static Document createSampleTransRequestDocument() {
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
 
-            // Add child elements in the desired sequence
-            appendElementWithValue(doc, transRequestElement, "POSID", "S00784R0100");
-            appendElementWithValue(doc, transRequestElement, "APPID", "01");
-            appendElementWithValue(doc, transRequestElement, "CCTID", "01");
-            appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-            appendElementWithValue(doc, transRequestElement, "SessionId", "12345");
-            appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
-            appendElementWithValue(doc, transRequestElement, "CardType", "VIC");
-            appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
-            appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
-            appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
-            appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
-            appendElementWithValue(doc, transRequestElement, "CashBackFlag", "1");
-            appendElementWithValue(doc, transRequestElement, "TransactionType", "01");
-            appendElementWithValue(doc, transRequestElement, "InvoiceNumber",invoiceNumber);
-            appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "");
-            appendElementWithValue(doc, transRequestElement, "CardToken", "");
-            appendElementWithValue(doc, transRequestElement, "CRMToken", "");
-            appendElementWithValue(doc, transRequestElement, "ReferenceNumber", "18");
-            appendElementWithValue(doc, transRequestElement, "ReceiptNumber", "18");
-            appendElementWithValue(doc, transRequestElement, "ClerkID", "000000551");
-            appendElementWithValue(doc, transRequestElement, "CurrencyCode", "840");
-            appendElementWithValue(doc, transRequestElement, "TransactionDate",finalDate );
-            appendElementWithValue(doc, transRequestElement, "TransactionTime", formattedTime);
-            appendElementWithValue(doc, transRequestElement, "TipEligible", "0");
-            appendElementWithValue(doc, transRequestElement, "AmountNoBar", "1");
-            appendElementWithValue(doc, transRequestElement, "SignatureFlag", "N");
-            appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
-            appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
-            appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-            appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
-            appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
-            appendElementWithValue(doc, transRequestElement, "POSType", "1");
+			// Create root element
+			Element transRequestElement = doc.createElement("TransRequest");
+			doc.appendChild(transRequestElement);
 
-            // Add nested elements
-            Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
-            transRequestElement.appendChild(transAmountDetailsElement);
-            appendElementWithValue(doc, transAmountDetailsElement, "TenderAmount", null); // Set value to null for empty tag
-            appendElementWithValue(doc, transAmountDetailsElement, "TransactionTotal", null); // Set value to null for empty tag
-            appendElementWithValue(doc, transAmountDetailsElement, "TaxAmount", ".00");
+			// Add child elements in the desired sequence
+			appendElementWithValue(doc, transRequestElement, "POSID", "S00784R0100");
+			appendElementWithValue(doc, transRequestElement, "APPID", "01");
+			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
+			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, transRequestElement, "SessionId", "12345");
+			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
+			appendElementWithValue(doc, transRequestElement, "CardType", "VIC");
+			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
+			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
+			appendElementWithValue(doc, transRequestElement, "GiftPurchaseAuthIndicator", "N");
+			appendElementWithValue(doc, transRequestElement, "ProcessingMode", "0");
+			appendElementWithValue(doc, transRequestElement, "CashBackFlag", "1");
+			appendElementWithValue(doc, transRequestElement, "TransactionType", "01");
+			appendElementWithValue(doc, transRequestElement, "InvoiceNumber", invoiceNumber);
+			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "");
+			appendElementWithValue(doc, transRequestElement, "CardToken", "");
+			appendElementWithValue(doc, transRequestElement, "CRMToken", "");
+			appendElementWithValue(doc, transRequestElement, "ReferenceNumber", "18");
+			appendElementWithValue(doc, transRequestElement, "ReceiptNumber", "18");
+			appendElementWithValue(doc, transRequestElement, "ClerkID", "000000551");
+			appendElementWithValue(doc, transRequestElement, "CurrencyCode", "840");
+			appendElementWithValue(doc, transRequestElement, "TransactionDate", finalDate);
+			appendElementWithValue(doc, transRequestElement, "TransactionTime", formattedTime);
+			appendElementWithValue(doc, transRequestElement, "TipEligible", "0");
+			appendElementWithValue(doc, transRequestElement, "AmountNoBar", "1");
+			appendElementWithValue(doc, transRequestElement, "SignatureFlag", "N");
+			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
+			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
+			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", "0");
+			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
+			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 
-            Element ecommInfoElement = doc.createElement("ECOMMInfo");
-            transRequestElement.appendChild(ecommInfoElement);
-            appendElementWithValue(doc, ecommInfoElement, "CardIdentifier", null); // Set value to null for empty tag
+			// Add nested elements
+			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
+			transRequestElement.appendChild(transAmountDetailsElement);
+			appendElementWithValue(doc, transAmountDetailsElement, "TenderAmount", null); // Set value to null for empty
+																							// tag
+			appendElementWithValue(doc, transAmountDetailsElement, "TransactionTotal", null); // Set value to null for
+																								// empty tag
+			appendElementWithValue(doc, transAmountDetailsElement, "TaxAmount", ".00");
 
-            Element billingAddressElement = doc.createElement("BillingAddress");
-            transRequestElement.appendChild(billingAddressElement);
-            appendElementWithValue(doc, billingAddressElement, "BillingZip", "1325");
+			Element ecommInfoElement = doc.createElement("ECOMMInfo");
+			transRequestElement.appendChild(ecommInfoElement);
+			appendElementWithValue(doc, ecommInfoElement, "CardIdentifier", null); // Set value to null for empty tag
 
-            return doc;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			Element billingAddressElement = doc.createElement("BillingAddress");
+			transRequestElement.appendChild(billingAddressElement);
+			appendElementWithValue(doc, billingAddressElement, "BillingZip", "1325");
 
-    private static void appendElementWithValue(Document doc, Element parentElement, String tagName, String textContent) {
-        Element element = doc.createElement(tagName);
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-        if (textContent != null) {
-            element.appendChild(doc.createTextNode(textContent));
-        } else {
-            // Explicitly create an empty text node and append it
-            Text emptyTextNode = doc.createTextNode("");
-            element.appendChild(emptyTextNode);
-        }
+	private static void appendElementWithValue(Document doc, Element parentElement, String tagName,
+			String textContent) {
+		Element element = doc.createElement(tagName);
 
-        parentElement.appendChild(element);
-    }
+		if (textContent != null) {
+			element.appendChild(doc.createTextNode(textContent));
+		} else {
+			// Explicitly create an empty text node and append it
+			Text emptyTextNode = doc.createTextNode("");
+			element.appendChild(emptyTextNode);
+		}
 
+		parentElement.appendChild(element);
+	}
 
-    private static String documentToString(Document document) {
-        try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer = tf.newTransformer();
+	public static String CDPC_SALE_REQUEST(String CardToken, String CI, String CRM) {
+		try {
 
-            // Set properties for pretty formatting without the XML declaration
-            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			// take a basic request
+			String xml = buildXMLRequest();
 
-            // Remove unnecessary whitespace
-            document.normalize();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(document), new StreamResult(writer));
+			// Random Amount generation
+			double amount = ThreadLocalRandom.current().nextDouble(30.00, 99.99);
+			DecimalFormat df = new DecimalFormat("0.00"); // Format the double to have exactly 2 decimal places
+			String transactionAmount = df.format(amount);
 
-            // Remove empty lines between tags
-            String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
+			// Modify specific tag values
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CI);
+			RequestUtils.setTagValue(document, "CardIdentifier", CRM);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
 
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			// Convert the modified document back to a string
+			return RequestUtils.documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    private static void setTagValue(Document document, String tagName, String newValue) {
-        NodeList nodeList = document.getElementsByTagName(tagName);
-        if (nodeList.getLength() > 0) {
-            Element element = (Element) nodeList.item(0);
-            element.setTextContent(newValue);
-        }
-    }
-    public static String CDPC_SALE_REQUEST(String CardToken , String CI , String CRM) {
-        try {
-        	
-        	// take a basic request
-        	String xml = buildXMLRequest();
-        	
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
-            
-            // Random Amount generation 
-            double amount = ThreadLocalRandom.current().nextDouble(30.00, 99.99);
-    		DecimalFormat df = new DecimalFormat("0.00");  // Format the double to have exactly 2 decimal places
-    		String transactionAmount = df.format(amount);
-            
-            // Modify specific tag values
-            setTagValue(document, "CardToken", CardToken);
-            setTagValue(document, "CRMToken", CI);
-            setTagValue(document, "CardIdentifier", CRM);
-            setTagValue(document, "TransactionTotal", transactionAmount);
-            setTagValue(document, "TenderAmount", transactionAmount);
+	public static String CDPC_SALE_REQUEST(String CardToken, String CI, String CRM, String amount) {
+		try {
 
-            // Convert the modified document back to a string
-            return documentToString(document);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public static String CDPC_SALE_REQUEST(String CardToken , String CI , String CRM , String amount) {
-    	try {
-    		
-    		// take a basic request
-    		String xml = buildXMLRequest();
-    		
-    		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    		DocumentBuilder builder = factory.newDocumentBuilder();
-    		Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
-    		
-    		// Modify specific tag values
-    		setTagValue(document, "CardToken", CardToken);
-    		setTagValue(document, "CRMToken", CI);
-    		setTagValue(document, "CardIdentifier", CRM);
-    		setTagValue(document, "TransactionTotal", amount);
-    		setTagValue(document, "TenderAmount", amount);
-    		
-    		// Convert the modified document back to a string
-    		return documentToString(document);
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		return null;
-    	}
-    }
+			// take a basic request
+			String xml = buildXMLRequest();
 
-  
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
-    @Test
-    public void test() {
-        System.out.println("=".repeat(20));
-        String req = buildXMLRequest();
-      //  String e = CREDIT_SALE_REQUEST();
-       // System.out.println(e);
-    }
-    
-   
+			// Modify specific tag values
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CI);
+			RequestUtils.setTagValue(document, "CardIdentifier", CRM);
+			RequestUtils.setTagValue(document, "TransactionTotal", amount);
+			RequestUtils.setTagValue(document, "TenderAmount", amount);
+
+			// Convert the modified document back to a string
+			return RequestUtils.documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Test
+	public void test() {
+		System.out.println("=".repeat(20));
+		String req = buildXMLRequest();
+		// | // String e = CREDIT_SALE_REQUEST();
+		// | // System.out.println(e);
+	}
+
+	public static int getfirstdigit(int num) {
+
+		while (num >= 10) {
+			num = num / 10;
+		}
+		return num;
+	}
+
+	@Test
+	public void itr() {
+		int a[] = { 1, 5, 3, 6, 13, 154, 67, 78 };
+
+		for (int c : a) {
+			int firstNum = getfirstdigit(c);
+			if (firstNum == 1) {
+				System.out.println(c);
+			}
+
+		}
+	}
 }

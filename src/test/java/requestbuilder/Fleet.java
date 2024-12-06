@@ -71,7 +71,7 @@ public class Fleet {
 				addTransactionSpecificElements(doc, transRequestElement, Data);
 			}
 
-			return documentToString(doc);
+			return RequestUtils.documentToString(doc);
 		} catch (Exception e) {
 			// Consider using a logging framework here
 			e.printStackTrace();
@@ -216,21 +216,4 @@ public class Fleet {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-			document.normalize();
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-			return writer.toString().replaceAll("(?m)^[ \t]*\r?\n", ""); // Optional: Remove empty lines
-		} catch (Exception e) {
-			// Consider using a logging framework here
-			e.printStackTrace();
-			return null;
-		}
-	}
 }

@@ -36,7 +36,7 @@ public class PLC_Request {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 			// Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -128,39 +128,7 @@ public class PLC_Request {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
-	}
+	
 
 	public static String PLC_SaleRequest(String CardToken, String CI, String CRM) {
 
@@ -177,15 +145,15 @@ public class PLC_Request {
 			// transactionAmount = "10.00";
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CardIdentifier", CI);
-			setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
 
-			setTagValue(document, "TransactionTotal", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -209,15 +177,15 @@ public class PLC_Request {
 
 			// Modify specific tag values
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CardIdentifier", CI);
-			setTagValue(document, "CRMToken", CRM);
-			setTagValue(document, "TransactionTotal", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
-			setTagValue(document, "TransactionType", "02");
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "TransactionType", "02");
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -235,14 +203,14 @@ public class PLC_Request {
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
-			setTagValue(document, "TransactionTotal", amount);
-			setTagValue(document, "TenderAmount", amount);
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CI);
+			RequestUtils.setTagValue(document, "CardIdentifier", CRM);
+			RequestUtils.setTagValue(document, "TransactionTotal", amount);
+			RequestUtils.setTagValue(document, "TenderAmount", amount);
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

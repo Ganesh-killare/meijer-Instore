@@ -3,6 +3,7 @@ package mtestcases;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.jdom2.JDOMException;
 import org.testng.annotations.AfterMethod;
@@ -24,12 +25,12 @@ public class TC_FSA extends BaseClass {
 		List<String> saleResult = performFSASale();
 		Utils.printResults(saleResult);
 
-		performRefundTransaction(saleResult);
+		performRefundTransaction(saleResult);  
 	}
 
 	@Test(invocationCount = 5)
-	public void VoidOfSale() throws IOException, Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();   
+	public void VoidOfSale() throws IOException, Exception {      
+		fileName = new Exception().getStackTrace()[0].getMethodName();               
 		System.out.println(fileName);
 
 		List<String> saleResult = performFSASale();
@@ -57,7 +58,7 @@ public class TC_FSA extends BaseClass {
 	}
 
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();

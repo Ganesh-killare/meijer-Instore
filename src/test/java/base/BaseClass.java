@@ -11,12 +11,20 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jdom2.JDOMException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import requestbuilder.AccountLookUp;
 import requestbuilder.BalanceEnquiry;
@@ -69,15 +77,35 @@ public class BaseClass {
 		// Thread.sleep(500);
 	}
 
-	public String receiveResponseFromAESDK() throws IOException, InterruptedException, JDOMException {
-		InputStream inputStream = socket.getInputStream();
-		BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+	public String receiveResponseFromAESDK()
+			throws IOException, InterruptedException, JDOMException, ExecutionException {
+		// Create a thread pool with a single thread
+		ExecutorService executor = Executors.newSingleThreadExecutor();
 
-		String response = in.readLine();
-		LoggerUtil.logResponse(response);
-		// System.out.println(response);
-		return response;
+		// Define the task that reads the response
+		Callable<String> task = () -> {
+			InputStream inputStream = socket.getInputStream();
+			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
 
+			String response = in.readLine();
+			LoggerUtil.logResponse(response);
+			// System.out.println(response);
+			return response;
+		};
+
+		// Set the timeout for 190 seconds
+		try {
+			// Execute the task with a 190-second timeout
+			Future<String> future = executor.submit(task);
+			return future.get(190, TimeUnit.SECONDS); // Timeout after 190 seconds
+		} catch (TimeoutException e) {
+			// Handle timeout
+			System.out.println("Timeout reached. No response received within 190 seconds.");
+			return null; // Or throw an exception, or handle as needed
+		} finally {
+			// Shutdown the executor service
+			executor.shutdown();
+		}
 	}
 
 	// Perform CREDIT or DEBIT sale
@@ -91,7 +119,7 @@ public class BaseClass {
 	public static String[] parameters = { "CardToken", "CardIdentifier", "CRMToken", "CardEntryMode",
 			"TransactionTypeCode", "TransactionSequenceNumber", "CardType", "SubCardType", "TotalApprovedAmount",
 			"ResponseText", "ResponseCode", "TransactionIdentifier", "AurusPayTicketNum", "ApprovalCode",
-			"ProcessorMerchantId", "CardExpiryDate", "STAN", "ProcessorResponseCode" };
+			"ProcessorMerchantId" };
 
 	public static List<String> ResponseParameter = new ArrayList<>(Arrays.asList(parameters));
 
@@ -103,7 +131,7 @@ public class BaseClass {
 
 		try {
 
-			pa.beforeGetCardBinAPIs();
+			// pa.beforeGetCardBinAPIs();
 
 			String req = GCBRequest.GCB_REQUEST().trim();
 			sendRequestToAESDK(req);
@@ -123,10 +151,10 @@ public class BaseClass {
 			gcbresult = Utils.selectToken(gcbResults, gcbResults.get(4));
 
 			if (gcbResults.get(0).equalsIgnoreCase(gcbApprovedText)) {
-
 				/*
-				 * sendRequestToAESDK(ShowList.Request()); receiveResponseFromAESDK();
-				 * performByPassRequest(2);
+				 * sendRequestToAESDK(ShowList.Request());
+				 * 
+				 * receiveResponseFromAESDK(); performByPassRequest(2);
 				 * 
 				 * sendRequestToAESDK(requestbuilder.Signature.Request());
 				 * receiveResponseFromAESDK();
@@ -136,11 +164,11 @@ public class BaseClass {
 
 				// Additional POS APIs
 
-			//	pa.performed();
+				// pa.performed();
 
 			} else {
-				System.out.println("Get Card Bin Request denied!");
-				Thread.sleep(5000);
+				performCloseRequest();
+				Assert.fail("Get Card Bin Request denied!");
 			}
 
 		} catch (Exception e) {
@@ -148,6 +176,15 @@ public class BaseClass {
 		}
 
 		return gcbresult;
+
+	}
+
+	@Test
+	public void test() throws Exception {
+		String request = "<TransResponse><CCTID>01</CCTID><POSID>S00784R0100</POSID><APPID>01</APPID><TransDetailsData><TransDetailData><CardNumber>476173XXXXXX0043</CardNumber><TotalApprovedAmount>57.00</TotalApprovedAmount><EMVDataInTLVFormat>AID%7EA0000000031010%1ETVR%7E0000008000%1EIAD%7E06010A03A4B002%1ETSI%7EE800%1EARC%7E3030</EMVDataInTLVFormat><EBTType/><CardIdentifier>2000000000009500</CardIdentifier><ProcessorToken>476173XXXXXX0043</ProcessorToken><HostConnectionInfo>uat42|00000|APPROVAL|0.266324ms~uat42|NA|NA|NA</HostConnectionInfo><ProcessorMerchantId>577000322896</ProcessorMerchantId><TransactionSequenceNumber>000041</TransactionSequenceNumber><CardToken>476173XXXXXX0043</CardToken><LanguageIndicator>00</LanguageIndicator><DCCDetails><DCCMinorUnits/><DCCMarginRatePercent/><DCCAlphaCurrencyCode/><DCCExchRateSrcName/><DCCOffered>0</DCCOffered><DCCResponseCode/><DCCValidHours/><DCCExchRateSrcTime/><DCCCurrencyCode/></DCCDetails><CardType>VIC</CardType><TransactionIdentifier>192243402841799938</TransactionIdentifier><CardExpiryDate>1231</CardExpiryDate><PartialApprovedFlag>N</PartialApprovedFlag><TransactionTypeCode>1</TransactionTypeCode><ReceiptDetails><ReceiptData><LanguageIndicator>00</LanguageIndicator><ReceiptInfo><Line>Approved</Line><Line>:USD $57.00</Line><Line>CARD:VISA XXXX0043 CREDIT EMV</Line><Line>APPROVAL CODE:067680</Line><Line>AID:A0000000031010</Line><Line>TVR:0000008000</Line><Line>IAD:06010A03A4B002</Line><Line>TSI:EC00</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:C1E7AE1619165FD6</Line><Line>APPLICATION PREFERRED NAME:Visa Credit</Line><Line>APPLICATION LABEL:VISA CREDIT</Line><Line>Processor Batch Date:340</Line><Line>Processor Batch Number:000008</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000003</Line><Line>CVM:Verified By PIN</Line></ReceiptInfo></ReceiptData></ReceiptDetails><FallbackIndicator>0</FallbackIndicator><CardEntryMode>I</CardEntryMode><TipAmount>0.00</TipAmount><CustomerName>Test Card 02       UAT USA</CustomerName><TransactionDate>12052024</TransactionDate><AdditionalReceiptInfo><Line>Approved</Line><Line>:USD $57.00</Line><Line>CARD:VISA XXXX0043 CREDIT EMV</Line><Line>APPROVAL CODE:067680</Line><Line>AID:A0000000031010</Line><Line>TVR:0000008000</Line><Line>IAD:06010A03A4B002</Line><Line>TSI:EC00</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:C1E7AE1619165FD6</Line><Line>APPLICATION PREFERRED NAME:Visa Credit</Line><Line>APPLICATION LABEL:VISA CREDIT</Line><Line>Processor Batch Date:340</Line><Line>Processor Batch Number:000008</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000003</Line><Line>CVM:Verified By PIN</Line></AdditionalReceiptInfo><CashBackAmount>0.00</CashBackAmount><AddressVerification/><ResponseCode>00000</ResponseCode><ReceiptToken>4761730111160043</ReceiptToken><BalanceAmount>0.00</BalanceAmount><ReferenceNumber>092000659529</ReferenceNumber><GiftCardTypePassCode/><LangIndicator>00</LangIndicator><EMVFlag>1</EMVFlag><HostConnectionStatus>00</HostConnectionStatus><SignatureReceiptFlag>2</SignatureReceiptFlag><ECOMMInfo><OneOrderToken/></ECOMMInfo><ApprovalCode>067680</ApprovalCode><TransactionAmount>57.00</TransactionAmount><TransactionTime>075336</TransactionTime><LoyaltyInfo></LoyaltyInfo><ProcessorResponseCode>00</ProcessorResponseCode><EMVData>MerchantID~577000322896TerminalID~001ARC~00ISO~00IAD~06010A03A4B002App Pref Name~Visa CreditApp Label~VISA CREDITRespDate~12052024RespTime~075338</EMVData><VoidData/><AuthorizedAmount>57.00</AuthorizedAmount><ResponseText>APPROVAL</ResponseText><CRMToken>8900000010000005111</CRMToken><AurusProcessorId>47</AurusProcessorId></TransDetailData></TransDetailsData><BatchNumber>340001</BatchNumber><AurusPayTicketNum>224340284180000224</AurusPayTicketNum></TransResponse>";
+		String sanitizedXml = request.replaceAll("[^\\x20-\\x7E]", "");
+		Response_Parameters rp = new Response_Parameters(sanitizedXml);
+		rp.print_Response(" Sale  : ", parameters);
 
 	}
 
@@ -166,18 +203,19 @@ public class BaseClass {
 
 		try {
 			String tokenType = Utils.getTokenType();
+			boolean isProductionEnv = Utils.getEnvironment().toUpperCase().contains("P");
 
 			switch (tokenType) {
 			case "CardIdentifier":
-				System.out.println("Transaction Performed Using CI : 2000000000003154");
 
-				return Arrays.asList("Approved", null, "2000000000003154", null);
+				String cardIdentifier = isProductionEnv ? "2000000001581656" : "2000000000003154";
+				System.out.println("Transaction Performed Using CI : " + cardIdentifier);
+				return Arrays.asList("Approved", null, cardIdentifier, null);
 
 			case "CRMToken":
-				System.out.println("Transaction Performed Using CRM : 8920000010000048991 ");
-
-				return Arrays.asList("Approved", null, null, "8920000010000048991");
-
+				String crmToken = isProductionEnv ? "8920000010155342454" : "8920000010000048991";
+				System.out.println("Transaction Performed Using CRM : " + crmToken);
+				return Arrays.asList("Approved", null, null, crmToken);
 			default:
 				String req = GCBRequest.GCB_REQUEST("Y").trim();
 				sendRequestToAESDK(req);
@@ -240,8 +278,10 @@ public class BaseClass {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
 				saleResult.add(3, "Sale");
-				excelWriter.writeDataRefundOfSale(saleResult);
-				saleResult.remove(3);
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
 
 			}
 		} finally {
@@ -275,9 +315,12 @@ public class BaseClass {
 				String sale_Respose = receiveResponseFromAESDK();
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response(" RefundWithOutSale  : ", parameters);
-				saleResult.add(3, "RefundWithOutSale");
-				excelWriter.writeDataRefundOfSale(saleResult);
-				saleResult.remove(3);
+
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					saleResult.add(3, "RefundWithOutSale");
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
 
 			}
 		} finally {
@@ -289,12 +332,14 @@ public class BaseClass {
 		return saleResult;
 	}
 
-	public void performRefundTransaction(List<String> saleResult) throws Exception, IOException, InterruptedException {
+	public List<String> performRefundTransaction(List<String> saleResult)
+			throws Exception, IOException, InterruptedException {
 		// System.out.println( "In the Void Transaction, we used AurusPayTickNum and
 		// Transaction ID with a total amount and tender amount of $"+
 		// saleResult.get(3));
 
 		Assert.assertNotEquals(saleResult.get(8), "0.00", "Amount is zero ; We are not processes Refund");
+		List<String> RefundData = new ArrayList<String>();
 
 		try {
 
@@ -342,21 +387,26 @@ public class BaseClass {
 
 			Response_Parameters RefundResponse = new Response_Parameters(refundResponse); // IMP
 
-			List<String> RefundData = RefundResponse.print_Response("Refund", parameters);
+			RefundData = RefundResponse.print_Response("Refund", parameters);
 			RefundData.add(3, "Refund");
 			excelWriter.writeDataRefundOfSale(RefundData);
+			RefundData.remove(3);
 		} catch (Exception e) {
 			System.out.println("We are not able to performed refund transaction");
 		}
+		return RefundData;
 	}
 
-	public void performVoidTransaction(List<String> saleResult) throws Exception, IOException, InterruptedException {
+	public List<String> performVoidTransaction(List<String> saleResult)
+			throws Exception, IOException, InterruptedException {
 
 		// System.out.println("In the Void Transaction, we used AurusPayTickNum and
 		// Transaction ID with a total amount and tender amount of $" +
 		// SaleResult.get(3));
 
 		Assert.assertNotEquals(saleResult.get(8), "0.00", "Amount is zero ; We are not processes Void");
+		Assert.assertNotEquals(saleResult.get(8), null, "Amount is zero ; We are not processes Void");
+		List<String> VoidData = new ArrayList<String>();
 		String returnRequest;
 
 		String transactionId = saleResult.get(11);
@@ -385,13 +435,15 @@ public class BaseClass {
 
 			Response_Parameters voidresponse = new Response_Parameters(VoidResponse); // IMP
 
-			List<String> VoidData = voidresponse.print_Response("Void", parameters);
+			VoidData = voidresponse.print_Response("Void", parameters);
 			VoidData.add(3, "Void");
 			excelWriter.writeDataRefundOfSale(VoidData);
+			VoidData.remove(3);
+
 		} catch (Exception e) {
 			System.out.println("We are not able to performed void transaction");
 		}
-
+		return VoidData;
 	}
 
 	// PLC sale transaction
@@ -482,8 +534,11 @@ public class BaseClass {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
 				saleResult.add(3, "Sale");
-				excelWriter.writeDataRefundOfSale(saleResult);
-				saleResult.remove(3);
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
+
 			}
 		} finally {
 			performByPassRequest(1);
@@ -516,8 +571,12 @@ public class BaseClass {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response("Refund without Sale  : ", parameters);
 				saleResult.add(3, "Refund without Sale");
-				excelWriter.writeDataRefundOfSale(saleResult);
-				saleResult.remove(3);
+
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
+
 			}
 		} finally {
 			performByPassRequest(1);
@@ -549,8 +608,11 @@ public class BaseClass {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
 				saleResult.add(3, "Sale");
-				excelWriter.writeDataRefundOfSale(saleResult);
-				saleResult.remove(3);
+
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
 
 			}
 		} finally {
@@ -583,9 +645,10 @@ public class BaseClass {
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response("Refund Without Sale  : ", parameters);
 				saleResult.add(3, "Refund Without Sale");
-				excelWriter.writeDataRefundOfSale(saleResult);
-
-				saleResult.remove(3);
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
 			}
 		} finally {
 			performByPassRequest(1);
@@ -632,8 +695,10 @@ public class BaseClass {
 					Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 					saleResult = saleResponse.print_Response(" Sale  : ", parameters);
 					saleResult.add(3, "Sale");
-					excelWriter.writeDataRefundOfSale(saleResult);
-					saleResult.remove(3);
+					if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+						excelWriter.writeDataRefundOfSale(saleResult);
+						saleResult.remove(3);
+					}
 
 				}
 
@@ -668,27 +733,27 @@ public class BaseClass {
 				excelWriter.writeDataRefundOfSale(BalData);
 
 			}
-			performCloseRequest();
+			// performCloseRequest();
 
 			List<String> gcbResults = performGetCardBin();
 
-			String Balance_LookUp = IncommIQTransRequest.Request(gcbResults.get(1), "12"); // Balance LookUp
+			String Balance_LookUp = IncommIQTransRequest.Request(gcbResult.get(1), "12"); // Balance LookUp
 			Balance_LookUp.trim();
 			sendRequestToAESDK(Balance_LookUp);
 			// System.out.println(Balance_LookUp);
 			String BLookUp_Respose = receiveResponseFromAESDK();
 			// System.out.println(BLookUp_Respose);
 			Response_Parameters saleResponse = new Response_Parameters(BLookUp_Respose);
-			List<String> saleResult = saleResponse.print_Response(" BLookUp_Respose  : ", parameters);
+			List<String> saleResult = saleResponse.print_Response(" BLookUp_Response  : ", parameters);
 			saleResult.add(3, "BLookUp_Respose");
 			excelWriter.writeDataRefundOfSale(saleResult);
 
 			// String SresponseText = saleResponse.getParameterValue("ResponseText");
 
-			performCloseRequest();
+			// performCloseRequest();
 
 			List<String> gcbResult2 = performGetCardBin();
-			String LimitedSpend = IncommIQTransRequest.Request(gcbResult2.get(1), "01"); // Limited Spend
+			String LimitedSpend = IncommIQTransRequest.Request(gcbResult.get(1), "01"); // Limited Spend
 			LimitedSpend.trim();
 			sendRequestToAESDK(LimitedSpend);
 			// System.out.println(Sale_Request);
@@ -727,10 +792,10 @@ public class BaseClass {
 				saleResult.add(3, "Balance LookUp");
 				excelWriter.writeDataRefundOfSale(saleResult);
 
-				performCloseRequest();
+				// performCloseRequest();
 
 				List<String> gcbResult1 = performGetCardBin();
-				String LimitedSpend = SoloTronRequest.Request(gcbResult1.get(1), "01"); // Sale
+				String LimitedSpend = SoloTronRequest.Request(gcbResult.get(1), "01"); // Sale
 				LimitedSpend.trim();
 				// System.out.println(LimitedSpend);
 				sendRequestToAESDK(LimitedSpend);
@@ -1038,6 +1103,114 @@ public class BaseClass {
 			performCloseRequest();
 
 		}
+		return saleResult;
+	}
+
+	public List<String> PR_performCreditDebitSale(String Amount, String TransType)
+			throws Exception, IOException, InterruptedException {
+		// GCB Started
+		List<String> saleResult = new ArrayList<String>();
+
+		List<String> gcbResult = performGetCardBin();
+		try {
+
+			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
+
+				String Sale_Request = CD_Sale_Request.CreditDebitSaleRequest(gcbResult.get(1), gcbResult.get(2),
+						gcbResult.get(3), Amount, TransType);
+
+				// Sale Satrted
+
+				sendRequestToAESDK(Sale_Request);
+				// System.out.println(Sale_Request);
+				String sale_Respose = receiveResponseFromAESDK();
+				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
+				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
+				saleResult.add(3, "Sale");
+				excelWriter.writeDataRefundOfSale(saleResult);
+
+			}
+		} finally {
+
+			// 1
+			performByPassRequest(1);
+			performCloseRequest();
+
+		}
+
+		return saleResult;
+	}
+
+	public List<String> PF_performFSASale(String amount, String transType)
+			throws Exception, IOException, InterruptedException {
+		// GCB Started
+		List<String> saleResult = new ArrayList<String>();
+
+		List<String> gcbResult = performGetCardBinAllowKeyed();
+
+		try {
+
+			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
+				String Sale_Request = FSARequest.FSA_SALE_REQUEST(gcbResult.get(1), gcbResult.get(2), gcbResult.get(3),
+						Double.valueOf(amount.substring(3, 6)), transType);
+
+				// Sale Satrted
+
+				sendRequestToAESDK(Sale_Request);
+				// System.out.println(Sale_Request);
+				String sale_Respose = receiveResponseFromAESDK();
+				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
+				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
+				saleResult.add(3, "Sale");
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
+
+			}
+		} finally {
+			performByPassRequest(1);
+			performCloseRequest();
+
+		}
+
+		return saleResult;
+	}
+
+	public List<String> PR_performEBTSale(String AMT, String TransType)
+			throws Exception, IOException, InterruptedException {
+
+		List<String> saleResult = new ArrayList<String>();
+
+		List<String> gcbResult = performGetCardBin();
+		try {
+
+			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
+				String Sale_Request = EBTRequest.PF_EBT_SALE_REQUEST(gcbResult.get(1), gcbResult.get(2),
+						gcbResult.get(3), AMT, TransType);
+
+				// Sale Satrted
+
+				sendRequestToAESDK(Sale_Request);
+				// System.out.println(Sale_Request);
+				String sale_Respose = receiveResponseFromAESDK();
+				// System.out.println(sale_Respose);
+				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
+				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
+				saleResult.add(3, "Sale");
+
+				if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+					excelWriter.writeDataRefundOfSale(saleResult);
+					saleResult.remove(3);
+				}
+
+			}
+		} finally {
+			performByPassRequest(1);
+			performCloseRequest();
+
+		}
+
 		return saleResult;
 	}
 }

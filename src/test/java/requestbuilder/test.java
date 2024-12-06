@@ -83,20 +83,37 @@ public class test {
 		 * System.out.println(":".repeat(150));
 		 * System.out.println(SoloTronRequest.Request(getHostIP(), getHostIP()));
 		 */
-		
-	System.out.println(FSARequest.FSA_RW_SALE_REQUEST(getHostIP(), getHostIP(), getHostIP()));	 
+
+		System.out.println(FSARequest.FSA_RW_SALE_REQUEST(getHostIP(), getHostIP(), getHostIP()));
 	}
 
-	
 //	@BeforeMethod
 	public void testMethod() {
 		org.testng.Assert.assertEquals("gg", "gr");
 	}
-	
-	@Test(invocationCount = 5)
+
+	@Test(invocationCount = 1)
 	public void tesrt() {
-		FSARequest.FSA_RW_SALE_REQUEST(getHostIP(), getHostIP(), getHostIP());
-		System.out.println("++++++++++++++++++++++++++");
+		System.out.println(Fleet.SaleRequest(null));
+		;
+
+	}
+
+	@Test(invocationCount = 1)
+	public void TestTheMethod() {
+
+		int[] array = { 1, 2, 2, 3, 4, 4, 4, 5, 6, 1 };
+		int[] counts = new int[array.length];
+
+		for (int num : array) {
+			counts[num]++;
+		}
+
+		for (int i = 1; i < counts.length; i++) {
+			if (counts[i] > 1) {
+				System.out.println("Number " + i + " is repeated " + counts[i] + " times.");
+			}
+		}
 
 	}
 }

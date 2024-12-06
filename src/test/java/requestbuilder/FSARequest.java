@@ -84,7 +84,7 @@ public class FSARequest {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 			// Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -178,39 +178,7 @@ public class FSARequest {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
-	}
+	
 
 	public static String FSA_SALE_REQUEST(String CardToken, String CI, String CRM) {
 		try {
@@ -299,22 +267,22 @@ public class FSARequest {
 
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CRM);   
-			setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);   
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
 
-			setTagValue(document, "TenderAmount", formattedTotalAmount);
-			setTagValue(document, "TransactionTotal", formattedTotalAmount);
-			setTagValue(document, "FSAAmount", formattedFinalAmount);
-			setTagValue(document, "HealthCareAmount", formattedFinalAmount);
-			setTagValue(document, "PrescriptionAmount", formattedPrescription);
-			setTagValue(document, "VisionOpticalAmount", formattedVisionOptical);
-			setTagValue(document, "CoPaymentAmount", formattedCoPayment);
-			setTagValue(document, "DentalAmount", formattedDental);
-			setTagValue(document, "TaxAmount", "0.23");
+			RequestUtils.setTagValue(document, "TenderAmount", formattedTotalAmount);
+			RequestUtils.setTagValue(document, "TransactionTotal", formattedTotalAmount);
+			RequestUtils.setTagValue(document, "FSAAmount", formattedFinalAmount);
+			RequestUtils.setTagValue(document, "HealthCareAmount", formattedFinalAmount);
+			RequestUtils.setTagValue(document, "PrescriptionAmount", formattedPrescription);
+			RequestUtils.setTagValue(document, "VisionOpticalAmount", formattedVisionOptical);
+			RequestUtils.setTagValue(document, "CoPaymentAmount", formattedCoPayment);
+			RequestUtils.setTagValue(document, "DentalAmount", formattedDental);
+			RequestUtils.setTagValue(document, "TaxAmount", "0.23");
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -420,24 +388,24 @@ public class FSARequest {
 			}
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);   
-			setTagValue(document, "CRMToken", CRM);
-			setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "CardToken", CardToken);   
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
 
-			setTagValue(document, "TransactionType", "02");
+			RequestUtils.setTagValue(document, "TransactionType", "02");
 
-			setTagValue(document, "TenderAmount", formattedTotalAmount);
-			setTagValue(document, "TransactionTotal", formattedTotalAmount);
-			setTagValue(document, "FSAAmount", formattedFinalAmount);
-			setTagValue(document, "HealthCareAmount", formattedFinalAmount);
-			setTagValue(document, "PrescriptionAmount", formattedPrescription);
-			setTagValue(document, "VisionOpticalAmount", formattedVisionOptical);
-			setTagValue(document, "CoPaymentAmount", formattedCoPayment);
-			setTagValue(document, "DentalAmount", formattedDental);
-			setTagValue(document, "TaxAmount", "0.23");
+			RequestUtils.setTagValue(document, "TenderAmount", formattedTotalAmount);
+			RequestUtils.setTagValue(document, "TransactionTotal", formattedTotalAmount);
+			RequestUtils.setTagValue(document, "FSAAmount", formattedFinalAmount);
+			RequestUtils.setTagValue(document, "HealthCareAmount", formattedFinalAmount);
+			RequestUtils.setTagValue(document, "PrescriptionAmount", formattedPrescription);
+			RequestUtils.setTagValue(document, "VisionOpticalAmount", formattedVisionOptical);
+			RequestUtils.setTagValue(document, "CoPaymentAmount", formattedCoPayment);
+			RequestUtils.setTagValue(document, "DentalAmount", formattedDental);
+			RequestUtils.setTagValue(document, "TaxAmount", "0.23");
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -454,66 +422,66 @@ public class FSARequest {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
-			setTagValue(document, "TenderAmount", amount);
-			setTagValue(document, "TransactionTotal", amount);
-			setTagValue(document, "FSAAmount", amount);
-			setTagValue(document, "HealthCareAmount", amount);
+			RequestUtils.setTagValue(document, "TenderAmount", amount);
+			RequestUtils.setTagValue(document, "TransactionTotal", amount);
+			RequestUtils.setTagValue(document, "FSAAmount", amount);
+			RequestUtils.setTagValue(document, "HealthCareAmount", amount);
 
 			int decVer = getNextSequentialValueForVoid();
 			switch (decVer) {
 			case 1:
-				setTagValue(document, "PrescriptionAmount", amount);
-				setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
-				setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
-				setTagValue(document, "DentalAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "PrescriptionAmount", amount);
+				RequestUtils.setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "DentalAmount",EmptyValueFormat );
 				break;
 
 			case 2:
-				setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
-				setTagValue(document, "VisionOpticalAmount", amount);
-				setTagValue(document, "CoPaymentAmount", EmptyValueFormat);
-				setTagValue(document, "DentalAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "VisionOpticalAmount", amount);
+				RequestUtils.setTagValue(document, "CoPaymentAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "DentalAmount", EmptyValueFormat);
 				break;
 
 			case 3:
-				setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
-				setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
-				setTagValue(document, "CoPaymentAmount",amount );
-				setTagValue(document, "DentalAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "CoPaymentAmount",amount );
+				RequestUtils.setTagValue(document, "DentalAmount",EmptyValueFormat );
 				break;
 
 			default:
 				
-				setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
-				setTagValue(document, "VisionOpticalAmount",EmptyValueFormat );
-				setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
-				setTagValue(document, "DentalAmount",amount );
+				RequestUtils.setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "VisionOpticalAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "DentalAmount",amount );
 				break;
 			}
 
 			
 
-			setTagValue(document, "TaxAmount", "0.23");
-			setTagValue(document, "OrigAurusPayTicketNum", AuruspayTicketNum);
-			setTagValue(document, "OrigTransactionIdentifier", transID);
-			setTagValue(document, "TransactionType", "06");
+			RequestUtils.setTagValue(document, "TaxAmount", "0.23");
+			RequestUtils.setTagValue(document, "OrigAurusPayTicketNum", AuruspayTicketNum);
+			RequestUtils.setTagValue(document, "OrigTransactionIdentifier", transID);
+			RequestUtils.setTagValue(document, "TransactionType", "06");
 			
 			
 			
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static String FSA_SALE_REQUEST(String CardToken, String CI, String CRM, double AMT) {
+	public static String FSA_SALE_REQUEST(String CardToken, String CI, String CRM, double AMT, String TransType) {
 		try {
 
 			
 
-			double Prescription = 25.00;
+			double Prescription = 20.00;
 			double VisionOptical = 20.00;
 			double CoPayment = 55.00;
 			double Dental = AMT; // Adjusted to make the total 100.13
@@ -536,22 +504,22 @@ public class FSARequest {
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
-
-			setTagValue(document, "TenderAmount", transactionTotal);
-			setTagValue(document, "TransactionTotal", transactionTotal);
-			setTagValue(document, "FSAAmount", FSAAmount);
-			setTagValue(document, "HealthCareAmount", FSAAmount);
-			setTagValue(document, "PrescriptionAmount", PrescriptionAmount);
-			setTagValue(document, "VisionOpticalAmount", VisionOpticalAmount);
-			setTagValue(document, "CoPaymentAmount", CoPaymentAmount);
-			setTagValue(document, "DentalAmount", DentalAmount);
-			setTagValue(document, "TaxAmount", "0.00");
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CI);
+			RequestUtils.setTagValue(document, "CardIdentifier", CRM);
+			RequestUtils.setTagValue(document, "TransactionType", TransType);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionTotal);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionTotal);
+			RequestUtils.setTagValue(document, "FSAAmount", FSAAmount);
+			RequestUtils.setTagValue(document, "HealthCareAmount", FSAAmount);
+			RequestUtils.setTagValue(document, "PrescriptionAmount", PrescriptionAmount);
+			RequestUtils.setTagValue(document, "VisionOpticalAmount", VisionOpticalAmount);
+			RequestUtils.setTagValue(document, "CoPaymentAmount", CoPaymentAmount);
+			RequestUtils.setTagValue(document, "DentalAmount", DentalAmount);
+			RequestUtils.setTagValue(document, "TaxAmount", "0.00");
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

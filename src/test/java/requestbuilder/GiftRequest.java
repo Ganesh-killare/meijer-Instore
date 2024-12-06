@@ -33,7 +33,7 @@ public class GiftRequest {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 // Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -125,39 +125,6 @@ public class GiftRequest {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
-	}
 
 	public static String GIFT_REQUEST(String amount, String cardNumber, String EntrySource, String SubTransType,
 			String transtype, String Upc, String cardToken) {
@@ -195,18 +162,18 @@ public class GiftRequest {
 			}
 
 // Modify specific tag values
-			setTagValue(document, "TransactionTotal", amount);
-			setTagValue(document, "TenderAmount", amount);
-			setTagValue(document, "CardNumber", cardNumber);
-			setTagValue(document, "EntrySource", EntrySource);
-			setTagValue(document, "SubTransType", subtrans);
-			setTagValue(document, "TransactionType", transtype);
-			setTagValue(document, "CardToken", cardToken);
-			setTagValue(document, "BlackHawkUpc", UPC_DATA.trim());
-			setTagValue(document, "CardToken", cardToken);
+			RequestUtils.setTagValue(document, "TransactionTotal", amount);
+			RequestUtils.setTagValue(document, "TenderAmount", amount);
+			RequestUtils.setTagValue(document, "CardNumber", cardNumber);
+			RequestUtils.setTagValue(document, "EntrySource", EntrySource);
+			RequestUtils.setTagValue(document, "SubTransType", subtrans);
+			RequestUtils.setTagValue(document, "TransactionType", transtype);
+			RequestUtils.setTagValue(document, "CardToken", cardToken);
+			RequestUtils.setTagValue(document, "BlackHawkUpc", UPC_DATA.trim());
+			RequestUtils.setTagValue(document, "CardToken", cardToken);
 
 // Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

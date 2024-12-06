@@ -1,18 +1,10 @@
 package requestbuilder;
 
-import java.io.StringWriter;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import base.POS_APIs;
@@ -28,7 +20,7 @@ public class Check {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 			// Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -124,39 +116,7 @@ public class Check {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
-	}
+	
 
 	public static String Request() {
 		try {
@@ -168,11 +128,11 @@ public class Check {
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 			String AMT = POS_APIs.generateTransactionAmount();
 			// Modify specific tag values
-			setTagValue(document, "TenderAmount", AMT);
-			setTagValue(document, "TransactionTotal", AMT);
+			RequestUtils.setTagValue(document, "TenderAmount", AMT);
+			RequestUtils.setTagValue(document, "TransactionTotal", AMT);
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -1,6 +1,5 @@
 package requestbuilder;
 
-
 import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.util.concurrent.ThreadLocalRandom;
@@ -33,7 +32,7 @@ public class EBT_OTC {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 			// Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -55,7 +54,7 @@ public class EBT_OTC {
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
 			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
-			appendElementWithValue(doc, transRequestElement, "SessionId",SessionIdManager.getCurrentSessionId());
+			appendElementWithValue(doc, transRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "CardType", "VIC");
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
@@ -87,14 +86,16 @@ public class EBT_OTC {
 			// Add nested elements
 			Element transAmountDetailsElement = doc.createElement("TransAmountDetails");
 			transRequestElement.appendChild(transAmountDetailsElement);
-			appendElementWithValue(doc, transAmountDetailsElement, "TenderAmount", null); // Set value to null for empty   OTCAmount
+			appendElementWithValue(doc, transAmountDetailsElement, "TenderAmount", null); // Set value to null for empty
+																							// OTCAmount
 																							// tag
-			appendElementWithValue(doc, transAmountDetailsElement, "TransactionTotal", null); // Set value to null for empty tag
-			
-			// OTC Tags 
-			appendElementWithValue(doc, transAmountDetailsElement, "OTCAmount", null);	
-			appendElementWithValue(doc, transAmountDetailsElement, "FoodAmount", null);	
-			appendElementWithValue(doc, transAmountDetailsElement, "OtherAmount", null);	
+			appendElementWithValue(doc, transAmountDetailsElement, "TransactionTotal", null); // Set value to null for
+																								// empty tag
+
+			// OTC Tags
+			appendElementWithValue(doc, transAmountDetailsElement, "OTCAmount", null);
+			appendElementWithValue(doc, transAmountDetailsElement, "FoodAmount", null);
+			appendElementWithValue(doc, transAmountDetailsElement, "OtherAmount", null);
 
 			appendElementWithValue(doc, transAmountDetailsElement, "TaxAmount", ".00");
 
@@ -128,40 +129,6 @@ public class EBT_OTC {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
-	}
-
 	public static String SALE_REQUEST(String CardToken, String CI, String CRM) {
 
 		try {
@@ -180,20 +147,20 @@ public class EBT_OTC {
 
 			// transactionAmount = "10.00";
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CRM);
-			setTagValue(document, "CardIdentifier", CI);
-			setTagValue(document, "TransactionTotal", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
-			
-			// OTC Tags 
-			
-			setTagValue(document, "OTCAmount", transactionAmount);
-			setTagValue(document, "FoodAmount", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
+
+			// OTC Tags
+
+			RequestUtils.setTagValue(document, "OTCAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "FoodAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -215,24 +182,22 @@ public class EBT_OTC {
 			System.out.println("POS Send Amount is : $" + transactionAmount);
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CRM);
-			setTagValue(document, "CardIdentifier", CI);
-			setTagValue(document, "TransactionTotal", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
-			
-			// OTC Tags 
-			
-			setTagValue(document, "OTCAmount", transactionAmount);
-			setTagValue(document, "FoodAmount", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
-			
-			
-			
-			setTagValue(document, "TransactionType", "02");
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
+
+			// OTC Tags
+
+			RequestUtils.setTagValue(document, "OTCAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "FoodAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
+
+			RequestUtils.setTagValue(document, "TransactionType", "02");
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -250,18 +215,16 @@ public class EBT_OTC {
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CI);
-			setTagValue(document, "CardIdentifier", CRM);
-			setTagValue(document, "TransactionTotal", amount);
-			
-			
-			
-			setTagValue(document, "TenderAmount", amount);
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CI);
+			RequestUtils.setTagValue(document, "CardIdentifier", CRM);
+			RequestUtils.setTagValue(document, "TransactionTotal", amount);
+
+			RequestUtils.setTagValue(document, "TenderAmount", amount);
 
 			// Convert the modified document back to a string
-			
-			return documentToString(document);
+
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -3,6 +3,7 @@ package mtestcases;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.jdom2.JDOMException;
 import org.testng.annotations.AfterMethod;
@@ -19,19 +20,18 @@ public class TC_OTC extends BaseClass {
 	public void InComm_VoidOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
-		List<String> SaleResult = IncommTransaction();
-		// System.out.println(SaleResult);
+		List<String> SaleResult = IncommTransaction();   
 		performVoidTransaction(SaleResult);
 	}
 
-	@Test(invocationCount = 1)
+    @Test(invocationCount = 2)
 	public void InComm_RefundOfSale() throws Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();     
-		System.out.println(fileName);
-		List<String> SaleResult = IncommTransaction();   
+		fileName = new Exception().getStackTrace()[0].getMethodName();       
+		System.out.println(fileName);            
+		List<String> SaleResult = IncommTransaction();
 		// System.out.println(SaleResult);
-		performRefundTransaction(SaleResult);
-	}
+		performRefundTransaction(SaleResult);   
+	}   
 
 	@Test(invocationCount = 1)
 	public void SolotronVoidOfSale() throws Exception {
@@ -42,7 +42,7 @@ public class TC_OTC extends BaseClass {
 		performVoidTransaction(SaleResult);
 	}
 
-	@Test(invocationCount = 1)   
+	@Test(invocationCount = 1)
 	public void SolotronRefundOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -52,7 +52,7 @@ public class TC_OTC extends BaseClass {
 	}
 
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();

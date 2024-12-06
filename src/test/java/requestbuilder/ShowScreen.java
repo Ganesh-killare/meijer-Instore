@@ -24,7 +24,7 @@ public class ShowScreen {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 			// Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -34,7 +34,7 @@ public class ShowScreen {
 	public static String ALUScreen06Request() {
 		try {
 			Document requestDocument = ALUScreen06();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -44,7 +44,7 @@ public class ShowScreen {
 	public static String ALUScreen07Request() {
 		try {
 			Document requestDocument = ALUScreen07();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -54,7 +54,7 @@ public class ShowScreen {
 	public static String HostSuppliedMperksRequest() {
 		try {
 			Document requestDocument = HostSuppliedMperks();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -64,7 +64,7 @@ public class ShowScreen {
 	public static String DuplicatemperksRequest() {
 		try {
 			Document requestDocument = Duplicatemperks();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -74,7 +74,7 @@ public class ShowScreen {
 	public static String HighValuePromptRequest() {
 		try {
 			Document requestDocument = HighValuePrompt();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -84,7 +84,7 @@ public class ShowScreen {
 	public static String MULTICopounRequest() {
 		try {
 			Document requestDocument = MULTICopoun();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -94,7 +94,7 @@ public class ShowScreen {
 	public static String FirstUseDiscountRequest() {
 		try {
 			Document requestDocument = FirstUseDiscount();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -111,8 +111,18 @@ public class ShowScreen {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
 
-			setTagValue(document, "MessageLine2", "$-" + Amount);
-			return documentToString(document);
+			RequestUtils.setTagValue(document, "MessageLine2", "$-" + Amount);
+			return RequestUtils.documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static String receiptOptionsRequest() {
+		try {
+			Document requestDocument = receiptOptions();
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -461,6 +471,47 @@ public class ShowScreen {
 		}
 	}
 
+	private static Document receiptOptions() {
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+
+			// Create root element: ShowScreenRequest
+			Element showScreenRequest = doc.createElement("ShowScreenRequest");
+			doc.appendChild(showScreenRequest);
+
+			// Add child elements for ShowScreenRequest
+			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
+			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, showScreenRequest, "SessionId", "128");
+			appendElementWithValue(doc, showScreenRequest, "LanguageIndicator", "");
+			appendElementWithValue(doc, showScreenRequest, "Header", "");
+			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "What type of paper receipt would");
+			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "Please select the receipt option.");
+			appendElementWithValue(doc, showScreenRequest, "MessageLine3", "Would you like a short or full receipt?");
+			appendElementWithValue(doc, showScreenRequest, "TimeOut", "600");
+
+			// Add ButtonMsg element with child elements
+			Element buttonMsg = doc.createElement("ButtonMsg");
+			showScreenRequest.appendChild(buttonMsg);
+
+			appendElementWithValue(doc, buttonMsg, "ButtonSizeFlag", "00");
+			appendElementWithValue(doc, buttonMsg, "Button1Text", "Short Receipt");
+			appendElementWithValue(doc, buttonMsg, "Button2Text", "Full Receipt");
+
+			// Omit MessageLine4-6, ShowCheckBox, CheckBoxText, and ActivityFlag since
+			// they're not required in your XML
+
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	private static void appendElementWithValue(Document doc, Element parentElement, String tagName,
 			String textContent) {
 		Element element = doc.createElement(tagName);
@@ -474,40 +525,6 @@ public class ShowScreen {
 		}
 
 		parentElement.appendChild(element);
-	}
-
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
 	}
 
 }

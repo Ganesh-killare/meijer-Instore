@@ -3,6 +3,7 @@ package mtestcases;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.jdom2.JDOMException;
 import org.testng.annotations.AfterMethod;
@@ -19,7 +20,7 @@ public class TC_POA extends BaseClass {
 		System.out.println(fileName);
 		List<String> ALUData = performALUwithSSN();
 		List<String> SaleData = performCheckTransaction();
-		performPOA(SaleData.get(8), SaleData.get(12), ALUData.get(1), "CH");
+		performPOA(SaleData.get(8), SaleData.get(12), ALUData.get(1), "CH");  
 
 	}
 
@@ -29,7 +30,7 @@ public class TC_POA extends BaseClass {
 		System.out.println(fileName);
 		List<String> ALUData = performALUwithSSN();
 
-		performPOA("10.00", null, ALUData.get(1), "CA");
+		performPOA("10.00", null, ALUData.get(1), "CA");   
 	}
 
 	@Test(priority = 6)
@@ -71,7 +72,7 @@ public class TC_POA extends BaseClass {
 	}
 
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 
 		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();

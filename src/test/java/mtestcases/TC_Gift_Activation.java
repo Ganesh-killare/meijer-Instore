@@ -72,7 +72,7 @@ public class TC_Gift_Activation extends BaseClass {
 	 * }
 	 */
 
-	@Test(dataProvider = "GIFT_DATA", dataProviderClass = GIft_Data.class, priority = 1)
+	@Test(dataProvider = "GIFT_DATA", dataProviderClass = GIft_Data.class, priority = 1)   
 	public void test_Gift(String transactionType, String amount, String cardNumber, String entrySource,
 			String transtype, String subtransType, String upsdata)
 			throws UnknownHostException, IOException, InterruptedException, Exception {    
@@ -81,12 +81,13 @@ public class TC_Gift_Activation extends BaseClass {
 
 			String giftRequest = GiftRequest.GIFT_REQUEST(amount, cardNumber, entrySource, subtransType, transtype,
 					upsdata, null);
-		//	System.out.println(giftRequest);
+			
+			// System.out.println(giftRequest);
 
 			sendRequestToAESDK(giftRequest);
 			String giftResponse = receiveResponseFromAESDK();
 			Response_Parameters giftparameters = new Response_Parameters(giftResponse);
-			List<String> gift_Activation = giftparameters.print_Response(transactionType, parameters);   
+			List<String> gift_Activation = giftparameters.print_Response(transactionType, parameters);      
 
 			if (transactionType.contains("Pre-Auth activation")) {
 				exceldata.WriteActivationData(gift_Activation, Parameters); 
@@ -110,13 +111,13 @@ public class TC_Gift_Activation extends BaseClass {
 	@Test(dataProvider = "GIFT_DATA_S_M", dataProviderClass = GIft_Data.class, priority = 1)
 	public void testGiftTransactionsUsingGCBFlow(String transactionType, String amount, String cardNumber,
 			String entrySource, String transtype, String subtransType, String upsdata)
-			throws UnknownHostException, IOException, InterruptedException, Exception {   
+			throws UnknownHostException, IOException, InterruptedException, Exception {        
 
 		try {
 
 			// GCB        
 
-			String req = GCB_Modification.GCB_Request_Modified();   
+			String req = GCB_Modification.GCB_Request_Modified();      
 			sendRequestToAESDK(req); // System.out.println(req);
 			String res = receiveResponseFromAESDK(); // System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);

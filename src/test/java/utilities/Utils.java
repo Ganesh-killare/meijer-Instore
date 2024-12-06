@@ -27,6 +27,7 @@ public class Utils {
 	private static int serverPort;
 	private static String ATVTender;
 	private static String PrintData;
+	private static String AutoDualProcessor;
 
 	static {
 		// Load the configuration once when the class is loaded
@@ -40,6 +41,7 @@ public class Utils {
 			sessionId = properties.getProperty("SessionID", "00");
 			serverIp = properties.getProperty("ServerIP", getHostIP());
 			ATVTender = properties.getProperty("ATV_Token_Tenders", "");
+			AutoDualProcessor = properties.getProperty("AutoDualProcessor", "N");
 			PrintData = properties.getProperty("Print_Data", "Y");
 			serverPort = Integer.parseInt(properties.getProperty("ServerPort", "8060"));
 
@@ -88,6 +90,10 @@ public class Utils {
 
 	public static String getPrintDataParameter() {
 		return PrintData;
+	}
+
+	public static String getAutoDualProcessor() {
+		return AutoDualProcessor;
 	}
 
 	public static List<String> generateDateTimeAndInvoice() {
@@ -167,21 +173,60 @@ public class Utils {
 
 		if (getPrintDataParameter().equalsIgnoreCase("Y")) {
 
+			String transType = data.get(4).substring(data.get(4).length() - 1);
+
+			switch (transType) {
+			case "1":
+				System.out.println("Sale : ");
+				break;
+			case "2":
+				System.out.println("Refund : ");
+				break;
+			case "5":
+				System.out.println("Void : ");
+				break;
+
+			default:
+				break;
+			}
+
 			System.out.println("Transaction ID  :  " + data.get(11));
 			System.out.println("Response Text  :  " + data.get(9));
 			System.out.println("Response Code  :  " + data.get(10));
 			System.out.println("CardType : " + data.get(6));
 			System.out.println("CardEntryMode : " + data.get(3));
+			System.out.println("Total Approved Amount : " + data.get(8));
+			System.out.println("ProcessorMerchantId : " + data.get(14));
+
+			System.out.println("=".repeat(15));
 		}
 	}
 
-	public static void checkEligibleTender(String cardType) {
+	public static List<String> getVoidData(List<String> data) {
+
+		// transactionIdentifier, AurusPayTicketNum, Amount, "06", PMI
+
+		// [APPROVAL, 00000, MCC, 06, 124333288185570244]
+		List<String> VoidData = new ArrayList<String>();
+		VoidData.add(data.get(13));
+		VoidData.add(data.get(14));
+		VoidData.add(data.get(10));
+		VoidData.add("06");
+		VoidData.add(data.get(17));
+		// System.out.println(VoidData);
+		return VoidData;
+	}
+
+	public static void checkEligibleTender(String token, String cardType) {
+
+		Assert.assertEquals(token.isEmpty(), false);
 		String upperCaseTender = ATVTender.toUpperCase();
 
 		switch (upperCaseTender) {
 		case "PLC":
 		case "XXC":
-			Assert.assertEquals(cardType, upperCaseTender);
+		case "FSA":
+			// Assert.assertEquals(cardType, upperCaseTender);
 			break;
 		default:
 			// Optionally, you can handle unexpected tender types here

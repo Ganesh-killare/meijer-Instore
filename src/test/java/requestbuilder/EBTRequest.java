@@ -33,7 +33,7 @@ public class EBTRequest {
 			Document transRequestDocument = createSampleTransRequestDocument();
 
 			// Convert the modified document back to a string
-			return documentToString(transRequestDocument);
+			return RequestUtils.documentToString(transRequestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -113,39 +113,7 @@ public class EBTRequest {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void setTagValue(Document document, String tagName, String newValue) {
-		NodeList nodeList = document.getElementsByTagName(tagName);
-		if (nodeList.getLength() > 0) {
-			Element element = (Element) nodeList.item(0);
-			element.setTextContent(newValue);
-		}
-	}
+	
 
 	public static String EBT_SALE_REQUEST(String CardToken, String CI, String CRM) {
 		try {
@@ -163,15 +131,15 @@ public class EBTRequest {
 			// String transactionAmount = "100.13";
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CRM);
-			setTagValue(document, "CardIdentifier", CI);
-			setTagValue(document, "TransactionTotal", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
-			setTagValue(document, "EBTAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "EBTAmount", transactionAmount);
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -193,18 +161,49 @@ public class EBTRequest {
 			String transactionAmount = POS_APIs.generateTransactionAmount();
 
 			// Modify specific tag values
-			setTagValue(document, "CardToken", CardToken);
-			setTagValue(document, "CRMToken", CRM);
-			setTagValue(document, "CardIdentifier", CI);
-			setTagValue(document, "TransactionTotal", transactionAmount);
-			setTagValue(document, "TenderAmount", transactionAmount);
-			setTagValue(document, "EBTAmount", transactionAmount);
-			setTagValue(document, "TransactionType", "02");
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
+			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "EBTAmount", transactionAmount);
+			RequestUtils.setTagValue(document, "TransactionType", "02");
 
 			// Set CashBack Flag
 
 			// Convert the modified document back to a string
-			return documentToString(document);
+			return RequestUtils.documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static String PF_EBT_SALE_REQUEST(String CardToken, String CI, String CRM, String AMT, String TransType) {
+		try {
+
+			// take a basic request
+			String xml = buildXMLRequest();
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
+
+			// Random Amount generation
+
+			// String transactionAmount = "100.13";
+
+			// Modify specific tag values
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
+			RequestUtils.setTagValue(document, "TransactionType", TransType);
+			RequestUtils.setTagValue(document, "TransactionTotal", AMT);
+			RequestUtils.setTagValue(document, "TenderAmount", AMT);
+			RequestUtils.setTagValue(document, "EBTAmount", AMT);
+
+			// Convert the modified document back to a string
+			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

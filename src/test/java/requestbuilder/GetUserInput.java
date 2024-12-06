@@ -22,7 +22,7 @@ public class GetUserInput {
 	public static String ALUScreen01Request() {
 		try {
 			Document requestDocument = ALUScreen01();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -32,7 +32,7 @@ public class GetUserInput {
 	public static String ALUScreen02Request() {
 		try {
 			Document requestDocument = ALUScreen02();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -42,7 +42,7 @@ public class GetUserInput {
 	public static String ALUScreen03Request() {
 		try {
 			Document requestDocument = ALUScreen03();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -52,7 +52,7 @@ public class GetUserInput {
 	public static String ALUScreen04Request() {
 		try {
 			Document requestDocument = ALUScreen04();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -62,7 +62,7 @@ public class GetUserInput {
 	public static String ALUScreen05Request() {
 		try {
 			Document requestDocument = ALUScreen05();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -72,7 +72,7 @@ public class GetUserInput {
 	public static String MperkNumberRequest() {
 		try {
 			Document requestDocument = MperkNumber();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -82,7 +82,7 @@ public class GetUserInput {
 	public static String InvalidMperkNumberRequest() {
 		try {
 			Document requestDocument = InvalidMperkNumber();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -92,7 +92,7 @@ public class GetUserInput {
 	public static String MperkPINRequest() {
 		try {
 			Document requestDocument = MperkPIN();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -102,7 +102,7 @@ public class GetUserInput {
 	public static String InvalidMperkPINRequest() {
 		try {
 			Document requestDocument = InvalidMperkPIN();
-			return documentToString(requestDocument);
+			return RequestUtils.documentToString(requestDocument);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -437,30 +437,5 @@ public class GetUserInput {
 		parentElement.appendChild(element);
 	}
 
-	private static String documentToString(Document document) {
-		try {
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-
-			// Set properties for pretty formatting without the XML declaration
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-			// Remove unnecessary whitespace
-			document.normalize();
-
-			StringWriter writer = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(writer));
-
-			// Remove empty lines between tags
-			String result = writer.toString().replaceAll("(?m)^[ \t]*\r?\n", "");
-
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
+	
 }

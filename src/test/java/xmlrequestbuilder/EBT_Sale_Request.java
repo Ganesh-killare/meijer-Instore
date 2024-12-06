@@ -87,7 +87,7 @@ public class EBT_Sale_Request {
 		String formattedTime = Utils.generateDateTimeAndInvoice().get(0);
 		String finalDate = Utils.generateDateTimeAndInvoice().get(1);
 		String invoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
-		amt = "10.00";
+	//	amt = "10.00";
 
 		try {
 			// Load the XML file
