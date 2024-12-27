@@ -13,7 +13,7 @@ import xmlrequestbuilder.CloseRequest;
 
 public class TC_PLC extends BaseClass {
 
-	@Test(invocationCount = 6)
+	@Test(invocationCount = 1)
 	public void PLC_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -21,11 +21,11 @@ public class TC_PLC extends BaseClass {
 		List<String> saleResult = performPLCSale();
 		Utils.printResults(saleResult);
 
-		performRefundTransaction(saleResult);
+		performRefundTransaction(saleResult);              
 	}
 
-	@Test(invocationCount = 6)
-	public void PLC_VoidOfSale() throws IOException, Exception {
+	@Test(invocationCount = 60)
+	public void PLC_VoidOfSale() throws IOException, Exception {          
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
@@ -36,7 +36,7 @@ public class TC_PLC extends BaseClass {
 
 	}
 
-	@Test(invocationCount = 6)
+	@Test(invocationCount = 60)
 	public void PLC_VoidOfRefundWithoutsale() throws IOException, Exception {    
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -45,7 +45,7 @@ public class TC_PLC extends BaseClass {
 
 		performVoidTransaction(saleResult);
 
-	}
+	}                  
 
 	@AfterMethod
 	public void saveXLFile() throws Exception {

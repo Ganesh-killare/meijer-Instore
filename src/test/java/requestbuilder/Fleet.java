@@ -63,7 +63,7 @@ public class Fleet {
 			Element transRequestElement = doc.createElement("TransRequest");
 			doc.appendChild(transRequestElement);
 
-			addCommonElements(doc, transRequestElement,  transType);
+			addCommonElements(doc, transRequestElement, transType);
 
 			if (isRefund) {
 				addRefundSpecificElements(doc, transRequestElement, Data);
@@ -86,7 +86,7 @@ public class Fleet {
 		return docBuilder.newDocument();
 	}
 
-	private static void addCommonElements(Document doc, Element parentElement,  String transType) {
+	private static void addCommonElements(Document doc, Element parentElement, String transType) {
 		appendElementWithValue(doc, parentElement, "POSID", POSID);
 		appendElementWithValue(doc, parentElement, "APPID", APPID);
 		appendElementWithValue(doc, parentElement, "CCTID", CCTID);
@@ -123,23 +123,26 @@ public class Fleet {
 		appendElementWithValue(doc, transAmountDetailsElement, "TenderAmount", amount);
 		appendElementWithValue(doc, transAmountDetailsElement, "TaxAmount", "0.00");
 
-		Element level3ProductsDataElement = doc.createElement("Level3ProductsData");
+		Element level3ProductsDataElement = doc.createElement("FleetData");
 		parentElement.appendChild(level3ProductsDataElement);
-		appendElementWithValue(doc, level3ProductsDataElement, "Level3ProductCount", productCount);
+		appendElementWithValue(doc, level3ProductsDataElement, "FleetProductCount", productCount);
 
-		Element level3ProductsElement = doc.createElement("Level3Products");
+		Element level3ProductsElement = doc.createElement("FleetProducts");
 		level3ProductsDataElement.appendChild(level3ProductsElement);
 
 		for (int i = 1; i <= productValues; i++) {
-			Element level3ProductElement = doc.createElement("Level3Product");
+			Element level3ProductElement = doc.createElement("FleetProduct");
 			level3ProductsElement.appendChild(level3ProductElement);
-			appendElementWithValue(doc, level3ProductElement, "L3ProductSeqNo", String.valueOf(i));
-			appendElementWithValue(doc, level3ProductElement, "L3ProductCode", "001");
-			appendElementWithValue(doc, level3ProductElement, "L3ProductName", "Unleaded");
-			appendElementWithValue(doc, level3ProductElement, "L3UnitOfMeasure", "G");
-			appendElementWithValue(doc, level3ProductElement, "L3ProductQuantity", "1.000");
-			appendElementWithValue(doc, level3ProductElement, "L3ProductUnitPrice", String.valueOf(L3ProductUnitPrice));
-			appendElementWithValue(doc, level3ProductElement, "L3ProductTotalAmount",
+			appendElementWithValue(doc, level3ProductElement, "FleetProductSeqNo", String.valueOf(i));
+			appendElementWithValue(doc, level3ProductElement, "FleetProductDataType", "102");
+			appendElementWithValue(doc, level3ProductElement, "FleetServiceLevel", "S");
+			appendElementWithValue(doc, level3ProductElement, "FleetNACSCode", "001");
+			appendElementWithValue(doc, level3ProductElement, "FleetProductName", "Unlead");
+			appendElementWithValue(doc, level3ProductElement, "FleetUnitOfMeasure", "G");
+			appendElementWithValue(doc, level3ProductElement, "FleetProductQuantity", "1");
+			appendElementWithValue(doc, level3ProductElement, "FleetProductUnitPrice",
+					String.valueOf(L3ProductUnitPrice));
+			appendElementWithValue(doc, level3ProductElement, "FleetProductTotalAmount",
 					String.valueOf(L3ProductUnitPrice));
 		}
 
@@ -172,23 +175,43 @@ public class Fleet {
 		appendElementWithValue(doc, transAmountDetailsElement, "TransactionTotal", formattedAmount);
 		appendElementWithValue(doc, transAmountDetailsElement, "TenderAmount", formattedAmount);
 		appendElementWithValue(doc, transAmountDetailsElement, "TaxAmount", "0.00");
-		Element level3ProductsDataElement = doc.createElement("Level3ProductsData");
-		parentElement.appendChild(level3ProductsDataElement);
-		appendElementWithValue(doc, level3ProductsDataElement, "Level3ProductCount", productCount);
 
-		Element level3ProductsElement = doc.createElement("Level3Products");
+		Element level3ProductsDataElement = doc.createElement("FleetData");
+		parentElement.appendChild(level3ProductsDataElement);
+		appendElementWithValue(doc, level3ProductsDataElement, "FleetProductCount", productCount);
+
+		Element level3ProductsElement = doc.createElement("FleetProducts");
 		level3ProductsDataElement.appendChild(level3ProductsElement);
 
+		/*
+		 * 
+		 * 
+		 * <FleetData> <FleetProductCount>1</FleetProductCount> <FleetProducts>
+		 * <FleetProduct> <FleetProductSeqNo>001</FleetProductSeqNo>
+		 * <FleetProductDataType>102</FleetProductDataType>
+		 * <FleetServiceLevel>S</FleetServiceLevel> <FleetNACSCode>001</FleetNACSCode>
+		 * <FleetProductName>product 1</FleetProductName>
+		 * <FleetUnitOfMeasure>O</FleetUnitOfMeasure>
+		 * <FleetProductQuantity>1</FleetProductQuantity>
+		 * <FleetProductUnitPrice>5</FleetProductUnitPrice>
+		 * <FleetProductTotalAmount>5</FleetProductTotalAmount> </FleetProduct>
+		 * </FleetProducts> </FleetData>
+		 * 
+		 * 
+		 */
 		for (int i = 1; i <= productValues; i++) {
-			Element level3ProductElement = doc.createElement("Level3Product");
+			Element level3ProductElement = doc.createElement("FleetProduct");
 			level3ProductsElement.appendChild(level3ProductElement);
-			appendElementWithValue(doc, level3ProductElement, "L3ProductSeqNo", String.valueOf(i));
-			appendElementWithValue(doc, level3ProductElement, "L3ProductCode", "001");
-			appendElementWithValue(doc, level3ProductElement, "L3ProductName", "Unleaded");
-			appendElementWithValue(doc, level3ProductElement, "L3UnitOfMeasure", "G");
-			appendElementWithValue(doc, level3ProductElement, "L3ProductQuantity", "1.000");
-			appendElementWithValue(doc, level3ProductElement, "L3ProductUnitPrice", String.valueOf(L3ProductUnitPrice));
-			appendElementWithValue(doc, level3ProductElement, "L3ProductTotalAmount",
+			appendElementWithValue(doc, level3ProductElement, "FleetProductSeqNo", String.valueOf(i));
+			appendElementWithValue(doc, level3ProductElement, "FleetProductDataType", "102");
+			appendElementWithValue(doc, level3ProductElement, "FleetServiceLevel", "S");
+			appendElementWithValue(doc, level3ProductElement, "FleetNACSCode", "001");
+			appendElementWithValue(doc, level3ProductElement, "FleetProductName", "Unlead");
+			appendElementWithValue(doc, level3ProductElement, "FleetUnitOfMeasure", "G");
+			appendElementWithValue(doc, level3ProductElement, "FleetProductQuantity", "1");
+			appendElementWithValue(doc, level3ProductElement, "FleetProductUnitPrice",
+					String.valueOf(L3ProductUnitPrice));
+			appendElementWithValue(doc, level3ProductElement, "FleetProductTotalAmount",
 					String.valueOf(L3ProductUnitPrice));
 		}
 

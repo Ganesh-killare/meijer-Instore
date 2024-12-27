@@ -16,7 +16,7 @@ import xmlrequestbuilder.CloseRequest;
 
 public class TC_OTC extends BaseClass {
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 3)
 	public void InComm_VoidOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -24,7 +24,7 @@ public class TC_OTC extends BaseClass {
 		performVoidTransaction(SaleResult);
 	}
 
-    @Test(invocationCount = 2)
+    @Test(invocationCount = 3)
 	public void InComm_RefundOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();       
 		System.out.println(fileName);            
@@ -33,7 +33,7 @@ public class TC_OTC extends BaseClass {
 		performRefundTransaction(SaleResult);   
 	}   
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 3)
 	public void SolotronVoidOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -42,7 +42,7 @@ public class TC_OTC extends BaseClass {
 		performVoidTransaction(SaleResult);
 	}
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 3)
 	public void SolotronRefundOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);

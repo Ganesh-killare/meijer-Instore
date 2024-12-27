@@ -1,4 +1,4 @@
-package mtestcases;
+package dualprocessor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,30 +21,37 @@ import utilities.Utils;
 import xmlrequestbuilder.CloseRequest;
 import xmlrequestbuilder.Refund_Request_Modification;
 
-public class AutoDualProcessor extends BaseClass {
+public class ChaseAutoDualProcessor extends BaseClass {
 
 	String fileName = "C_ProcessorFailure";
-	String transType = "01"; // Change accordingly
-	String transName = "sale"; // Change accordingly
-	String Amount = "100.13";
-	String ResponseCode = "91";
+	String transType; // Change accordingly
+	String transName; // Change accordingly
+	String Amount = "100.14";
+	String ResponseCode = "92";
 
 	BaseClass cp = new BaseClass();
 	ProcessorFailourXL xlWriter = new ProcessorFailourXL();
 	AESDKData ad = new AESDKData();
 
-	String[] parameters = { "CardToken", "CardIdentifier", "CRMToken", "CardEntryMode", "TransactionTypeCode",
-			"TransactionSequenceNumber", "CardType", "SubCardType", "TotalApprovedAmount", "ResponseText",
-			"ResponseCode", "TransactionIdentifier", "AurusPayTicketNum", "ApprovalCode", "ProcessorMerchantId" };
-	List<String> GCB_Parameters = new ArrayList<>(Arrays.asList(parameters));
 	P_XL_Utility xl = new P_XL_Utility();
 
-	List<String> headlines = xlWriter.headlineSetter(ResponseCode, "", "CHASE");
+	List<String> headlines = xlWriter.headlineSetter(ResponseCode, "", "CHASE");   
 
 	private static int invocationCount = 1;
 
 	@BeforeClass
 	public void setUp() throws Exception, InterruptedException, Exception {
+
+		// Setting Data -
+		transType = Utils.getDefaultTransType();
+		if (transType.contains("1")) {
+			transType = "01";
+			transName = "Sale";
+		} else {
+			transType = "02";
+			transName = "RefundWithoutSale";
+		}
+
 		xlWriter.writeHeadline(headlines.get(0)); // HeadLine set
 		System.out.println("Call Indrajeet for the rest the counter.....");
 
@@ -53,13 +60,16 @@ public class AutoDualProcessor extends BaseClass {
 		System.out.println(msg);
 		sc.close();
 
+		// Modified File name
+		fileName = fileName + Amount;
+
 		System.out.println("Normal Credit / Debit Sale ");
 
 		List<String> saleData = performCreditDebitSale();
 
 		List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 		saleData.add(0, expectedList.get(0));
-		saleData.add(saleData.size() - 1, expectedList.get(5));   
+		saleData.add(saleData.size() - 1, expectedList.get(5));
 
 		xlWriter.writeTransactionData(saleData);
 		xl.writeDataForVoid(Utils.getVoidData(saleData));
@@ -246,7 +256,7 @@ public class AutoDualProcessor extends BaseClass {
 				cp.sendRequestToAESDK(VOid_Request);
 				String voidResponse = cp.receiveResponseFromAESDK();
 
-				Response_Parameters VoidResponse = new Response_Parameters(voidResponse); // IMP  
+				Response_Parameters VoidResponse = new Response_Parameters(voidResponse); // IMP
 
 				List<String> VoidData = VoidResponse.print_Response("VOID", parameters);
 				VoidData.add(3, "Void");
@@ -268,7 +278,7 @@ public class AutoDualProcessor extends BaseClass {
 		} finally {
 			cp.sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			cp.receiveResponseFromAESDK();
-			xlWriter.saveExcelFile(Utils.setFileName(fileName));
+			// xlWriter.saveExcelFile(Utils.setFileName(fileName));
 		}
 
 	}
@@ -278,8 +288,13 @@ public class AutoDualProcessor extends BaseClass {
 		xlWriter.writeHeadline(headlines.get(0)); // HeadLine set
 		System.out.println("Call Indrajeet for the rest the counter.....");
 
+		// Set Copunter 1
+		invocationCount = 1;
+
 		Scanner sc = new Scanner(System.in);
 		String msg = sc.nextLine();
+		System.out.println(msg);
+
 		System.out.println(msg);
 		sc.close();
 
@@ -287,7 +302,7 @@ public class AutoDualProcessor extends BaseClass {
 
 		List<String> saleData = performCreditDebitSale();
 
-		List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);   
+		List<String> expectedList = xlWriter.generateTransactionSteps("91", 0);
 		saleData.add(0, expectedList.get(0));
 		saleData.add(saleData.size() - 1, expectedList.get(5));
 
@@ -387,7 +402,7 @@ public class AutoDualProcessor extends BaseClass {
 
 	@AfterMethod
 	public void afterTXN() {
-		xlWriter.saveExcelFile(fileName);
+		xlWriter.saveExcelFile(Utils.setFileName(fileName));
 		xl.saveExcelFile();
 	}
 

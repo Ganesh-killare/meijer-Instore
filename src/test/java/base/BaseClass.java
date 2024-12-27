@@ -23,7 +23,9 @@ import java.util.stream.Stream;
 
 import org.jdom2.JDOMException;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import requestbuilder.AccountLookUp;
@@ -115,13 +117,24 @@ public class BaseClass {
 	public String gcbApprovedText = "Approved";
 	public String ApprovedText = "APPROVAL";
 	public String fileName = null;
+	public static List<String> parameters;
 
-	public static String[] parameters = { "CardToken", "CardIdentifier", "CRMToken", "CardEntryMode",
-			"TransactionTypeCode", "TransactionSequenceNumber", "CardType", "SubCardType", "TotalApprovedAmount",
-			"ResponseText", "ResponseCode", "TransactionIdentifier", "AurusPayTicketNum", "ApprovalCode",
-			"ProcessorMerchantId" };
+	@BeforeClass
+	public void baseSetUp() {
 
-	public static List<String> ResponseParameter = new ArrayList<>(Arrays.asList(parameters));
+		if (Utils.getAutoDualProcessor().equalsIgnoreCase("N")) {
+			parameters = Arrays.asList("CardToken", "CardIdentifier", "CRMToken", "CardEntryMode",
+					"TransactionTypeCode", "TransactionSequenceNumber", "CardType", "SubCardType",
+					"TotalApprovedAmount", "ResponseText", "ResponseCode", "TransactionIdentifier", "AurusPayTicketNum",
+					"ApprovalCode", "ProcessorMerchantId", "CardExpiryDate", "STAN", "ProcessorResponseCode", "AID");
+		} else {
+			parameters = Arrays.asList("CardToken", "CardIdentifier", "CRMToken", "CardEntryMode",
+					"TransactionTypeCode", "TransactionSequenceNumber", "CardType", "SubCardType",
+					"TotalApprovedAmount", "ResponseText", "ResponseCode", "TransactionIdentifier", "AurusPayTicketNum",
+					"ApprovalCode", "ProcessorMerchantId");
+		}
+
+	}
 
 	public List<String> performGetCardBin() throws Exception, IOException {
 
@@ -129,62 +142,47 @@ public class BaseClass {
 		List<String> gcbresult = null;
 		POS_APIs pa = new POS_APIs();
 
-		try {
+		pa.beforeGetCardBinAPIs();
 
-			// pa.beforeGetCardBinAPIs();
+		String req = GCBRequest.GCB_REQUEST().trim();
+		sendRequestToAESDK(req);
+		// System.out.println(req);
+		String res = receiveResponseFromAESDK();
+		// System.out.println(res);
+		Response_Parameters GCBPrameter = new Response_Parameters(res);
 
-			String req = GCBRequest.GCB_REQUEST().trim();
-			sendRequestToAESDK(req);
-			// System.out.println(req);
-			String res = receiveResponseFromAESDK();
-			// System.out.println(res);
-			Response_Parameters GCBPrameter = new Response_Parameters(res);
+		gcbResults.add(GCBPrameter.getParameterValue("ResponseText"));
+		gcbResults.add(GCBPrameter.getParameterValue("CardToken"));
+		gcbResults.add(GCBPrameter.getParameterValue("CardIdentifier"));
+		gcbResults.add(GCBPrameter.getParameterValue("CRMToken"));
+		gcbResults.add(GCBPrameter.getParameterValue("CardType"));
 
-			gcbResults.add(GCBPrameter.getParameterValue("ResponseText"));
-			gcbResults.add(GCBPrameter.getParameterValue("CardToken"));
-			gcbResults.add(GCBPrameter.getParameterValue("CardIdentifier"));
-			gcbResults.add(GCBPrameter.getParameterValue("CRMToken"));
-			gcbResults.add(GCBPrameter.getParameterValue("CardType"));
+		List<String> GCBXLData = GCBPrameter.print_Response("GCB", parameters);
+		excelWriter.WriteGCBData(GCBXLData, "GCB");
+		gcbresult = Utils.selectToken(gcbResults, gcbResults.get(4));
 
-			List<String> GCBXLData = GCBPrameter.print_Response("GCB", parameters);
-			excelWriter.WriteGCBData(GCBXLData, "GCB");
-			gcbresult = Utils.selectToken(gcbResults, gcbResults.get(4));
+		if (gcbResults.get(0).equalsIgnoreCase(gcbApprovedText)) {
+			/*
+			 * sendRequestToAESDK(ShowList.Request());
+			 * 
+			 * receiveResponseFromAESDK(); performByPassRequest(2);
+			 * 
+			 * sendRequestToAESDK(requestbuilder.Signature.Request());
+			 * receiveResponseFromAESDK();
+			 */
 
-			if (gcbResults.get(0).equalsIgnoreCase(gcbApprovedText)) {
-				/*
-				 * sendRequestToAESDK(ShowList.Request());
-				 * 
-				 * receiveResponseFromAESDK(); performByPassRequest(2);
-				 * 
-				 * sendRequestToAESDK(requestbuilder.Signature.Request());
-				 * receiveResponseFromAESDK();
-				 */
+			// performByPassRequest(0);
 
-				// performByPassRequest(0);
+			// Additional POS APIs
 
-				// Additional POS APIs
+			// pa.performed();
 
-				// pa.performed();
-
-			} else {
-				performCloseRequest();
-				Assert.fail("Get Card Bin Request denied!");
-			}
-
-		} catch (Exception e) {
-			System.out.println("We are not able to perform Get Card Request successfully  \n" + e);
+		} else {
+			performCloseRequest();
+			Assert.fail("Get Card Bin Request denied!");
 		}
 
 		return gcbresult;
-
-	}
-
-	@Test
-	public void test() throws Exception {
-		String request = "<TransResponse><CCTID>01</CCTID><POSID>S00784R0100</POSID><APPID>01</APPID><TransDetailsData><TransDetailData><CardNumber>476173XXXXXX0043</CardNumber><TotalApprovedAmount>57.00</TotalApprovedAmount><EMVDataInTLVFormat>AID%7EA0000000031010%1ETVR%7E0000008000%1EIAD%7E06010A03A4B002%1ETSI%7EE800%1EARC%7E3030</EMVDataInTLVFormat><EBTType/><CardIdentifier>2000000000009500</CardIdentifier><ProcessorToken>476173XXXXXX0043</ProcessorToken><HostConnectionInfo>uat42|00000|APPROVAL|0.266324ms~uat42|NA|NA|NA</HostConnectionInfo><ProcessorMerchantId>577000322896</ProcessorMerchantId><TransactionSequenceNumber>000041</TransactionSequenceNumber><CardToken>476173XXXXXX0043</CardToken><LanguageIndicator>00</LanguageIndicator><DCCDetails><DCCMinorUnits/><DCCMarginRatePercent/><DCCAlphaCurrencyCode/><DCCExchRateSrcName/><DCCOffered>0</DCCOffered><DCCResponseCode/><DCCValidHours/><DCCExchRateSrcTime/><DCCCurrencyCode/></DCCDetails><CardType>VIC</CardType><TransactionIdentifier>192243402841799938</TransactionIdentifier><CardExpiryDate>1231</CardExpiryDate><PartialApprovedFlag>N</PartialApprovedFlag><TransactionTypeCode>1</TransactionTypeCode><ReceiptDetails><ReceiptData><LanguageIndicator>00</LanguageIndicator><ReceiptInfo><Line>Approved</Line><Line>:USD $57.00</Line><Line>CARD:VISA XXXX0043 CREDIT EMV</Line><Line>APPROVAL CODE:067680</Line><Line>AID:A0000000031010</Line><Line>TVR:0000008000</Line><Line>IAD:06010A03A4B002</Line><Line>TSI:EC00</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:C1E7AE1619165FD6</Line><Line>APPLICATION PREFERRED NAME:Visa Credit</Line><Line>APPLICATION LABEL:VISA CREDIT</Line><Line>Processor Batch Date:340</Line><Line>Processor Batch Number:000008</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000003</Line><Line>CVM:Verified By PIN</Line></ReceiptInfo></ReceiptData></ReceiptDetails><FallbackIndicator>0</FallbackIndicator><CardEntryMode>I</CardEntryMode><TipAmount>0.00</TipAmount><CustomerName>Test Card 02       UAT USA</CustomerName><TransactionDate>12052024</TransactionDate><AdditionalReceiptInfo><Line>Approved</Line><Line>:USD $57.00</Line><Line>CARD:VISA XXXX0043 CREDIT EMV</Line><Line>APPROVAL CODE:067680</Line><Line>AID:A0000000031010</Line><Line>TVR:0000008000</Line><Line>IAD:06010A03A4B002</Line><Line>TSI:EC00</Line><Line>ARC:00</Line><Line>APPLICATION CRYPTOGRAM:C1E7AE1619165FD6</Line><Line>APPLICATION PREFERRED NAME:Visa Credit</Line><Line>APPLICATION LABEL:VISA CREDIT</Line><Line>Processor Batch Date:340</Line><Line>Processor Batch Number:000008</Line><Line>Card Class:1</Line><Line>Processor Sequence Number:000003</Line><Line>CVM:Verified By PIN</Line></AdditionalReceiptInfo><CashBackAmount>0.00</CashBackAmount><AddressVerification/><ResponseCode>00000</ResponseCode><ReceiptToken>4761730111160043</ReceiptToken><BalanceAmount>0.00</BalanceAmount><ReferenceNumber>092000659529</ReferenceNumber><GiftCardTypePassCode/><LangIndicator>00</LangIndicator><EMVFlag>1</EMVFlag><HostConnectionStatus>00</HostConnectionStatus><SignatureReceiptFlag>2</SignatureReceiptFlag><ECOMMInfo><OneOrderToken/></ECOMMInfo><ApprovalCode>067680</ApprovalCode><TransactionAmount>57.00</TransactionAmount><TransactionTime>075336</TransactionTime><LoyaltyInfo></LoyaltyInfo><ProcessorResponseCode>00</ProcessorResponseCode><EMVData>MerchantID~577000322896TerminalID~001ARC~00ISO~00IAD~06010A03A4B002App Pref Name~Visa CreditApp Label~VISA CREDITRespDate~12052024RespTime~075338</EMVData><VoidData/><AuthorizedAmount>57.00</AuthorizedAmount><ResponseText>APPROVAL</ResponseText><CRMToken>8900000010000005111</CRMToken><AurusProcessorId>47</AurusProcessorId></TransDetailData></TransDetailsData><BatchNumber>340001</BatchNumber><AurusPayTicketNum>224340284180000224</AurusPayTicketNum></TransResponse>";
-		String sanitizedXml = request.replaceAll("[^\\x20-\\x7E]", "");
-		Response_Parameters rp = new Response_Parameters(sanitizedXml);
-		rp.print_Response(" Sale  : ", parameters);
 
 	}
 
@@ -262,7 +260,27 @@ public class BaseClass {
 		// GCB Started
 		List<String> saleResult = new ArrayList<String>();
 
-		List<String> gcbResult = performGetCardBin();
+		List<String> gcbResult;
+
+		String tokenType = Utils.getTokenType();
+
+		switch (tokenType) {
+		case "CardIdentifier":
+			String cardIdentifier = Utils.getCardIdentifier();
+			System.out.println("Transaction Performed Using CI : " + cardIdentifier);
+			gcbResult = Arrays.asList("Approved", null, cardIdentifier, null);
+			break;
+
+		case "CRMToken":
+
+			String crmToken = Utils.getCRMToken();
+			System.out.println("Transaction Performed Using CRM : " + crmToken);
+			gcbResult = Arrays.asList("Approved", null, null, crmToken);
+			break;
+		default:
+			gcbResult = performGetCardBin();
+		}
+
 		try {
 
 			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
@@ -1041,7 +1059,7 @@ public class BaseClass {
 		List<String> saleResult = new ArrayList<String>();
 
 		List<String> gcbResult = performGetCardBin();
-		System.out.println(gcbResult);
+		// System.out.println(gcbResult);
 		try {
 
 			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
@@ -1051,7 +1069,7 @@ public class BaseClass {
 				// Sale Satrted
 
 				sendRequestToAESDK(Sale_Request);
-				// System.out.println(Sale_Request);
+				System.out.println(Sale_Request);
 				String sale_Respose = receiveResponseFromAESDK();
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
@@ -1111,7 +1129,27 @@ public class BaseClass {
 		// GCB Started
 		List<String> saleResult = new ArrayList<String>();
 
-		List<String> gcbResult = performGetCardBin();
+		List<String> gcbResult;
+
+		String tokenType = Utils.getTokenType();
+
+		switch (tokenType) {
+		case "CardIdentifier":
+			String cardIdentifier = Utils.getCardIdentifier();
+			System.out.println("Transaction Performed Using CI : " + cardIdentifier);
+			gcbResult = Arrays.asList("Approved", null, cardIdentifier, null);
+			break;
+
+		case "CRMToken":
+
+			String crmToken = Utils.getCRMToken();
+			System.out.println("Transaction Performed Using CRM : " + crmToken);
+			gcbResult = Arrays.asList("Approved", null, null, crmToken);
+			break;
+		default:
+			gcbResult = performGetCardBin();
+		}
+
 		try {
 
 			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {

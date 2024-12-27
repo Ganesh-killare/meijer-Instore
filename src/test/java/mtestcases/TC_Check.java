@@ -11,7 +11,7 @@ import utilities.Utils;
 
 public class TC_Check extends BaseClass {
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 10)
 	public void voidOfCheckTransaction() throws IOException, Exception {
 
 		List<String> saleResult = performCheckTransaction();

@@ -65,7 +65,7 @@ public class FSARequest {
 
 		return value;
 	}
-	
+
 	public static int getNextSequentialValue() {
 		int value = currentValue;
 
@@ -178,8 +178,6 @@ public class FSARequest {
 		parentElement.appendChild(element);
 	}
 
-	
-
 	public static String FSA_SALE_REQUEST(String CardToken, String CI, String CRM) {
 		try {
 			Faker faker = new Faker();
@@ -259,16 +257,15 @@ public class FSARequest {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
-			
-			if ((CRM != null || CI != null) && formattedTotalAmount.equalsIgnoreCase("0.00")) {
-			    formattedTotalAmount = formattedFinalAmount;
-			    System.out.println("Updated Total Amount is: " + formattedTotalAmount);   
-			}
 
+			if ((CRM != null || CI != null) && formattedTotalAmount.equalsIgnoreCase("0.00")) {
+				formattedTotalAmount = formattedFinalAmount;
+				System.out.println("Updated Total Amount is: " + formattedTotalAmount);
+			}
 
 			// Modify specific tag values
 			RequestUtils.setTagValue(document, "CardToken", CardToken);
-			RequestUtils.setTagValue(document, "CRMToken", CRM);   
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
 			RequestUtils.setTagValue(document, "CardIdentifier", CI);
 
 			RequestUtils.setTagValue(document, "TenderAmount", formattedTotalAmount);
@@ -381,14 +378,14 @@ public class FSARequest {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
-			
+
 			if ((CRM != null || CI != null) && formattedTotalAmount.equalsIgnoreCase("0.00")) {
-			    formattedTotalAmount = formattedFinalAmount;
-			    System.out.println("Updated Total Amount is: " + formattedTotalAmount);   
+				formattedTotalAmount = formattedFinalAmount;
+				System.out.println("Updated Total Amount is: " + formattedTotalAmount);
 			}
 
 			// Modify specific tag values
-			RequestUtils.setTagValue(document, "CardToken", CardToken);   
+			RequestUtils.setTagValue(document, "CardToken", CardToken);
 			RequestUtils.setTagValue(document, "CRMToken", CRM);
 			RequestUtils.setTagValue(document, "CardIdentifier", CI);
 
@@ -415,7 +412,6 @@ public class FSARequest {
 	public static String FSA_VOID_REQUEST(String transID, String AuruspayTicketNum, String amount) {
 		try {
 
-			
 			String xml = buildXMLRequest();
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -432,42 +428,38 @@ public class FSARequest {
 			case 1:
 				RequestUtils.setTagValue(document, "PrescriptionAmount", amount);
 				RequestUtils.setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
-				RequestUtils.setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
-				RequestUtils.setTagValue(document, "DentalAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "CoPaymentAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "DentalAmount", EmptyValueFormat);
 				break;
 
 			case 2:
-				RequestUtils.setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "PrescriptionAmount", EmptyValueFormat);
 				RequestUtils.setTagValue(document, "VisionOpticalAmount", amount);
 				RequestUtils.setTagValue(document, "CoPaymentAmount", EmptyValueFormat);
 				RequestUtils.setTagValue(document, "DentalAmount", EmptyValueFormat);
 				break;
 
 			case 3:
-				RequestUtils.setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "PrescriptionAmount", EmptyValueFormat);
 				RequestUtils.setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
-				RequestUtils.setTagValue(document, "CoPaymentAmount",amount );
-				RequestUtils.setTagValue(document, "DentalAmount",EmptyValueFormat );
+				RequestUtils.setTagValue(document, "CoPaymentAmount", amount);
+				RequestUtils.setTagValue(document, "DentalAmount", EmptyValueFormat);
 				break;
 
 			default:
-				
-				RequestUtils.setTagValue(document, "PrescriptionAmount",EmptyValueFormat );
-				RequestUtils.setTagValue(document, "VisionOpticalAmount",EmptyValueFormat );
-				RequestUtils.setTagValue(document, "CoPaymentAmount",EmptyValueFormat );
-				RequestUtils.setTagValue(document, "DentalAmount",amount );
+
+				RequestUtils.setTagValue(document, "PrescriptionAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "VisionOpticalAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "CoPaymentAmount", EmptyValueFormat);
+				RequestUtils.setTagValue(document, "DentalAmount", amount);
 				break;
 			}
-
-			
 
 			RequestUtils.setTagValue(document, "TaxAmount", "0.23");
 			RequestUtils.setTagValue(document, "OrigAurusPayTicketNum", AuruspayTicketNum);
 			RequestUtils.setTagValue(document, "OrigTransactionIdentifier", transID);
 			RequestUtils.setTagValue(document, "TransactionType", "06");
-			
-			
-			
+
 			// Convert the modified document back to a string
 			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
@@ -477,9 +469,10 @@ public class FSARequest {
 	}
 
 	public static String FSA_SALE_REQUEST(String CardToken, String CI, String CRM, double AMT, String TransType) {
-		try {
 
-			
+		System.out.println(TransType);
+
+		try {
 
 			double Prescription = 20.00;
 			double VisionOptical = 20.00;
@@ -505,8 +498,8 @@ public class FSARequest {
 
 			// Modify specific tag values
 			RequestUtils.setTagValue(document, "CardToken", CardToken);
-			RequestUtils.setTagValue(document, "CRMToken", CI);
-			RequestUtils.setTagValue(document, "CardIdentifier", CRM);
+			RequestUtils.setTagValue(document, "CRMToken", CRM);
+			RequestUtils.setTagValue(document, "CardIdentifier", CI);
 			RequestUtils.setTagValue(document, "TransactionType", TransType);
 			RequestUtils.setTagValue(document, "TenderAmount", transactionTotal);
 			RequestUtils.setTagValue(document, "TransactionTotal", transactionTotal);
@@ -519,6 +512,7 @@ public class FSARequest {
 			RequestUtils.setTagValue(document, "TaxAmount", "0.00");
 
 			// Convert the modified document back to a string
+
 			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
 			e.printStackTrace();

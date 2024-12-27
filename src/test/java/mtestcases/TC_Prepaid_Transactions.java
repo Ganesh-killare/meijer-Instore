@@ -3,6 +3,7 @@ package mtestcases;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,10 +31,10 @@ public class TC_Prepaid_Transactions {
 	Faker faker = new Faker();
 	PrepaidXL exceldata = new PrepaidXL();
 
-	String[] parameters = { "CardToken", "CardIdentifier", "CRMToken", "CardEntryMode", "TransactionTypeCode",
+	List<String> parameters = Arrays.asList( "CardToken", "CardIdentifier", "CRMToken", "CardEntryMode", "TransactionTypeCode",
 			"TransactionSequenceNumber", "CardType", "SubCardType", "TotalApprovedAmount", "ResponseText",
 			"ResponseCode", "TransactionIdentifier", "AurusPayTicketNum", "ApprovalCode", "ProcessorMerchantId",
-			"BlackHawkUpc", "ProcessorToken" };
+			"BlackHawkUpc", "ProcessorToken" );
 	String Gift_PreAuthActivationreq;
 
 	@Test(dataProvider = "Prepaid_Data", dataProviderClass = GIft_Data.class, priority = 1)
@@ -42,7 +43,7 @@ public class TC_Prepaid_Transactions {
 			throws UnknownHostException, IOException, InterruptedException, Exception {
 
 		if (upsdata.isEmpty()) {
-			upsdata = RuntimeUPCData;
+			upsdata = RuntimeUPCData;       
 			System.out.println(upsdata);    
 		}
 

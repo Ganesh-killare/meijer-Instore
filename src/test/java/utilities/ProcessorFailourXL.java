@@ -248,7 +248,7 @@ public class ProcessorFailourXL {
 	}
 
 	public void saveExcelFile(String fileName) {
-		try (FileOutputStream outputStream = new FileOutputStream("./transactionsXLfiles/" + fileName + ".xlsx")) {
+		try (FileOutputStream outputStream = new FileOutputStream("./transactionsXLfiles/" + fileName)) {
 			workbook.write(outputStream);
 			System.out.println("=".repeat(150));
 		} catch (IOException e) {

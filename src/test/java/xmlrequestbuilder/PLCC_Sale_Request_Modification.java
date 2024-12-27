@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.jdom2.Document;
@@ -24,7 +25,7 @@ import utilities.Utils;
 public class PLCC_Sale_Request_Modification {
 	static Faker faker = new Faker();
 
-	public static String modified_PLCCSale_Request(String cardToken, String cardIdentifier, String CRMToken, String transType) throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public static String modified_PLCCSale_Request(String cardToken, String cardIdentifier, String CRMToken, String transType) throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 		
 		
 		

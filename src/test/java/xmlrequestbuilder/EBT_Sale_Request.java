@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.jdom2.Document;
@@ -22,7 +23,7 @@ public class EBT_Sale_Request {
 
 	static Faker faker = new Faker();
 
-	public static String modified_Sale_Request(String cardToken , 	String transType ) throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public static String modified_Sale_Request(String cardToken , 	String transType ) throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 
 
 

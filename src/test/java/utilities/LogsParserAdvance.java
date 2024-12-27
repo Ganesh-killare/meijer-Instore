@@ -62,7 +62,7 @@ public class LogsParserAdvance extends BaseClass {
 	    Row headerRow = sheet.createRow(0);
 
 	    // Create a list of headers
-	    List<String> headers = new ArrayList<>(Arrays.asList(parameters));    
+	    List<String> headers = parameters;    
 	    headers.add(1, "TransactionType");
 	    headers.add("Total Sale Time ");
 

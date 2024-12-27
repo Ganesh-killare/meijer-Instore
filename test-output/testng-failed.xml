@@ -3,13 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="mtestcases.LMKKey">
+      <class name="mtestcases.TC_PLC">
         <methods>
-          <include name="incrementSessionId"/>
+          <include name="PLC_RefundOfSale"/>
           <include name="saveXLFile"/>
-          <include name="Test_VoidOfSale"/>
+          <include name="baseSetUp"/>
+          <include name="incrementSessionId"/>
         </methods>
-      </class> <!-- mtestcases.LMKKey -->
+      </class> <!-- mtestcases.TC_PLC -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

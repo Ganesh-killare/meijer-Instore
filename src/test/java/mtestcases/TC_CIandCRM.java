@@ -39,21 +39,21 @@ import xmlrequestbuilder.Sale_Request_Modification;
 
 public class TC_CIandCRM extends BaseClass {
 
-	List<String> GCB_Parameters = new ArrayList<>(Arrays.asList(parameters));
-   
+	List<String> GCB_Parameters = parameters;
+
 	TransactionXL excelWriter = new TransactionXL();
 
-	//@BeforeMethod       
-	public void POS_APIs() throws Exception, IOException, InterruptedException {      
-		sendRequestToAESDK(GetUserInput.MperkNumberRequest());  
+	 @BeforeMethod
+	public void POS_APIs() throws Exception, IOException, InterruptedException {
+		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
 		Thread.sleep(800);
 		sendRequestToAESDK(ByPass.Option1());
 		receiveResponseFromAESDK();
-		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());       
-		Thread.sleep(800);   
+		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());
+		Thread.sleep(800);
 		sendRequestToAESDK(ByPass.Random());
 		receiveResponseFromAESDK();
-		sendRequestToAESDK(GCBRequest.GCB_REQUEST());      
+		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
 		Thread.sleep(20);
 		sendRequestToAESDK(ByPass.Option0());
 		receiveResponseFromAESDK();
@@ -65,7 +65,7 @@ public class TC_CIandCRM extends BaseClass {
 
 		Utils.checkEligibleTender(CI, cardType);
 
-		try {   
+		try {
 			System.out.println("Transaction performed using this CI :" + CI);
 			if (cardType.equalsIgnoreCase("PLC")) {
 				String Sale_Request = PLCC_Sale_Request_Modification.modified_PLCCSale_Request(null, CI, null, "01");
@@ -158,7 +158,7 @@ public class TC_CIandCRM extends BaseClass {
 
 			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
-			List<String> saleData = saleResponse.print_Response(" Refund Without sale", parameters);        
+			List<String> saleData = saleResponse.print_Response(" Refund Without sale", parameters);
 			saleData.add(3, "Refund Without sale");
 			excelWriter.writeCICRMTransactionData(saleData);
 			saleData.remove(3);
@@ -366,7 +366,7 @@ public class TC_CIandCRM extends BaseClass {
 			case "EBF":
 			case "EBC":
 				System.out.println("EBT Refund");
-				returnRequest = ReturnRequest.EBT_REFUND_REQUEST(transactionId, AurusPayTicketNum, amount);   
+				returnRequest = ReturnRequest.EBT_REFUND_REQUEST(transactionId, AurusPayTicketNum, amount);
 				break;
 
 			case "VIF":
@@ -468,17 +468,18 @@ public class TC_CIandCRM extends BaseClass {
 
 		sendRequestToAESDK(ByPass.Option1());
 		receiveResponseFromAESDK();
-		sendRequestToAESDK(CloseRequest.Close_Transaction_Request());   
+		sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 		receiveResponseFromAESDK();
 		// Proceed with the original operations if the test passed
 
 		excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));
-	}
+	}   
 
-	@AfterClass   
-	public void tearDown() throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {           
-		excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));      
-		sendRequestToAESDK(CloseRequest.Close_Transaction_Request());   
+	@AfterClass
+	public void tearDown()
+			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
+		excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));
+		sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 		receiveResponseFromAESDK();
 	}
 

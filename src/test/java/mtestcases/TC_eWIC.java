@@ -15,7 +15,7 @@ import utilities.Utils;
 import xmlrequestbuilder.CloseRequest;
 
 public class TC_eWIC extends BaseClass {
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 2)
 	public void VoidOfSale() throws IOException, Exception {
 		try {
 			fileName = new Exception().getStackTrace()[0].getMethodName();
@@ -26,10 +26,10 @@ public class TC_eWIC extends BaseClass {
 			performVoidTransaction(saleResult);
 
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e);   
 		}
 
-	}
+	}  
 
 	@AfterMethod
 	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {

@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.jdom2.Document;
@@ -22,7 +23,7 @@ import utilities.Utils;
 public class Sale_Request_Modification {
 	static Faker faker = new Faker();
 
-	public static String modified_Sale_Request(String cardToken, String cardIdentifier, String CRMToken, String transType) throws UnknownHostException, IOException, InterruptedException, JDOMException {
+	public static String modified_Sale_Request(String cardToken, String cardIdentifier, String CRMToken, String transType) throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 		
 		
 		

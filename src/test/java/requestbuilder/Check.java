@@ -1,5 +1,7 @@
 package requestbuilder;
 
+import java.util.Random;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -14,6 +16,7 @@ public class Check {
 	private static String finalTime = Utils.generateDateTimeAndInvoice().get(0);
 	private static String finalDate = Utils.generateDateTimeAndInvoice().get(1);
 	private static String InvoiceNumber = Utils.generateDateTimeAndInvoice().get(2);
+	static int checkData = 1;
 
 	public static String buildXMLRequest() {
 		try {
@@ -87,12 +90,64 @@ public class Check {
 			// Add <CheckInfo> element with its children
 			Element checkInfoElement = doc.createElement("CheckInfo");
 			transRequestElement.appendChild(checkInfoElement);
-			appendElementWithValue(doc, checkInfoElement, "CheckEntryMode", "S");
-			appendElementWithValue(doc, checkInfoElement, "DriverLicenseEntryMode", "M");
-			appendElementWithValue(doc, checkInfoElement, "DriverLicenseData", "11112222");
-			appendElementWithValue(doc, checkInfoElement, "DriverLicenseState", "TX");
-			appendElementWithValue(doc, checkInfoElement, "FullMICR", "t031100649t222 670173768870o 2233");
-			appendElementWithValue(doc, checkInfoElement, "CheckType", "P");
+
+			switch (checkData) {
+			case 1:
+				appendElementWithValue(doc, checkInfoElement, "CheckEntryMode", "S");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseEntryMode", "M");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseData", "11112222");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseState", "TX");
+				appendElementWithValue(doc, checkInfoElement, "FullMICR", "t031100649t222 670173768870o 2233");
+				appendElementWithValue(doc, checkInfoElement, "CheckType", "P");
+				System.out.println("FullMICR = t031100649t222 670173768870o 2233");
+				checkData++;
+
+				break;
+
+			case 2:
+				appendElementWithValue(doc, checkInfoElement, "CheckEntryMode", "S");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseEntryMode", "M");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseData", "11112222");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseState", "TX");
+				appendElementWithValue(doc, checkInfoElement, "FullMICR", "t123456780t 0014741o5678 5678");
+				appendElementWithValue(doc, checkInfoElement, "CheckType", "P");
+				System.out.println("FullMICR = t123456780t 0014741o5678 5678");
+				checkData++;
+				break;
+			case 3:
+				appendElementWithValue(doc, checkInfoElement, "CheckEntryMode", "S");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseEntryMode", "M");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseData", "11112222");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseState", "TX");
+				appendElementWithValue(doc, checkInfoElement, "FullMICR", "o002020o t123456780t 458745210o 002020");
+				appendElementWithValue(doc, checkInfoElement, "CheckType", "P");
+				System.out.println("FullMICR = o002020o t123456780t 458745210o 002020");
+				checkData++;
+				break;
+
+			case 4:
+				appendElementWithValue(doc, checkInfoElement, "CheckEntryMode", "S");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseEntryMode", "M");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseData", "11112222");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseState", "TX");
+				appendElementWithValue(doc, checkInfoElement, "FullMICR",
+						"o1098765432o t321270742t 012547854o 1098765432");
+				appendElementWithValue(doc, checkInfoElement, "CheckType", "P");
+				System.out.println("FullMICR = o1098765432o t321270742t 012547854o 1098765432");
+				checkData++;
+				break;
+
+			default:
+				appendElementWithValue(doc, checkInfoElement, "CheckEntryMode", "S");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseEntryMode", "M");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseData", "11112222");
+				appendElementWithValue(doc, checkInfoElement, "DriverLicenseState", "TX");
+				appendElementWithValue(doc, checkInfoElement, "FullMICR", "o891o t06532d010t 23d45678o 891");
+				appendElementWithValue(doc, checkInfoElement, "CheckType", "P");
+				System.out.println("FullMICR = o891o t06532d010t 23d45678o 891 ");
+				checkData = 1;
+				break;
+			}
 
 			return doc;
 		} catch (Exception e) {
@@ -115,8 +170,6 @@ public class Check {
 
 		parentElement.appendChild(element);
 	}
-
-	
 
 	public static String Request() {
 		try {

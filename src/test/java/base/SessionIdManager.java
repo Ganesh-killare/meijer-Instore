@@ -1,7 +1,5 @@
 package base;
 
-import responsevalidator.Response_Parameters;
-
 public class SessionIdManager {
 	private static int currentSessionId = 0;
 
@@ -16,7 +14,7 @@ public class SessionIdManager {
 
 	public static void main(String[] args) throws Exception {
 		
-		
+
 		
 	}
 }

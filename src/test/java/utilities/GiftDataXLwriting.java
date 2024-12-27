@@ -16,6 +16,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import base.BaseClass;
+import mtestcases.TC_Gift_Activation;
+
 public class GiftDataXLwriting {
 
 	Workbook workbook;
@@ -30,11 +33,13 @@ public class GiftDataXLwriting {
 
 	}
 
-	public void WriteActivationData(List<String> data, List<String> parameters) {
+	public void WriteActivationData(List<String> data, List<String> Parameters) {
 		data.add(3, "Pre-Auth Activation");
 		if (this.sheet == null) {
 			setupWorkBook();
 		}
+
+		List<String> parameters = new ArrayList<>(TC_Gift_Activation.parameters);
 
 		if (startRow == 1) {
 			parameters.add(3, "TransactionType");
@@ -88,7 +93,6 @@ public class GiftDataXLwriting {
 			cardTokenCell.setCellValue(cardTokens.get(i));
 			CRMTokenCell.setCellValue(CRMTokens.get(i));
 			CITokenCell.setCellValue(CITokens.get(i));
-			
 
 			int currentColumn = 3;
 			for (int j = 3; j < data.size(); j++) {

@@ -6,9 +6,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import org.testng.Assert;
 
@@ -28,6 +30,7 @@ public class Utils {
 	private static String ATVTender;
 	private static String PrintData;
 	private static String AutoDualProcessor;
+	private static String TransType;
 
 	static {
 		// Load the configuration once when the class is loaded
@@ -42,6 +45,7 @@ public class Utils {
 			serverIp = properties.getProperty("ServerIP", getHostIP());
 			ATVTender = properties.getProperty("ATV_Token_Tenders", "");
 			AutoDualProcessor = properties.getProperty("AutoDualProcessor", "N");
+			TransType = properties.getProperty("TransType", "01");
 			PrintData = properties.getProperty("Print_Data", "Y");
 			serverPort = Integer.parseInt(properties.getProperty("ServerPort", "8060"));
 
@@ -94,6 +98,11 @@ public class Utils {
 
 	public static String getAutoDualProcessor() {
 		return AutoDualProcessor;
+	}
+
+	public static String getDefaultTransType() {
+
+		return TransType;
 	}
 
 	public static List<String> generateDateTimeAndInvoice() {
@@ -232,6 +241,26 @@ public class Utils {
 			// Optionally, you can handle unexpected tender types here
 			break;
 		}
+	}
+
+	public static String getCardIdentifier() {
+		List<String> CIs = Arrays.asList("2000000000023487", "2000000000000011", "2000000000000020",
+				"2000000000000107");
+
+		Random random = new Random();
+		int randomNumber = random.nextInt(CIs.size());
+		return CIs.get(randomNumber);
+
+	}
+
+	public static String getCRMToken() {
+
+		List<String> CRMs = Arrays.asList("8920000010000048880", "8900000010000006551", "8990000010000002885",
+				"8980000010000002629");
+		Random random = new Random();
+		int randomNumber = random.nextInt(CRMs.size());
+		return CRMs.get(randomNumber);
+
 	}
 
 }

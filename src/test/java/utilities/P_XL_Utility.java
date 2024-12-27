@@ -49,8 +49,8 @@ public class P_XL_Utility {
     public void saveExcelFile() {
 		try (FileOutputStream outputStream = new FileOutputStream("./test-Data\\VoidTransactions.xlsx")) {
 			workbook.write(outputStream);
-			System.out.println(
-					"=".repeat(150));
+			System.out.print(
+					"++".repeat(1));
 		} catch (IOException e) {
 			e.printStackTrace();  
 		}

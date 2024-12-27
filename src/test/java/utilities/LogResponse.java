@@ -1,6 +1,5 @@
 package utilities;
 
-
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +44,11 @@ public class LogResponse {
 		return null;
 	}
 
-	public List<String> print_Response(String trans, String[] parameters, String CardToken) {
+	public List<String> print_Response(String trans, List<String> parameters, String CardToken) {
 		List<String> response = new ArrayList<>();
 
-		for (int i = 0; i < parameters.length; i++) {
-			String responseParameter = getParameterValue(parameters[i]);
+		for (int i = 0; i < parameters.size(); i++) {
+			String responseParameter = getParameterValue(parameters.get(i));
 			if (i == 15 && trans.contains("Sale")) {
 				responseParameter = getAIDContent();
 			}
@@ -72,13 +71,13 @@ public class LogResponse {
 		case "2":
 		case "22":
 			if (CardToken == null || CardToken.equalsIgnoreCase("null")) {
-			    System.out.print("Refund" + " : ");
-			    System.out.println(response);
-			    response.add(1, "Refund");
+				System.out.print("Refund" + " : ");
+				System.out.println(response);
+				response.add(1, "Refund");
 			} else {
-			    System.out.print("Refund Without Sale" + " : ");
-			    System.out.println(response);
-			    response.add(1, "Refund Without Sale");
+				System.out.print("Refund Without Sale" + " : ");
+				System.out.println(response);
+				response.add(1, "Refund Without Sale");
 			}
 			break;
 

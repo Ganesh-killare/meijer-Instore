@@ -15,20 +15,23 @@ import utilities.Utils;
 
 public class LMKKey extends BaseClass {
 
-	@Test(invocationCount = 4, priority = 1 )
+	@Test(invocationCount = 2, priority = 1)
 	public void Test_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performCreditDebitSale();
+
 		Utils.printResults(saleResult);
 
-		 List<String> returnResults = performRefundTransaction(saleResult);
-		 Utils.printResults(returnResults);
+		/*
+		 * List<String> returnResults = performRefundTransaction(saleResult);
+		 * Utils.printResults(returnResults);
+		 */
 
 	}
 
-	 @Test(invocationCount = 4, priority = 2)
+//	@Test(invocationCount = 7, priority = 2)
 	public void Test_VoidOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -41,7 +44,7 @@ public class LMKKey extends BaseClass {
 
 	}
 
-	@Test(invocationCount = 4, priority = 3)
+	// @Test(invocationCount = 7, priority = 3)
 	public void Test_RefundWithoutSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -62,49 +65,58 @@ public class LMKKey extends BaseClass {
 
 		Utils.printResults(saleResult);
 
-		 List<String> returnResults = performRefundTransaction(saleResult);
-		 Utils.printResults(returnResults);
-	}
-	//@Test(invocationCount = 2, priority = 4)
-	public void EBT_RefundWithoutSale() throws IOException, Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();
-		System.out.println(fileName);
-		
-		List<String> saleResult = performEBT_RW_Sale();
-		
-		Utils.printResults(saleResult);
-		
 		/*
-		 * List<String> returnResults = performVoidTransaction(saleResult);
+		 * List<String> returnResults = performRefundTransaction(saleResult);
 		 * Utils.printResults(returnResults);
 		 */
 	}
 
-	@Test(invocationCount = 1,priority = 5)   
-	public void E_WICSale() throws IOException, Exception {
-		try {
-			fileName = new Exception().getStackTrace()[0].getMethodName();
-			System.out.println(fileName);
+	// @Test(invocationCount = 2, priority = 4)
+	public void EBT_RefundWithoutSale() throws IOException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 
-			List<String> saleResult = perform_eWICSale();
+		List<String> saleResult = performEBT_RW_Sale();
 
-			 performVoidTransaction(saleResult);
+		Utils.printResults(saleResult);
 
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		List<String> returnResults = performVoidTransaction(saleResult);
+		Utils.printResults(returnResults);
+
+	}
+
+	@Test(invocationCount = 1, priority = 5)
+	public void FSA_RefundOfSale() throws IOException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
+
+		List<String> saleResult = performFSASale();
+		Utils.printResults(saleResult);
+
+		// performRefundTransaction(saleResult);
+	}
+
+	// @Test(invocationCount = 1, priority = 6)
+	public void VoidOfSale() throws IOException, Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
+
+		List<String> saleResult = performFSASale();
+		Utils.printResults(saleResult);
+
+		performVoidTransaction(saleResult);
 
 	}
 
 	@AfterMethod
 	public void saveXLFile()
-			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {    
+			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();
-	//	excelWriter.saveExcelFile(Utils.setFileName("UAT_WAR"));
+		excelWriter.saveExcelFile(Utils.setFileName("CHASE_ISO"));
 
 	}
 

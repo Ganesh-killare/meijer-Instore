@@ -25,7 +25,7 @@ public class IssueReproduce extends BaseClass {
 	public void GCBFrezeIssue()
 			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
-		// Thread.sleep(10);
+		 Thread.sleep(10);
 		sendRequestToAESDK(ByPass.Option2());
 
 		System.out.println(receiveResponseFromAESDK());
@@ -114,5 +114,19 @@ public class IssueReproduce extends BaseClass {
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
 		System.out.println(receiveResponseFromAESDK());
+	}
+
+	@Test
+	public void doubleCharge() throws IOException, Exception {
+
+		List<String> GCBResult = performGetCardBin();
+		Assert.assertEquals("Approved", GCBResult.get(0));
+
+		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
+		receiveResponseFromAESDK();
+		String Sale_Request = CD_Sale_Request.CD_SALE_REQUEST(GCBResult.get(1), GCBResult.get(2), GCBResult.get(3));
+
+		sendRequestToAESDK(Sale_Request);
+		receiveResponseFromAESDK();
 	}
 }

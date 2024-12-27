@@ -15,19 +15,19 @@ import utilities.Utils;
 
 public class TC_EBT extends BaseClass {
 
-	@Test(invocationCount = 20)
+	@Test(invocationCount = 2)
 	public void RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performEBTSale();
 		Utils.printResults(saleResult);
-		/*
-		 * Utils.printResults(saleResult);
-		 * 
-		 * List<String> returnResults = performRefundTransaction(saleResult);
-		 * Utils.printResults(returnResults);
-		 */
+
+		Utils.printResults(saleResult);
+
+		List<String> returnResults = performRefundTransaction(saleResult);                             
+		Utils.printResults(returnResults);                                     
+  
 	}
 
 	@Test(invocationCount = 2)

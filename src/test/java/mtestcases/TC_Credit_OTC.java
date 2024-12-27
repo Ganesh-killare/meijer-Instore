@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import utilities.Utils;
 
-public class TC_EBT_OTC extends BaseClass {
+public class TC_Credit_OTC extends BaseClass {
 	@Test(invocationCount = 2)
 	public void RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();   
@@ -22,11 +22,11 @@ public class TC_EBT_OTC extends BaseClass {
 	}
 
 	@Test(invocationCount = 2)
-	public void voidOfRefundWithoutSale() throws IOException, Exception {
+	public void voidOfRefundWithoutSale() throws IOException, Exception {   
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
-		List<String> saleResult = performebtOtcRefundWithoutSale();
+		List<String> saleResult = performebtOtcRefundWithoutSale();       
 
 			performVoidTransaction(saleResult);
 
@@ -47,7 +47,7 @@ public class TC_EBT_OTC extends BaseClass {
 
 		performByPassRequest(0);
 		performCloseRequest();
-		excelWriter.saveExcelFile(Utils.setFileName("EBT_OTC"));
+		excelWriter.saveExcelFile(Utils.setFileName("Credit_OTC"));
 
 	}
 

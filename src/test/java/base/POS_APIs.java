@@ -44,7 +44,7 @@ public class POS_APIs extends BaseClass {
 	}
 
 	public static String generateTransactionAmount()
-			throws UnknownHostException, IOException, InterruptedException, JDOMException {
+			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 		String roundedAmountString;
 
 		POS_APIs pa = new POS_APIs();
@@ -56,10 +56,12 @@ public class POS_APIs extends BaseClass {
 			roundedAmountString = roundedAmountString + ".00";
 
 			// roundedAmountString = "05" + ".08";
-			 roundedAmountString = "00.00";
+			// roundedAmountString = "100.11";
+			 roundedAmountString = "0.01";
+			// roundedAmountString = "999.14";
 		}
 
-//	pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM
+	//	pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM
 		// transactions
 		return roundedAmountString;
 	}
@@ -68,7 +70,7 @@ public class POS_APIs extends BaseClass {
 		// POS APIs 1
 
 		Random random = new Random();
-		int randomNumber = random.nextInt(7);
+		int randomNumber = random.nextInt(6)+1;
 
 		// int randomNumber = randomNumber;
 //		System.out.println(randomNumber);

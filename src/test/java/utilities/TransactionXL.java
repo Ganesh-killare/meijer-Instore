@@ -33,7 +33,7 @@ public class TransactionXL {
 
 	public void WriteGCBData(List<String> data, String transType) {
 
-		List<String> Headers = BaseClass.ResponseParameter;
+		List<String> Headers = new ArrayList<>(BaseClass.parameters);
 
 		Headers.add(3, "TransType");
 
@@ -225,7 +225,8 @@ public class TransactionXL {
 			setupWorkBook();
 		}
 
-		List<String> Headers = BaseClass.ResponseParameter;
+		List<String> Headers = new ArrayList<>(BaseClass.parameters);
+
 
 		Headers.add(3, "TransType");
 
@@ -312,7 +313,8 @@ public class TransactionXL {
 		if (this.sheet == null) {
 			setupWorkBook();
 		}
-		List<String> Headers = BaseClass.ResponseParameter;
+		List<String> Headers = new ArrayList<>(BaseClass.parameters);
+
 
 		Headers.add(3, "TransType");
 
@@ -343,7 +345,7 @@ public class TransactionXL {
 		int currentColumn = 0;
 
 		Row row = sheet.createRow(currentRow);
-		for (int i = 0; i < data.size(); i++) {   
+		for (int i = 0; i < data.size(); i++) {
 
 			Cell cell = row.createCell(currentColumn++);
 			String value = data.get(i);
@@ -395,17 +397,16 @@ public class TransactionXL {
 	}
 
 	public void saveExcelFile(String fileName) {
-	    if (workbook == null) {
-	        return; // Exit the method if the workbook is null
-	    }
+		if (workbook == null) {
+			return; // Exit the method if the workbook is null
+		}
 
-	    try (FileOutputStream outputStream = new FileOutputStream("./transactionsXLfiles/" + fileName)) {
-	        workbook.write(outputStream);
-	        System.out.println("=".repeat(150));
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+		try (FileOutputStream outputStream = new FileOutputStream("./transactionsXLfiles/" + fileName)) {
+			workbook.write(outputStream);
+			System.out.println("=".repeat(150));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
 
 }
