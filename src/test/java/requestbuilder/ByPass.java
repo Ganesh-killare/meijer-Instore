@@ -194,4 +194,34 @@ public class ByPass {
 			return null;
 		}
 	}
+
+	public static String pureRandom() {
+		try {
+			// take a basic request
+			String xml = buildXMLRequest();
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(xml)));
+
+			// Create an instance of Random class
+			Random random = new Random();
+
+			// Generate a random number that could be 0, 1, or 2
+			int randomNumber = random.nextInt(3); // Generates 0, 1, or 2
+
+			// Print the generated number
+			// System.out.println(" ByPass Option " + randomNumber);
+
+			String randomNumberAsString = String.valueOf(randomNumber);
+			// Modify specific tag values
+			RequestUtils.setTagValue(document, "ByPassOptions", randomNumberAsString);
+
+			// Convert the modified document back to a string
+			return RequestUtils.documentToString(document);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

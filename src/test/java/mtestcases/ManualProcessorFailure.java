@@ -15,7 +15,7 @@ import utilities.Utils;
 
 public class ManualProcessorFailure extends BaseClass {
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 2)
 	public void CREDIT_DEBIT_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -27,12 +27,12 @@ public class ManualProcessorFailure extends BaseClass {
 	}
 
 
-	//@Test(invocationCount = 2)
+	@Test(invocationCount = 2)
 	public void CREDIT_DEBIT_VoidOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
-		List<String> saleResult = performCreditDebitSale();
+		List<String> saleResult = performCreditDebitSale();   
 
 		performVoidTransaction(saleResult);
 
@@ -59,7 +59,7 @@ public class ManualProcessorFailure extends BaseClass {
 
 	}
 
-	// @Test(invocationCount = 1)
+	 @Test(invocationCount = 1)
 	public void FSA_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);

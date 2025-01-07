@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="2" total="3" passed="0" failed="1" skipped="0">
+<testng-results ignored="3" total="4" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-12-27T08:48:13 IST" name="Default suite" finished-at="2024-12-27T08:48:21 IST" duration-ms="7851">
+  <suite started-at="2025-01-07T12:19:35 IST" name="Default suite" finished-at="2025-01-07T12:19:41 IST" duration-ms="5882">
     <groups>
     </groups>
-    <test started-at="2024-12-27T08:48:13 IST" name="Default test" finished-at="2024-12-27T08:48:21 IST" duration-ms="7851">
-      <class name="mtestcases.TC_PLC">
-        <test-method is-config="true" signature="baseSetUp()[pri:0, instance:mtestcases.TC_PLC@51c668e3]" started-at="2024-12-27T08:48:13 IST" name="baseSetUp" finished-at="2024-12-27T08:48:13 IST" duration-ms="5" status="PASS">
+    <test started-at="2025-01-07T12:19:35 IST" name="Default test" finished-at="2025-01-07T12:19:41 IST" duration-ms="5882">
+      <class name="mtestcases.TC_CreditAndDebit">
+        <test-method is-config="true" signature="baseSetUp()[pri:0, instance:mtestcases.TC_CreditAndDebit@52719fb6]" started-at="2025-01-07T12:19:35 IST" name="baseSetUp" finished-at="2025-01-07T12:19:35 IST" duration-ms="5" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- baseSetUp -->
-        <test-method is-config="true" signature="incrementSessionId()[pri:0, instance:mtestcases.TC_PLC@51c668e3]" started-at="2024-12-27T08:48:13 IST" name="incrementSessionId" finished-at="2024-12-27T08:48:13 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="incrementSessionId()[pri:0, instance:mtestcases.TC_CreditAndDebit@52719fb6]" started-at="2025-01-07T12:19:35 IST" name="incrementSessionId" finished-at="2025-01-07T12:19:35 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- incrementSessionId -->
-        <test-method signature="PLC_RefundOfSale()[pri:0, instance:mtestcases.TC_PLC@51c668e3]" started-at="2024-12-27T08:48:13 IST" name="PLC_RefundOfSale" finished-at="2024-12-27T08:48:18 IST" duration-ms="5813" status="FAIL">
+        <test-method signature="RefundOfSale()[pri:0, instance:mtestcases.TC_CreditAndDebit@52719fb6]" started-at="2025-01-07T12:19:35 IST" name="RefundOfSale" finished-at="2025-01-07T12:19:41 IST" duration-ms="5726" status="FAIL">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[Get Card Bin Request denied!]]>
@@ -23,9 +23,9 @@
             <full-stacktrace>
               <![CDATA[java.lang.AssertionError: Get Card Bin Request denied!
 at org.testng.Assert.fail(Assert.java:99)
-at base.BaseClass.performGetCardBin(BaseClass.java:182)
-at base.BaseClass.performPLCSale(BaseClass.java:473)
-at mtestcases.TC_PLC.PLC_RefundOfSale(TC_PLC.java:21)
+at base.BaseClass.performGetCardBin(BaseClass.java:191)
+at base.BaseClass.performCreditDebitSale(BaseClass.java:295)
+at mtestcases.TC_CreditAndDebit.RefundOfSale(TC_CreditAndDebit.java:20)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -59,12 +59,19 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
           </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- PLC_RefundOfSale -->
-        <test-method is-config="true" signature="saveXLFile()[pri:0, instance:mtestcases.TC_PLC@51c668e3]" started-at="2024-12-27T08:48:19 IST" name="saveXLFile" finished-at="2024-12-27T08:48:21 IST" duration-ms="2006" status="PASS">
+        </test-method> <!-- RefundOfSale -->
+        <test-method is-config="true" signature="saveXLFile(org.testng.ITestResult)[pri:0, instance:mtestcases.TC_CreditAndDebit@52719fb6]" started-at="2025-01-07T12:19:41 IST" name="saveXLFile" finished-at="2025-01-07T12:19:41 IST" duration-ms="122" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=RefundOfSale status=FAILURE method=TC_CreditAndDebit.RefundOfSale()[pri:0, instance:mtestcases.TC_CreditAndDebit@52719fb6] output={null}]]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- saveXLFile -->
-      </class> <!-- mtestcases.TC_PLC -->
+      </class> <!-- mtestcases.TC_CreditAndDebit -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

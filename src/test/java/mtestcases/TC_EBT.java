@@ -1,11 +1,8 @@
 package mtestcases;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import org.jdom2.JDOMException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -55,7 +52,7 @@ public class TC_EBT extends BaseClass {
 
 	@AfterMethod
 	public void saveXLFile()
-			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
+			throws Exception {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();

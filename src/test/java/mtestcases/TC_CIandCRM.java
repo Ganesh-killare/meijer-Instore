@@ -1,23 +1,20 @@
 package mtestcases;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.jdom2.JDOMException;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import base.BaseClass;
+import base.POS_APIs;
 import requestbuilder.ByPass;
 import requestbuilder.FSARequest;
 import requestbuilder.Fleet;
@@ -28,13 +25,11 @@ import requestbuilder.ReturnRequest;
 import requestbuilder.ShowScreen;
 import requestbuilder.SoloTronRequest;
 import responsevalidator.Response_Parameters;
-import utilities.Utils;
 import utilities.ExcelUtility;
 import utilities.TransactionXL;
+import utilities.Utils;
 import xmlrequestbuilder.CloseRequest;
-import xmlrequestbuilder.GCB_Modification;
 import xmlrequestbuilder.PLCC_Sale_Request_Modification;
-import xmlrequestbuilder.Refund_Request_Modification;
 import xmlrequestbuilder.Sale_Request_Modification;
 
 public class TC_CIandCRM extends BaseClass {
@@ -43,20 +38,25 @@ public class TC_CIandCRM extends BaseClass {
 
 	TransactionXL excelWriter = new TransactionXL();
 
-	 @BeforeMethod
+	@BeforeMethod
 	public void POS_APIs() throws Exception, IOException, InterruptedException {
 		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
 		Thread.sleep(800);
-		sendRequestToAESDK(ByPass.Option1());
+		sendRequestToAESDK(ByPass.pureRandom());
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());
 		Thread.sleep(800);
-		sendRequestToAESDK(ByPass.Random());
+		sendRequestToAESDK(ByPass.pureRandom());
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
 		Thread.sleep(20);
-		sendRequestToAESDK(ByPass.Option0());
+		sendRequestToAESDK(ByPass.pureRandom());
 		receiveResponseFromAESDK();
+
+		POS_APIs apis = new POS_APIs();
+		apis.performed();
+		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());
+		performByPassRequest();
 
 	}
 
@@ -473,11 +473,10 @@ public class TC_CIandCRM extends BaseClass {
 		// Proceed with the original operations if the test passed
 
 		excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));
-	}   
+	}
 
 	@AfterClass
-	public void tearDown()
-			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
+	public void tearDown() throws Exception {
 		excelWriter.saveExcelFile(Utils.setFileName("CI&CRM_Transaction"));
 		sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 		receiveResponseFromAESDK();

@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="mtestcases.TC_PLC">
+      <class name="mtestcases.TC_CreditAndDebit">
         <methods>
-          <include name="PLC_RefundOfSale"/>
-          <include name="saveXLFile"/>
           <include name="baseSetUp"/>
           <include name="incrementSessionId"/>
+          <include name="RefundOfSale"/>
+          <include name="saveXLFile"/>
         </methods>
-      </class> <!-- mtestcases.TC_PLC -->
+      </class> <!-- mtestcases.TC_CreditAndDebit -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

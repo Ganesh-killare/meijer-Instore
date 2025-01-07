@@ -79,8 +79,7 @@ public class BaseClass {
 		// Thread.sleep(500);
 	}
 
-	public String receiveResponseFromAESDK()
-			throws IOException, InterruptedException, JDOMException, ExecutionException {
+	public String receiveResponseFromAESDK() throws InterruptedException, ExecutionException {
 		// Create a thread pool with a single thread
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -99,10 +98,20 @@ public class BaseClass {
 		try {
 			// Execute the task with a 190-second timeout
 			Future<String> future = executor.submit(task);
-			return future.get(190, TimeUnit.SECONDS); // Timeout after 190 seconds
+			return future.get(Utils.getPOSTimeOut(), TimeUnit.SECONDS); // Timeout after 190 seconds
 		} catch (TimeoutException e) {
 			// Handle timeout
-			System.out.println("Timeout reached. No response received within 190 seconds.");
+			try {
+				performByPassRequest();
+
+			} catch (JDOMException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.println("Timeout reached. No response received within " + Utils.getPOSTimeOut() + " seconds.");
 			return null; // Or throw an exception, or handle as needed
 		} finally {
 			// Shutdown the executor service
@@ -162,20 +171,20 @@ public class BaseClass {
 		gcbresult = Utils.selectToken(gcbResults, gcbResults.get(4));
 
 		if (gcbResults.get(0).equalsIgnoreCase(gcbApprovedText)) {
-			/*
-			 * sendRequestToAESDK(ShowList.Request());
-			 * 
-			 * receiveResponseFromAESDK(); performByPassRequest(2);
-			 * 
-			 * sendRequestToAESDK(requestbuilder.Signature.Request());
-			 * receiveResponseFromAESDK();
-			 */
+
+			sendRequestToAESDK(ShowList.Request());
+
+			receiveResponseFromAESDK();
+			performByPassRequest(2);
+
+			sendRequestToAESDK(requestbuilder.Signature.Request());
+			receiveResponseFromAESDK();
 
 			// performByPassRequest(0);
 
 			// Additional POS APIs
 
-			// pa.performed();
+		//	pa.performed();
 
 		} else {
 			performCloseRequest();
@@ -251,9 +260,14 @@ public class BaseClass {
 		receiveResponseFromAESDK();
 	}
 
+	public void performByPassRequest() throws Exception, Exception, JDOMException {
+		sendRequestToAESDK(ByPass.Random());
+		receiveResponseFromAESDK();
+	}
+
 	public void performByPassRequest(int option) throws Exception, Exception, JDOMException {
 		sendRequestToAESDK(ByPass.Option(option));
-		receiveResponseFromAESDK();
+		receiveResponseFromAESDK();                                                                                     
 	}
 
 	public List<String> performCreditDebitSale() throws Exception, IOException, InterruptedException {

@@ -65,7 +65,7 @@ public class CD_Sale_Request {
 			appendElementWithValue(doc, transRequestElement, "CashBackFlag", Utils.getCashBackValue());
 			appendElementWithValue(doc, transRequestElement, "TransactionType", "01");
 			appendElementWithValue(doc, transRequestElement, "InvoiceNumber", invoiceNumber);
-			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "1224");
+			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "");
 			appendElementWithValue(doc, transRequestElement, "CardToken", "");
 			appendElementWithValue(doc, transRequestElement, "CRMToken", "");
 			appendElementWithValue(doc, transRequestElement, "ReferenceNumber", "18");

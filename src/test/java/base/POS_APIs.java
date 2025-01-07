@@ -29,7 +29,7 @@ public class POS_APIs extends BaseClass {
 	}
 
 	private void performTransamountConfirmation(String amount)
-			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
+			throws Exception {
 		sendRequestToAESDK(ShowScreen.showScreenRequest(amount));
 		String confirmResponse = receiveResponseFromAESDK();
 		try {
@@ -57,8 +57,8 @@ public class POS_APIs extends BaseClass {
 
 			// roundedAmountString = "05" + ".08";
 			// roundedAmountString = "100.11";
-			 roundedAmountString = "0.01";
-			// roundedAmountString = "999.14";
+		//	 roundedAmountString = "0.01";
+			// roundedAmountString = "399.00";
 		}
 
 	//	pa.performTransamountConfirmation(roundedAmountString); // Comment this line when you are performing CI and CRM

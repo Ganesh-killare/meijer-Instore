@@ -1,16 +1,14 @@
 package mtestcases;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.security.Signature;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import org.jdom2.JDOMException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import base.BaseClass;
+import base.POS_APIs;
 import requestbuilder.ByPass;
 import requestbuilder.CD_Sale_Request;
 import requestbuilder.GCBRequest;
@@ -22,10 +20,9 @@ import xmlrequestbuilder.CloseRequest;
 public class IssueReproduce extends BaseClass {
 
 	@Test(invocationCount = 1000)
-	public void GCBFrezeIssue()
-			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
+	public void GCBFrezeIssue() throws Exception {
 		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
-		 Thread.sleep(10);
+		Thread.sleep(10);
 		sendRequestToAESDK(ByPass.Option2());
 
 		System.out.println(receiveResponseFromAESDK());
@@ -106,7 +103,7 @@ public class IssueReproduce extends BaseClass {
 	}
 
 	@Test
-	public void fleetOdometerPrompt() throws IOException, InterruptedException, JDOMException, ExecutionException {
+	public void fleetOdometerPrompt() throws Exception {
 
 		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
 		Thread.sleep(25000);
@@ -128,5 +125,18 @@ public class IssueReproduce extends BaseClass {
 
 		sendRequestToAESDK(Sale_Request);
 		receiveResponseFromAESDK();
+	}
+
+	@Test(invocationCount = 1000)
+	public void otherApis() throws IOException, Exception {
+
+		POS_APIs apis = new POS_APIs();
+		apis.beforeGetCardBinAPIs();
+
+		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
+		receiveResponseFromAESDK();
+
+		apis.performed();
+
 	}
 }

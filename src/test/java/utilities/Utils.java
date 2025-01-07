@@ -21,7 +21,7 @@ public class Utils {
 	// Static variables to store configuration values
 	private static String environment;
 	private static String TokenType;
-
+    private static String LookupFlag ;
 	private static String cashBackValue;
 	private static String showResponseValue;
 	private static String sessionId;
@@ -31,6 +31,7 @@ public class Utils {
 	private static String PrintData;
 	private static String AutoDualProcessor;
 	private static String TransType;
+	private static int POS_timeout;
 
 	static {
 		// Load the configuration once when the class is loaded
@@ -38,6 +39,7 @@ public class Utils {
 		try (FileInputStream input = new FileInputStream(CONFIG_FILE)) {
 			properties.load(input);
 			environment = properties.getProperty("ENV", "Prod");
+			LookupFlag = properties.getProperty("LookUpFlag", "16");
 			TokenType = properties.getProperty("TokenType", "CardToken");
 			cashBackValue = properties.getProperty("CashBackFlag", "3");
 			showResponseValue = properties.getProperty("ShowScreen", "0");
@@ -48,6 +50,7 @@ public class Utils {
 			TransType = properties.getProperty("TransType", "01");
 			PrintData = properties.getProperty("Print_Data", "Y");
 			serverPort = Integer.parseInt(properties.getProperty("ServerPort", "8060"));
+			POS_timeout = Integer.parseInt(properties.getProperty("POSTimeout", "190"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -62,6 +65,9 @@ public class Utils {
 	// Static methods to access configuration values
 	public static String getEnvironment() {
 		return environment;
+	}
+	public static String getLookupFlag() {
+		return LookupFlag;
 	}
 
 	public static String getTokenType() {
@@ -103,6 +109,11 @@ public class Utils {
 	public static String getDefaultTransType() {
 
 		return TransType;
+	}
+
+	public static int getPOSTimeOut() {
+
+		return POS_timeout;
 	}
 
 	public static List<String> generateDateTimeAndInvoice() {
