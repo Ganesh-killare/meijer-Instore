@@ -110,6 +110,7 @@ public class Fleet {
 	private static void addTransactionSpecificElements(Document doc, Element parentElement, List<String> tokens) {
 		Faker faker = new Faker();
 		int productValues = faker.random().nextInt(2, 10); // Generate random product count between 1 and 10
+		productValues =9 ;
 		double L3ProductUnitPrice = 2.0;
 		double totalTransAmount = L3ProductUnitPrice * productValues;
 

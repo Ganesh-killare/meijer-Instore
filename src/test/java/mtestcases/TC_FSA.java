@@ -30,10 +30,10 @@ public class TC_FSA extends BaseClass {
 
 	@Test(invocationCount = 5)
 	public void VoidOfSale() throws IOException, Exception {      
-		fileName = new Exception().getStackTrace()[0].getMethodName();               
+		fileName = new Exception().getStackTrace()[0].getMethodName();                             
 		System.out.println(fileName);
 
-		List<String> saleResult = performFSASale();
+		List<String> saleResult = performFSASale();       
 		Utils.printResults(saleResult);
 
 		performVoidTransaction(saleResult);
@@ -64,7 +64,7 @@ public class TC_FSA extends BaseClass {
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(requestbuilder.CloseRequest.CLOSE_REQUEST());
 		receiveResponseFromAESDK();
-		excelWriter.saveExcelFile(Utils.setFileName("FSA"));
+		excelWriter.saveExcelFile(Utils.setFileName("FSA"));    
 
 	}
 

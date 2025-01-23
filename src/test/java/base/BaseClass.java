@@ -1,5 +1,6 @@
 package base;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,14 +19,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.jdom2.JDOMException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import requestbuilder.AccountLookUp;
@@ -46,6 +44,8 @@ import requestbuilder.ReturnRequest;
 import requestbuilder.ShowList;
 import requestbuilder.Signature;
 import requestbuilder.SoloTronRequest;
+import requestbuilder.TicketDisplayAurus;
+import requestbuilder.WICRequestBuilder;
 import responsevalidator.Response_Parameters;
 import utilities.GiftDataXLwriting;
 import utilities.LoggerUtil;
@@ -61,25 +61,50 @@ public class BaseClass {
 	private int serverPort = Utils.getServerPort();;
 
 	@BeforeMethod
-	public void incrementSessionId() {
+	public void incrementSessionId()
+			throws UnknownHostException, IOException, InterruptedException, ExecutionException {
 		SessionIdManager.incrementAndGetSessionId();
+		// performTicketDisplay();
 
 	}
 
-	public void sendRequestToAESDK(String data) throws UnknownHostException, IOException, InterruptedException { // System.out.println(data);
-
+	public void sendRequestToAESDK(String data) throws UnknownHostException, IOException, InterruptedException {
 		socket = new Socket(serverAddress, serverPort);
 		OutputStream outputStream = socket.getOutputStream();
-		out = new PrintWriter(outputStream, true);
+
+		// Use OutputStream directly if PrintWriter isn't sending data properly
+		BufferedOutputStream bufferedOut = new BufferedOutputStream(outputStream);
+
 		LoggerUtil.logRequest(data);
-		out.println(data);
 
-		// System.out.println(data);
+		// Define the chunk size (adjust as needed)
+		int chunkSize = 150000; // For example, send 1024 characters at a time
+		int dataLength = data.length();
+		int i = 0; // Initialize the index
 
-		// Thread.sleep(500);
+		// Send the data in chunks using a while loop
+		while (i < dataLength) {
+			int end = Math.min(i + chunkSize, dataLength); // Get the end index for the current chunk
+			String chunk = data.substring(i, end);
+
+			// Write each chunk as bytes to avoid any issues with newline characters
+			bufferedOut.write(chunk.getBytes());
+			bufferedOut.flush(); // Ensure data is sent immediately
+
+			i += chunkSize; // Move the index forward by the chunk size
+
+		}
+
+		// Optionally send an end signal, like a newline or EOF, if the server expects
+		// that.
+		// bufferedOut.write("\n".getBytes()); // For example, if you need to send a
+		// newline to indicate the end of transmission
+
+		bufferedOut.flush(); // Ensure the last chunk is sent
+
 	}
 
-	public String receiveResponseFromAESDK() throws InterruptedException, ExecutionException {
+	public String receiveResponseFromAESDK() throws InterruptedException, ExecutionException, IOException {
 		// Create a thread pool with a single thread
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -116,6 +141,7 @@ public class BaseClass {
 		} finally {
 			// Shutdown the executor service
 			executor.shutdown();
+			socket.close();
 		}
 	}
 
@@ -143,6 +169,12 @@ public class BaseClass {
 					"ApprovalCode", "ProcessorMerchantId");
 		}
 
+	}
+
+	public void performTicketDisplay()
+			throws UnknownHostException, IOException, InterruptedException, ExecutionException {
+		sendRequestToAESDK(TicketDisplayAurus.request());
+		receiveResponseFromAESDK();
 	}
 
 	public List<String> performGetCardBin() throws Exception, IOException {
@@ -174,22 +206,56 @@ public class BaseClass {
 
 			sendRequestToAESDK(ShowList.Request());
 
-			receiveResponseFromAESDK();
+			// receiveResponseFromAESDK();
+
+			Thread.sleep(800);
 			performByPassRequest(2);
 
-			sendRequestToAESDK(requestbuilder.Signature.Request());
-			receiveResponseFromAESDK();
+			/*
+			 * sendRequestToAESDK(requestbuilder.Signature.Request());
+			 * receiveResponseFromAESDK();
+			 */
 
 			// performByPassRequest(0);
 
 			// Additional POS APIs
 
-		//	pa.performed();
-
+			/*
+			 * pa.performed(); performByPassRequest();
+			 */
 		} else {
 			performCloseRequest();
 			Assert.fail("Get Card Bin Request denied!");
 		}
+
+		return gcbresult;
+
+	}
+
+	public List<String> performGetCardBinForSWIC() throws Exception, IOException {
+
+		List<String> gcbResults = new ArrayList<String>();
+		List<String> gcbresult = null;
+		POS_APIs pa = new POS_APIs();
+
+		pa.beforeGetCardBinAPIs();
+
+		String req = GCBRequest.GCB_REQUEST().trim();
+		sendRequestToAESDK(req);
+		// System.out.println(req);
+		String res = receiveResponseFromAESDK();
+		// System.out.println(res);
+		Response_Parameters GCBPrameter = new Response_Parameters(res);
+
+		gcbResults.add(GCBPrameter.getParameterValue("ResponseText"));
+		gcbResults.add(GCBPrameter.getParameterValue("CardToken"));
+		gcbResults.add(GCBPrameter.getParameterValue("CardIdentifier"));
+		gcbResults.add(GCBPrameter.getParameterValue("CRMToken"));
+		gcbResults.add(GCBPrameter.getParameterValue("CardType"));
+
+		List<String> GCBXLData = GCBPrameter.print_Response("GCB", parameters);
+		excelWriter.WriteGCBData(GCBXLData, "GCB");
+		gcbresult = Utils.selectToken(gcbResults, gcbResults.get(4));
 
 		return gcbresult;
 
@@ -267,7 +333,7 @@ public class BaseClass {
 
 	public void performByPassRequest(int option) throws Exception, Exception, JDOMException {
 		sendRequestToAESDK(ByPass.Option(option));
-		receiveResponseFromAESDK();                                                                                     
+		receiveResponseFromAESDK();
 	}
 
 	public List<String> performCreditDebitSale() throws Exception, IOException, InterruptedException {
@@ -319,7 +385,7 @@ public class BaseClass {
 		} finally {
 
 			// 1
-			performByPassRequest(1);
+			// performByPassRequest(1);
 			performCloseRequest();
 
 		}
@@ -423,6 +489,8 @@ public class BaseClass {
 			RefundData.add(3, "Refund");
 			excelWriter.writeDataRefundOfSale(RefundData);
 			RefundData.remove(3);
+
+			performCloseRequest();
 		} catch (Exception e) {
 			System.out.println("We are not able to performed refund transaction");
 		}
@@ -743,6 +811,48 @@ public class BaseClass {
 		return saleResult;
 	}
 
+	public void performSWICTransaction() throws IOException, Exception {
+		List<String> gcbResult = performGetCardBinForSWIC();
+
+		System.out.println("I am In Swic ");
+
+		// PIN ENTER
+		sendRequestToAESDK(WICRequestBuilder.buildWICCardRequestForPin());
+		String pinResponse = receiveResponseFromAESDK();
+		Response_Parameters PINResponse = new Response_Parameters(pinResponse);
+		List<String> PINData = PINResponse.print_Response("PIN Response", parameters);
+		PINData.add(3, "PIN ENTER");
+		excelWriter.writeDataRefundOfSale(PINData);
+
+		// Balance Inquiry
+
+		sendRequestToAESDK(WICRequestBuilder.buildWICCardRequestForBalanceInquiry());
+		String inquiryResponse = receiveResponseFromAESDK();
+		Response_Parameters InquiryResponse = new Response_Parameters(inquiryResponse);
+		List<String> InquiryData = InquiryResponse.print_Response("Balance Inquiry ", parameters);
+		InquiryData.add(3, "Balance Inquiry");
+		excelWriter.writeDataRefundOfSale(InquiryData);
+
+		// Sale
+
+		sendRequestToAESDK(WICRequestBuilder.buildWICCardRequestForBalanceInquiry());
+		String Sale = receiveResponseFromAESDK();
+		Response_Parameters SaleResponse = new Response_Parameters(Sale);
+		List<String> Saledata = SaleResponse.print_Response("Sale ", parameters);
+		Saledata.add(3, "Sale");
+		excelWriter.writeDataRefundOfSale(Saledata);
+
+		// Void
+
+		sendRequestToAESDK(WICRequestBuilder.buildWICCardRequestForBalanceInquiry());
+		String Void = receiveResponseFromAESDK();
+		Response_Parameters VoidResponse = new Response_Parameters(Void);
+		List<String> VoidData = VoidResponse.print_Response("Void ", parameters);
+		VoidData.add(3, "Void");
+		excelWriter.writeDataRefundOfSale(VoidData);
+
+	}
+
 	public List<String> IncommTransaction() throws Exception, Exception {
 		List<String> LS_DATA = new ArrayList<String>();
 
@@ -750,24 +860,24 @@ public class BaseClass {
 		try {
 
 			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
-				String balance_Request = IncommIQTransRequest.Request(gcbResult.get(1), "82"); // IQ
-				balance_Request.trim();
+				String IQulificationReq = IncommIQTransRequest.Request(gcbResult.get(1), "82"); // IQ
+				IQulificationReq.trim();
 				// Sale Satrted
 				// System.out.println(balance_Request);
-				sendRequestToAESDK(balance_Request);
+				sendRequestToAESDK(IQulificationReq);
 
-				String balance_Respose = receiveResponseFromAESDK();
+				String IQulification = receiveResponseFromAESDK();
 				// System.out.println(balance_Respose);
 
-				Response_Parameters BResponse = new Response_Parameters(balance_Respose);
-				List<String> BalData = BResponse.print_Response(" Iteam Qulification : ", parameters);
-				BalData.add(3, "Iteam Qulification ");
-				excelWriter.writeDataRefundOfSale(BalData);
+				Response_Parameters IQulificationRes = new Response_Parameters(IQulification);
+				List<String> Data = IQulificationRes.print_Response(" Iteam Qulification : ", parameters);
+				Data.add(3, "Iteam Qulification ");
+				excelWriter.writeDataRefundOfSale(Data);
+
+				Assert.assertEquals(IQulificationRes.getParameterValue("ResponseText"), ApprovedText);
 
 			}
 			// performCloseRequest();
-
-			List<String> gcbResults = performGetCardBin();
 
 			String Balance_LookUp = IncommIQTransRequest.Request(gcbResult.get(1), "12"); // Balance LookUp
 			Balance_LookUp.trim();
@@ -780,12 +890,12 @@ public class BaseClass {
 			saleResult.add(3, "BLookUp_Respose");
 			excelWriter.writeDataRefundOfSale(saleResult);
 
-			// String SresponseText = saleResponse.getParameterValue("ResponseText");
+			Assert.assertEquals(saleResponse.getParameterValue("ResponseText"), ApprovedText);
 
 			// performCloseRequest();
 
 			List<String> gcbResult2 = performGetCardBin();
-			String LimitedSpend = IncommIQTransRequest.Request(gcbResult.get(1), "01"); // Limited Spend
+			String LimitedSpend = IncommIQTransRequest.Request(gcbResult2.get(1), "01"); // Limited Spend
 			LimitedSpend.trim();
 			sendRequestToAESDK(LimitedSpend);
 			// System.out.println(Sale_Request);
@@ -819,15 +929,16 @@ public class BaseClass {
 				// System.out.println(Balance_LookUp);
 				String BLookUp_Respose = receiveResponseFromAESDK();
 				// System.out.println(BLookUp_Respose);
-				Response_Parameters saleResponse = new Response_Parameters(BLookUp_Respose);
-				List<String> saleResult = saleResponse.print_Response("Balance LookUp  : ", parameters);
-				saleResult.add(3, "Balance LookUp");
-				excelWriter.writeDataRefundOfSale(saleResult);
+				Response_Parameters B_Response = new Response_Parameters(BLookUp_Respose);
+				List<String> Result = B_Response.print_Response("Balance LookUp  : ", parameters);
+				Result.add(3, "Balance LookUp");
+				excelWriter.writeDataRefundOfSale(Result);
+
+				Assert.assertEquals(B_Response.getParameterValue("ResponseText"), ApprovedText);
 
 				// performCloseRequest();
-
 				List<String> gcbResult1 = performGetCardBin();
-				String LimitedSpend = SoloTronRequest.Request(gcbResult.get(1), "01"); // Sale
+				String LimitedSpend = SoloTronRequest.Request(gcbResult1.get(1), "01"); // Sale
 				LimitedSpend.trim();
 				// System.out.println(LimitedSpend);
 				sendRequestToAESDK(LimitedSpend);

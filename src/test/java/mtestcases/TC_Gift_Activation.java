@@ -74,11 +74,11 @@ public class TC_Gift_Activation extends BaseClass {
 	@Test(dataProvider = "GIFT_DATA", dataProviderClass = GIft_Data.class, priority = 1)
 	public void test_Gift(String transactionType, String amount, String cardNumber, String entrySource,
 			String transtype, String subtransType, String upsdata)
-			throws UnknownHostException, IOException, InterruptedException, Exception {   
+			throws UnknownHostException, IOException, InterruptedException, Exception {      
 
 		try {
 
-			String giftRequest = GiftRequest.GIFT_REQUEST(amount, cardNumber, entrySource, subtransType, transtype,   
+			String giftRequest = GiftRequest.GIFT_REQUEST(amount, cardNumber, entrySource, subtransType, transtype,      
 					upsdata, null);
 
 			// System.out.println(giftRequest);   
@@ -119,7 +119,7 @@ public class TC_Gift_Activation extends BaseClass {
 			sendRequestToAESDK(req); // System.out.println(req);
 			String res = receiveResponseFromAESDK(); // System.out.println(res);
 			Response_Parameters GCBPrameter = new Response_Parameters(res);
-			String CardToken = GCBPrameter.getParameterValue("CardToken");
+			String CardToken = GCBPrameter.getParameterValue("CardToken");       
 			upsdata = GiftRequest.getUPCdata(CardToken);
 
 			GCBPrameter.print_Response("GCB", parameters);

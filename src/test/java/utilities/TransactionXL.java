@@ -227,7 +227,6 @@ public class TransactionXL {
 
 		List<String> Headers = new ArrayList<>(BaseClass.parameters);
 
-
 		Headers.add(3, "TransType");
 
 		startRow = sheet.getLastRowNum() + 3;
@@ -257,8 +256,15 @@ public class TransactionXL {
 		int currentRow = sheet.getLastRowNum() + 1;
 		int currentColumn = 3;
 
+		int startRow = 3;
+		if (Utils.getTokenType().equalsIgnoreCase("CardIdentifier")
+				|| Utils.getTokenType().equalsIgnoreCase("CRMToken")) {
+			startRow = 0;
+			currentColumn = 0;
+		}
+
 		Row row = sheet.createRow(currentRow);
-		for (int i = 3; i < data.size(); i++) {
+		for (int i = startRow; i < data.size(); i++) {
 
 			Cell cell = row.createCell(currentColumn++);
 			String value = data.get(i);
@@ -314,7 +320,6 @@ public class TransactionXL {
 			setupWorkBook();
 		}
 		List<String> Headers = new ArrayList<>(BaseClass.parameters);
-
 
 		Headers.add(3, "TransType");
 
@@ -406,6 +411,13 @@ public class TransactionXL {
 			System.out.println("=".repeat(150));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void flushWorkbook() {
+		if (workbook != null) {
+			workbook = null; // Set the workbook to null to flush the data
+			System.out.println("Workbook has been flushed (set to null).");
 		}
 	}
 

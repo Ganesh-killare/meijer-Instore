@@ -3,6 +3,7 @@ package requestbuilder;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -60,10 +61,7 @@ public class IncommIQTransRequest {
 
 		// Product values
 
-		Faker faker = new Faker();
-
-		int productValues = faker.random().nextInt(10, 20);
-		System.out.println(productValues);
+		int productValues = Utils.getProductCount();
 
 		double totalTransAmount = 1.00 * productValues;
 
@@ -145,7 +143,7 @@ public class IncommIQTransRequest {
 			Element eppDetailsInfoElement = doc.createElement("EPPDetailsInfo");
 			transRequestElement.appendChild(eppDetailsInfoElement);
 			if (TransType.equalsIgnoreCase("01")) {
-			appendElementWithValue(doc, eppDetailsInfoElement, "AmountDue", amount);
+				appendElementWithValue(doc, eppDetailsInfoElement, "AmountDue", amount);
 			}
 			appendElementWithValue(doc, eppDetailsInfoElement, "ProductCount", ProductCount);
 			appendElementWithValue(doc, eppDetailsInfoElement, "POSCapability",
@@ -187,7 +185,7 @@ public class IncommIQTransRequest {
 				for (int i = 1; i <= productValues; i++) {
 					Element eppProductDataElement = doc.createElement("EPPProductData");
 					eppDetailsElement.appendChild(eppProductDataElement);
-					appendElementWithValue(doc, eppProductDataElement, "ItemCode", "00003800000120");  
+					appendElementWithValue(doc, eppProductDataElement, "ItemCode", "00003800000120");
 					appendElementWithValue(doc, eppProductDataElement, "ItemReferenceNumber", String.format("%04d", i));
 					appendElementWithValue(doc, eppProductDataElement, "SignIndicator", "C");
 					appendElementWithValue(doc, eppProductDataElement, "Quantity", "001");
@@ -313,6 +311,5 @@ public class IncommIQTransRequest {
 
 		parentElement.appendChild(element);
 	}
-
 
 }

@@ -16,7 +16,7 @@ public class TC_Check extends BaseClass {
 
 		List<String> saleResult = performCheckTransaction();
 
-			performVoidTransaction(saleResult);
+			performVoidTransaction(saleResult);   
 
 	}
 

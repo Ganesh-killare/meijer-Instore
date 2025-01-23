@@ -73,20 +73,21 @@ public class Response_Parameters {
 		System.out.println(GCB_Response);
 		return GCB_Response;
 	}
-	public List<String> print_Response(String trans, String [] parameters) {
+
+	public List<String> print_Response(String trans, String[] parameters) {
 		System.out.print(trans + " : ");
 		List<String> GCB_Response = new ArrayList<>();
 		for (String element : parameters) {
-			
+
 			String GCBParameters;
-			
+
 			if (element.contains("AID")) {
 				GCBParameters = getAIDContent();
-				
+
 			} else {
 				GCBParameters = getParameterValue(element);
 			}
-			
+
 			GCB_Response.add(GCBParameters);
 		}
 		System.out.println(GCB_Response);
@@ -100,6 +101,10 @@ public class Response_Parameters {
 	}
 
 	public String getAIDContent() {
+
+		if (document == null) {
+			return "";
+		}
 		try {
 			Element root = document.getRootElement();
 			Element transDetailsData = root.getChild("TransDetailsData");

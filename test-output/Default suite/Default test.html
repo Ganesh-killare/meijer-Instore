@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Jan 07 12:19:35 IST 2025</td>
+<td>Started on:</td><td>Thu Jan 23 17:09:38 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>5 seconds (5882 ms)</td>
+<tr><td>Total time:</td><td>16 seconds (16294 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,12 +75,16 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='mtestcases.TC_CreditAndDebit.RefundOfSale()'><b>RefundOfSale</b><br>Test class: mtestcases.TC_CreditAndDebit</td>
-<td><div><pre>java.lang.AssertionError: Get Card Bin Request denied!
+<td title='mtestcases.TC_OTC.SolotronRefundOfSale()'><b>SolotronRefundOfSale</b><br>Test class: mtestcases.TC_OTC</td>
+<td><div><pre>java.lang.AssertionError: expected [APPROVAL] but found [PRODUCT SIZE LIMIT EXCEEDED]
 	at org.testng.Assert.fail(Assert.java:99)
-	at base.BaseClass.performGetCardBin(BaseClass.java:191)
-	at base.BaseClass.performCreditDebitSale(BaseClass.java:295)
-	at mtestcases.TC_CreditAndDebit.RefundOfSale(TC_CreditAndDebit.java:20)
+	at org.testng.Assert.failNotEquals(Assert.java:1037)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
+	at org.testng.Assert.assertEquals(Assert.java:122)
+	at org.testng.Assert.assertEquals(Assert.java:629)
+	at org.testng.Assert.assertEquals(Assert.java:639)
+	at base.BaseClass.SlutronTransactions(BaseClass.java:936)
+	at mtestcases.TC_OTC.SolotronRefundOfSale(TC_OTC.java:49)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -109,12 +113,16 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-</pre></div><a href='#' onClick='toggleBox("stack-trace1953175805", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1953175805'><pre>java.lang.AssertionError: Get Card Bin Request denied!
+</pre></div><a href='#' onClick='toggleBox("stack-trace582819897", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace582819897'><pre>java.lang.AssertionError: expected [APPROVAL] but found [PRODUCT SIZE LIMIT EXCEEDED]
 	at org.testng.Assert.fail(Assert.java:99)
-	at base.BaseClass.performGetCardBin(BaseClass.java:191)
-	at base.BaseClass.performCreditDebitSale(BaseClass.java:295)
-	at mtestcases.TC_CreditAndDebit.RefundOfSale(TC_CreditAndDebit.java:20)
+	at org.testng.Assert.failNotEquals(Assert.java:1037)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
+	at org.testng.Assert.assertEquals(Assert.java:122)
+	at org.testng.Assert.assertEquals(Assert.java:629)
+	at org.testng.Assert.assertEquals(Assert.java:639)
+	at base.BaseClass.SlutronTransactions(BaseClass.java:936)
+	at mtestcases.TC_OTC.SolotronRefundOfSale(TC_OTC.java:49)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -144,8 +152,8 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
 </pre></div></td>
-<td>5</td>
-<td>mtestcases.TC_CreditAndDebit@52719fb6</td></tr>
+<td>11</td>
+<td>mtestcases.TC_OTC@1a6d8329</td></tr>
 </table><p>
 </body>
 </html>

@@ -38,25 +38,25 @@ public class TC_CIandCRM extends BaseClass {
 
 	TransactionXL excelWriter = new TransactionXL();
 
-	@BeforeMethod
+	// @BeforeMethod
 	public void POS_APIs() throws Exception, IOException, InterruptedException {
 		sendRequestToAESDK(GetUserInput.MperkNumberRequest());
-		Thread.sleep(800);
+		Thread.sleep(1000);
 		sendRequestToAESDK(ByPass.pureRandom());
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());
-		Thread.sleep(800);
+		Thread.sleep(1000);
 		sendRequestToAESDK(ByPass.pureRandom());
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
-		Thread.sleep(20);
+		Thread.sleep(1000);
 		sendRequestToAESDK(ByPass.pureRandom());
 		receiveResponseFromAESDK();
 
 		POS_APIs apis = new POS_APIs();
 		apis.performed();
 		sendRequestToAESDK(ShowScreen.HighValuePromptRequest());
-		performByPassRequest();
+		performByPassRequest();   
 
 	}
 

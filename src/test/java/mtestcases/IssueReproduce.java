@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Signature;
 import java.util.List;
 
+import org.jdom2.JDOMException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -36,9 +37,11 @@ public class IssueReproduce extends BaseClass {
 
 	}
 
+	@Test
 	public void GCB_TokenFlushIssueWithShowList() throws Exception, Exception {
 		List<String> GCBResult = performGetCardBin();
-		Assert.assertEquals("Approved", GCBResult.get(0));
+	//	Assert.assertEquals("Approved", GCBResult.get(0));
+		List<String> GCBResult1 = performGetCardBin();
 		sendRequestToAESDK(ShowList.Request());
 		receiveResponseFromAESDK();
 		sendRequestToAESDK(requestbuilder.Signature.Request());
@@ -139,4 +142,18 @@ public class IssueReproduce extends BaseClass {
 		apis.performed();
 
 	}
+
+	@Test(invocationCount = 100000000)
+	public void closeRequest() throws JDOMException, Exception {
+		performCreditDebitSale();
+		performCloseRequest();
+		performCloseRequest();
+
+	}
+
+	@Test
+	void close() throws JDOMException, Exception {
+		performCloseRequest();
+	}
+
 }

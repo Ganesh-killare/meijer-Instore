@@ -56,7 +56,7 @@ public class POS_APIs extends BaseClass {
 			roundedAmountString = roundedAmountString + ".00";
 
 			// roundedAmountString = "05" + ".08";
-			// roundedAmountString = "100.11";
+		//	 roundedAmountString = "100.14";
 		//	 roundedAmountString = "0.01";
 			// roundedAmountString = "399.00";
 		}
@@ -72,8 +72,8 @@ public class POS_APIs extends BaseClass {
 		Random random = new Random();
 		int randomNumber = random.nextInt(6)+1;
 
-		// int randomNumber = randomNumber;
-//		System.out.println(randomNumber);
+		// randomNumber = 2;
+	// System.out.println(randomNumber);
 
 		switch (randomNumber) {
 		case 1:
@@ -85,14 +85,14 @@ public class POS_APIs extends BaseClass {
 
 			// Get User Input
 			sendRequestToAESDK(GetUserInput.MperkNumberRequest());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			// Bypass Option 0
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
 
 			sendRequestToAESDK(GetUserInput.InvalidMperkNumberRequest());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
@@ -127,14 +127,14 @@ public class POS_APIs extends BaseClass {
 
 			// Get User Input
 			sendRequestToAESDK(GetUserInput.MperkPINRequest());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			// Bypass Option 0
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
 
 			sendRequestToAESDK(GetUserInput.InvalidMperkPINRequest());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
@@ -158,14 +158,14 @@ public class POS_APIs extends BaseClass {
 
 			// Get User Input
 			sendRequestToAESDK(GetUserInput.ALUScreen01Request());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			// Bypass Option 0
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
 
 			sendRequestToAESDK(GetUserInput.ALUScreen02Request());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
@@ -189,14 +189,14 @@ public class POS_APIs extends BaseClass {
 
 			// Get User Input
 			sendRequestToAESDK(GetUserInput.ALUScreen03Request());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			// Bypass Option 0
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
 
 			sendRequestToAESDK(GetUserInput.ALUScreen04Request());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
@@ -221,14 +221,14 @@ public class POS_APIs extends BaseClass {
 
 			// Get User Input
 			sendRequestToAESDK(GetUserInput.ALUScreen05Request());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			// Bypass Option 0
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
 
 			sendRequestToAESDK(GetUserInput.MperkPINRequest());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
@@ -253,14 +253,14 @@ public class POS_APIs extends BaseClass {
 
 			// Get User Input
 			sendRequestToAESDK(GetUserInput.ALUScreen05Request());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			// Bypass Option 0
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();
 
 			sendRequestToAESDK(GetUserInput.InvalidMperkPINRequest());
-			Thread.sleep(300);
+			Thread.sleep(1000);
 
 			sendRequestToAESDK(ByPass.Random());
 			receiveResponseFromAESDK();

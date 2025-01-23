@@ -63,10 +63,7 @@ public class SoloTronRequest {
 		String BIN = cardToken.substring(0, 6);
 		setItemCode(BIN);
 
-		Faker faker = new Faker();
-		int productValues = faker.random().nextInt(01, 10);
-
-		// int productValues = 10;
+		int productValues = Utils.getProductCount();
 		double totalTransAmount = 1.00 * productValues;
 
 		// Using DecimalFormat to format to two decimal places
@@ -133,14 +130,20 @@ public class SoloTronRequest {
 				eppDetailsElement.appendChild(eppProductDataElement);
 
 				appendElementWithValue(doc, eppProductDataElement, "ItemCode", itemCode);
-
 				appendElementWithValue(doc, eppProductDataElement, "ItemReferenceNumber", String.format("%04d", i));
 				appendElementWithValue(doc, eppProductDataElement, "Quantity", "001");
 				appendElementWithValue(doc, eppProductDataElement, "RedemptionReqAmount", "1.00");
+
 				appendElementWithValue(doc, eppProductDataElement, "MBASQuantityDiscount", "0.00");
 				appendElementWithValue(doc, eppProductDataElement, "SignIndicator", "C");
-				appendElementWithValue(doc, eppProductDataElement, "DepartmentID", "150");
-				appendElementWithValue(doc, eppProductDataElement, "TaxAmount", "0.00");
+
+				if (productValues <= 132) {
+					
+					// Last transaction approved if we added this block; where product count is 132
+					// Thats why I have added these block 
+					appendElementWithValue(doc, eppProductDataElement, "DepartmentID", "150");
+					appendElementWithValue(doc, eppProductDataElement, "TaxAmount", "0.00");
+				}
 
 			}
 

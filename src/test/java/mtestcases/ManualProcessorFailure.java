@@ -28,7 +28,7 @@ public class ManualProcessorFailure extends BaseClass {
 
 
 	@Test(invocationCount = 2)
-	public void CREDIT_DEBIT_VoidOfSale() throws IOException, Exception {
+	public void CREDIT_DEBIT_VoidOfSale() throws IOException, Exception {  
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 

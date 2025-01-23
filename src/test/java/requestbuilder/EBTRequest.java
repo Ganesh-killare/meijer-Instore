@@ -87,8 +87,8 @@ public class EBTRequest {
 			appendElementWithValue(doc, transRequestElement, "OrigAurusPayTicketNum", "");
 			appendElementWithValue(doc, transRequestElement, "OrigTransactionIdentifier", "");
 			appendElementWithValue(doc, transRequestElement, "PartialAllowed", "0");
-			appendElementWithValue(doc, transRequestElement, "ShowResponse",Utils.getShowResponseValue());
-			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N");
+			appendElementWithValue(doc, transRequestElement, "ShowResponse", Utils.getShowResponseValue());
+			appendElementWithValue(doc, transRequestElement, "ECommerceIndicator", "N"); // EcommerceIndicator
 			appendElementWithValue(doc, transRequestElement, "POSType", "1");
 
 			return doc;
@@ -113,8 +113,6 @@ public class EBTRequest {
 		parentElement.appendChild(element);
 	}
 
-	
-
 	public static String EBT_SALE_REQUEST(String CardToken, String CI, String CRM) {
 		try {
 
@@ -137,7 +135,7 @@ public class EBTRequest {
 			RequestUtils.setTagValue(document, "TransactionTotal", transactionAmount);
 			RequestUtils.setTagValue(document, "TenderAmount", transactionAmount);
 			RequestUtils.setTagValue(document, "EBTAmount", transactionAmount);
-
+			System.out.println("POS Send Amount : " + transactionAmount);
 			// Convert the modified document back to a string
 			return RequestUtils.documentToString(document);
 		} catch (Exception e) {
@@ -178,7 +176,7 @@ public class EBTRequest {
 			return null;
 		}
 	}
-	
+
 	public static String PF_EBT_SALE_REQUEST(String CardToken, String CI, String CRM, String AMT, String TransType) {
 		try {
 

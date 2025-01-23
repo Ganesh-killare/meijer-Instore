@@ -12,34 +12,37 @@ import utilities.Utils;
 
 public class TC_CreditAndDebit extends BaseClass {
 
-	@Test(invocationCount = 1)
-	public void RefundOfSale() throws IOException, Exception {   
+	@Test(invocationCount = 200)
+	public void RefundOfSale() throws IOException, Exception {
+		performCloseRequest();
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
+
+		List<String> saleResult = performCreditDebitSale();
+		// Utils.printResults(saleResult);
+
+		
+		  List<String> RefundResults = performRefundTransaction(saleResult); //
+		//  Utils.printResults(RefundResults); 
+		  performVoidTransaction(RefundResults);
+		 
+	}
+  
+	@Test(invocationCount = 700)
+	public void VoidOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performCreditDebitSale();
 		Utils.printResults(saleResult);
 
-		List<String> RefundResults = performRefundTransaction(saleResult);     
-		Utils.printResults(RefundResults);
+		List<String> voidResults = performVoidTransaction(saleResult);  
 
-	}
-
-	@Test(invocationCount = 700)    
-	public void VoidOfSale() throws IOException, Exception {                   
-		fileName = new Exception().getStackTrace()[0].getMethodName();                         
-		System.out.println(fileName);
-
-		List<String> saleResult = performCreditDebitSale();
-		Utils.printResults(saleResult);
-
-		List<String> voidResults = performVoidTransaction(saleResult);
-
-		Utils.printResults(voidResults);  
+		Utils.printResults(voidResults);
 	}
 
 	@Test(invocationCount = 70)
-	public void VoidOfRefundWithoutsale() throws IOException, Exception {                                  
+	public void VoidOfRefundWithoutsale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 
 		System.out.println(fileName);
@@ -47,7 +50,7 @@ public class TC_CreditAndDebit extends BaseClass {
 		List<String> saleResult = performCreditDebit_RW_Sale();
 		Utils.printResults(saleResult);
 
-		List<String> voidResults = performVoidTransaction(saleResult);               
+		List<String> voidResults = performVoidTransaction(saleResult);
 
 		Utils.printResults(voidResults);
 
@@ -71,7 +74,7 @@ public class TC_CreditAndDebit extends BaseClass {
 
 	}
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 2)
 	public void testGCB() throws Exception, Exception {
 		performGetCardBin();
 

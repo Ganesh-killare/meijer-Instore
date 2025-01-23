@@ -22,7 +22,7 @@ public class TC_EBT extends BaseClass {
 
 		Utils.printResults(saleResult);
 
-		List<String> returnResults = performRefundTransaction(saleResult);                             
+		List<String> returnResults = performRefundTransaction(saleResult);                                 
 		Utils.printResults(returnResults);                                     
   
 	}

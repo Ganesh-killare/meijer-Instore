@@ -14,14 +14,15 @@ import xmlrequestbuilder.CloseRequest;
 public class TC_PLC extends BaseClass {
 
 	@Test(invocationCount = 100)
-	public void PLC_RefundOfSale() throws IOException, Exception {
+	public void PLC_RefundOfSale() throws IOException, Exception {     
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performPLCSale();
 		Utils.printResults(saleResult);
 
-		performRefundTransaction(saleResult);
+		List<String> refundResults = performRefundTransaction(saleResult);
+		performVoidTransaction(refundResults);
 
 	}
 

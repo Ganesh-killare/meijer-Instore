@@ -41,10 +41,10 @@ public class TC_Prepaid_Transactions {
 	public void test_Gift_Manual_CI(String transactionType, String amount, String cardNumber, String entrySource,
 			String transtype, String subtransType, String upsdata)
 			throws UnknownHostException, IOException, InterruptedException, Exception {
-
+    
 		if (upsdata.isEmpty()) {
 			upsdata = RuntimeUPCData;       
-			System.out.println(upsdata);    
+			System.out.println(upsdata);       
 		}
 
 		try {

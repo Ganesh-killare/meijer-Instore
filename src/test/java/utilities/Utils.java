@@ -14,6 +14,8 @@ import java.util.Random;
 
 import org.testng.Assert;
 
+import com.github.javafaker.Faker;
+
 public class Utils {
 
 	private static final String CONFIG_FILE = "config.properties";
@@ -21,7 +23,7 @@ public class Utils {
 	// Static variables to store configuration values
 	private static String environment;
 	private static String TokenType;
-    private static String LookupFlag ;
+	private static String LookupFlag;
 	private static String cashBackValue;
 	private static String showResponseValue;
 	private static String sessionId;
@@ -32,6 +34,7 @@ public class Utils {
 	private static String AutoDualProcessor;
 	private static String TransType;
 	private static int POS_timeout;
+	private static int OTC_PRODUCT_COUNT;
 
 	static {
 		// Load the configuration once when the class is loaded
@@ -51,6 +54,7 @@ public class Utils {
 			PrintData = properties.getProperty("Print_Data", "Y");
 			serverPort = Integer.parseInt(properties.getProperty("ServerPort", "8060"));
 			POS_timeout = Integer.parseInt(properties.getProperty("POSTimeout", "190"));
+			OTC_PRODUCT_COUNT = Integer.parseInt(properties.getProperty("OTC_PRODUCT_COUNT", "75"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,6 +70,7 @@ public class Utils {
 	public static String getEnvironment() {
 		return environment;
 	}
+
 	public static String getLookupFlag() {
 		return LookupFlag;
 	}
@@ -116,10 +121,37 @@ public class Utils {
 		return POS_timeout;
 	}
 
+	public static int getProductCount() {
+
+		return OTC_PRODUCT_COUNT;
+		// return 150 ;
+
+	}
+
 	public static List<String> generateDateTimeAndInvoice() {
 		Date now = new Date();
 		SimpleDateFormat invoiceDateFormatter = new SimpleDateFormat("MMddyy");
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("MMddyyyy");
+		SimpleDateFormat timeFormatter = new SimpleDateFormat("HHmmss");
+
+		String formattedDate = invoiceDateFormatter.format(now);
+		String formattedTime = timeFormatter.format(now);
+		String finalDate = dateFormatter.format(now);
+
+		String invoiceNumber = formattedDate + "23450087" + formattedTime.substring(0, 5);
+
+		List<String> result = new ArrayList<>();
+		result.add(formattedTime);
+		result.add(finalDate);
+		result.add(invoiceNumber);
+
+		return result;
+	}
+
+	public static List<String> sWICTimeAndDate() {
+		Date now = new Date(); // YYYYMMDD
+		SimpleDateFormat invoiceDateFormatter = new SimpleDateFormat("MMddyy");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
 		SimpleDateFormat timeFormatter = new SimpleDateFormat("HHmmss");
 
 		String formattedDate = invoiceDateFormatter.format(now);

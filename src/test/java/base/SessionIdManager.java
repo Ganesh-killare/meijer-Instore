@@ -1,7 +1,7 @@
 package base;
 
 public class SessionIdManager {
-	private static int currentSessionId = 0;
+	private static int currentSessionId = 01;
 
 	public synchronized static int incrementAndGetSessionId() {
 		return currentSessionId++;
