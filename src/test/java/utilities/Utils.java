@@ -35,6 +35,7 @@ public class Utils {
 	private static String TransType;
 	private static int POS_timeout;
 	private static int OTC_PRODUCT_COUNT;
+	private static int WP_PRODUCT_COUNT;
 
 	static {
 		// Load the configuration once when the class is loaded
@@ -55,6 +56,7 @@ public class Utils {
 			serverPort = Integer.parseInt(properties.getProperty("ServerPort", "8060"));
 			POS_timeout = Integer.parseInt(properties.getProperty("POSTimeout", "190"));
 			OTC_PRODUCT_COUNT = Integer.parseInt(properties.getProperty("OTC_PRODUCT_COUNT", "75"));
+			WP_PRODUCT_COUNT = Integer.parseInt(properties.getProperty("WP_PRODUCT_COUNT", "5"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -126,6 +128,12 @@ public class Utils {
 		return OTC_PRODUCT_COUNT;
 		// return 150 ;
 
+	}
+	public static int getWPProductCount() {
+		
+		return WP_PRODUCT_COUNT;
+		// return 150 ;
+		
 	}
 
 	public static List<String> generateDateTimeAndInvoice() {

@@ -116,4 +116,12 @@ public class test {
 		}
 
 	}
+
+	@Test
+	void testEEP() {
+
+		List<String> ls = Arrays.asList("hfgg", "kjdfh", "kjnjfnh", "nhbhyg");
+		System.out.println(WorldPayEPP.Request(getHostIP(), getHostIP()));
+		System.out.println(WorldPayEPP.returnRequest(ls));
+	}
 }

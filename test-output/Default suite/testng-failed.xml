@@ -6,7 +6,7 @@
       <class name="mtestcases.TC_OTC">
         <methods>
           <include name="baseSetUp"/>
-          <include name="SolotronRefundOfSale"/>
+          <include name="WorldPayEPPSale"/>
           <include name="incrementSessionId"/>
           <include name="saveXLFile"/>
         </methods>

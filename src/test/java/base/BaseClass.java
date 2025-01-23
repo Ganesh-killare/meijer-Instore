@@ -46,6 +46,7 @@ import requestbuilder.Signature;
 import requestbuilder.SoloTronRequest;
 import requestbuilder.TicketDisplayAurus;
 import requestbuilder.WICRequestBuilder;
+import requestbuilder.WorldPayEPP;
 import responsevalidator.Response_Parameters;
 import utilities.GiftDataXLwriting;
 import utilities.LoggerUtil;
@@ -474,6 +475,11 @@ public class BaseClass {
 				returnRequest = IncommIQTransRequest.returnRequest(saleResult);
 				break;
 
+			case "WPO":
+
+				returnRequest = WorldPayEPP.returnRequest(saleResult);
+				break;
+
 			default:
 				returnRequest = ReturnRequest.REFUND_REQUEST(transactionId, AurusPayTicketNum, amount);
 				break;
@@ -492,6 +498,7 @@ public class BaseClass {
 
 			performCloseRequest();
 		} catch (Exception e) {
+			System.out.println(e);
 			System.out.println("We are not able to performed refund transaction");
 		}
 		return RefundData;
@@ -961,6 +968,39 @@ public class BaseClass {
 
 		}
 		return LS_DATA;
+
+	}
+
+	public List<String> performWorldPayEPPTransaction() throws Exception, Exception {
+		List<String> Result = new ArrayList<String>();
+
+		List<String> gcbResult = performGetCardBin();
+		try {
+
+			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
+
+				String SaleRequest = WorldPayEPP.Request(gcbResult.get(1), "01"); // Balance LookUp
+				SaleRequest.trim();
+				sendRequestToAESDK(SaleRequest);
+				// System.out.println(Balance_LookUp);
+				String SaleResponse = receiveResponseFromAESDK();
+				// System.out.println(BLookUp_Respose);
+				Response_Parameters S_Response = new Response_Parameters(SaleResponse);
+				Result = S_Response.print_Response("Sale  : ", parameters);
+				Result.add(3, "Sale");
+				excelWriter.writeDataRefundOfSale(Result);
+				Result.remove(3);
+
+			}
+
+		} finally
+
+		{
+			performByPassRequest(1);
+			performCloseRequest();
+
+		}
+		return Result;
 
 	}
 

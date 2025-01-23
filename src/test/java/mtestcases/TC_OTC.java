@@ -20,18 +20,18 @@ public class TC_OTC extends BaseClass {
 	public void InComm_VoidOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
-		List<String> SaleResult = IncommTransaction();   
+		List<String> SaleResult = IncommTransaction();
 		performVoidTransaction(SaleResult);
 	}
 
-    @Test(invocationCount = 1)
+	@Test(invocationCount = 1)
 	public void InComm_RefundOfSale() throws Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();         
-		System.out.println(fileName);            
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
 		List<String> SaleResult = IncommTransaction();
 		// System.out.println(SaleResult);
-		performRefundTransaction(SaleResult);   
-	}   
+		performRefundTransaction(SaleResult);
+	}
 
 	@Test(invocationCount = 1)
 	public void SolotronVoidOfSale() throws Exception {
@@ -44,15 +44,25 @@ public class TC_OTC extends BaseClass {
 
 	@Test(invocationCount = 1)
 	public void SolotronRefundOfSale() throws Exception {
-		fileName = new Exception().getStackTrace()[0].getMethodName();     
+		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 		List<String> SaleResult = SlutronTransactions();
 		// System.out.println(SaleResult);
 		performRefundTransaction(SaleResult);
 	}
 
+	@Test(invocationCount = 2)
+	public void WorldPayEPPSale() throws Exception {
+		fileName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println(fileName);
+		List<String> saleResult = performWorldPayEPPTransaction();
+		performRefundTransaction(saleResult);
+
+	}
+
 	@AfterMethod
-	public void saveXLFile() throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
+	public void saveXLFile()
+			throws UnknownHostException, IOException, InterruptedException, JDOMException, ExecutionException {
 
 		sendRequestToAESDK(ByPass.Option2());
 		receiveResponseFromAESDK();
