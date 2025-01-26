@@ -73,7 +73,7 @@ public class BaseClass {
 		socket = new Socket(serverAddress, serverPort);
 		OutputStream outputStream = socket.getOutputStream();
 
-		// Use OutputStream directly if PrintWriter isn't sending data properly
+		// Using BufferedOutputStream for the writing the data on AESDK server 
 		BufferedOutputStream bufferedOut = new BufferedOutputStream(outputStream);
 
 		LoggerUtil.logRequest(data);
@@ -96,10 +96,7 @@ public class BaseClass {
 
 		}
 
-		// Optionally send an end signal, like a newline or EOF, if the server expects
-		// that.
-		// bufferedOut.write("\n".getBytes()); // For example, if you need to send a
-		// newline to indicate the end of transmission
+		
 
 		bufferedOut.flush(); // Ensure the last chunk is sent
 
