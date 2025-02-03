@@ -2,6 +2,8 @@
 /build/
 /out/
 /target/
+/test-output
+/logs
 
 # Ignore log files
 *.log
