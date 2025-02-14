@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 
 import base.BaseClass;
 import base.SessionIdManager;
+import utilities.Utils;
 
 public class GetUserInput {
 
@@ -120,11 +121,11 @@ public class GetUserInput {
 			doc.appendChild(showScreenRequest);
 
 			// Add child elements for ShowScreenRequest
-			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
+			appendElementWithValue(doc, showScreenRequest, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "Header", "Account Lookup");
-			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.10");
+			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "Would you like to use your");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "Meijer credit card for this transaction?");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
@@ -168,7 +169,7 @@ public class GetUserInput {
 			// Add child elements for GetUserInputRequest
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "01");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "4");
 			appendElementWithValue(doc, getUserInputRequest, "HeaderText", "Account Lookup");
 			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.10");
@@ -201,7 +202,7 @@ public class GetUserInput {
 			// Add child elements for GetUserInputRequest
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "01");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "4");
 			appendElementWithValue(doc, getUserInputRequest, "HeaderText", "Account Lookup");
 			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.10");
@@ -234,7 +235,7 @@ public class GetUserInput {
 			// Add child elements for GetUserInputRequest
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "01");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "5");
 			appendElementWithValue(doc, getUserInputRequest, "HeaderText", "Account Lookup");
 			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.10");
@@ -267,7 +268,7 @@ public class GetUserInput {
 			// Add child elements for GetUserInputRequest
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "01");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "4");
 			appendElementWithValue(doc, getUserInputRequest, "HeaderText", "Account Lookup");
 			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.10");
@@ -303,8 +304,8 @@ public class GetUserInput {
 			// Set values for each child element
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "20");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, getUserInputRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "11");
 			appendElementWithValue(doc, getUserInputRequest, "LanguageIndicator", "00");
@@ -334,9 +335,9 @@ public class GetUserInput {
 			// Add child elements for GetUserInputRequest
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "01");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "11");
-			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, getUserInputRequest, "BackgroundImage", "Customnumber2");
 			appendElementWithValue(doc, getUserInputRequest, "ButtonText1", "MperkYES");
 			appendElementWithValue(doc, getUserInputRequest, "ButtonText2", "MperkNO");
@@ -368,9 +369,9 @@ public class GetUserInput {
 			// Add child elements for GetUserInputRequest
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "01");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "12");
-			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, getUserInputRequest, "BackgroundImage", "CustomPIN1");
 			appendElementWithValue(doc, getUserInputRequest, "ButtonText1", "MperkYES");
 			appendElementWithValue(doc, getUserInputRequest, "ButtonText2", "MperkNO");
@@ -401,9 +402,9 @@ public class GetUserInput {
 			doc.appendChild(getUserInputRequest);// Add child elements for GetUserInputRequest
 			appendElementWithValue(doc, getUserInputRequest, "POSID", "01");
 			appendElementWithValue(doc, getUserInputRequest, "APPID", "01");
-			appendElementWithValue(doc, getUserInputRequest, "CCTID", "01");
+			appendElementWithValue(doc, getUserInputRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, getUserInputRequest, "Type", "12");
-			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, getUserInputRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, getUserInputRequest, "BackgroundImage", "CustomPIN2");
 			appendElementWithValue(doc, getUserInputRequest, "ButtonText1", "MperkYES");
 			appendElementWithValue(doc, getUserInputRequest, "ButtonText2", "MperkNO");

@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -41,10 +42,10 @@ public class Check {
 			doc.appendChild(transRequestElement);
 
 			// Add child elements to <TransRequest>
-			appendElementWithValue(doc, transRequestElement, "POSID", "985");
+			appendElementWithValue(doc, transRequestElement, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
-			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
-			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, transRequestElement, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, transRequestElement, "CardPresent", ""); // Empty string if not specified
 			appendElementWithValue(doc, transRequestElement, "PurchaserPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
@@ -190,6 +191,12 @@ public class Check {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	
+	@Test(invocationCount = 5)
+	void m1 (){
+		System.out.println(Check.Request());
 	}
 
 }

@@ -13,6 +13,8 @@ import org.xml.sax.InputSource;
 
 import com.github.javafaker.Faker;
 
+import utilities.Utils;
+
 public class TicketDisplayAurus {
 
 	public static String request() {
@@ -36,13 +38,13 @@ public class TicketDisplayAurus {
 			Element root = new Element("CCTTicketDisplayRequest");
 
 			// Modify the parameters
-			root.addContent(new Element("POSID").setText("01"));
+			root.addContent(new Element("POSID").setText(Utils.getPOSID()));
 			root.addContent(new Element("APPID").setText("01"));
-			root.addContent(new Element("CCTID").setText("01"));
+			root.addContent(new Element("CCTID").setText(Utils.getCCTID()));
 			root.addContent(new Element("ClerkID").setText("111"));
 			root.addContent(new Element("DisplayFlag").setText("07"));
 			root.addContent(new Element("AllowCardReader").setText("Y"));
-			root.addContent(new Element("ADSDKSpecVer").setText("6.13.0"));
+			root.addContent(new Element("ADSDKSpecVer").setText(Utils.getAESDKSpec()));
 			root.addContent(new Element("SessionId").setText("12345"));
 			root.addContent(new Element("HeaderText"));
 			root.addContent(new Element("FooterText"));

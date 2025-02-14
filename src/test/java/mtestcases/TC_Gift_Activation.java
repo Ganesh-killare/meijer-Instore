@@ -98,7 +98,7 @@ public class TC_Gift_Activation extends BaseClass {
 		} finally {
 			sendRequestToAESDK(CloseRequest.Close_Transaction_Request());
 			receiveResponseFromAESDK();
-			exceldata.saveExcelFile(Utils.setFileName("gift_Transactions"));
+			exceldata.saveExcelFile(Utils.setFileName("gift_Transactions"));  
 
 		}
 

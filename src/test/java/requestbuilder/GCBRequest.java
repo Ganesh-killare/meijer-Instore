@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 
 import base.BaseClass;
 import base.SessionIdManager;
+import utilities.Utils;
 
 public class GCBRequest {
 
@@ -44,10 +45,10 @@ public class GCBRequest {
 			doc.appendChild(GCBRequestElement);
 
 			// Add child elements in the desired sequence
-			appendElementWithValue(doc, GCBRequestElement, "POSID", "01");
+			appendElementWithValue(doc, GCBRequestElement, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, GCBRequestElement, "APPID", "01");
-			appendElementWithValue(doc, GCBRequestElement, "CCTID", "01");
-			appendElementWithValue(doc, GCBRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, GCBRequestElement, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, GCBRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, GCBRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, GCBRequestElement, "HeaderMessage", "Please Tap, Insert or Swipe");
 			appendElementWithValue(doc, GCBRequestElement, "CashBackAmountPrompts", "10,20,399,400,401,No");

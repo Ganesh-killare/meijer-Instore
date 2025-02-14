@@ -48,10 +48,10 @@ public class AccountLookUp {
 			doc.appendChild(GCBRequestElement);
 
 			// Add child elements from GetAccountLookupRequest
-			appendElementWithValue(doc, GCBRequestElement, "POSID", "11");
+			appendElementWithValue(doc, GCBRequestElement, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, GCBRequestElement, "APPID", "01");
-			appendElementWithValue(doc, GCBRequestElement, "CCTID", "01");
-			appendElementWithValue(doc, GCBRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, GCBRequestElement, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, GCBRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, GCBRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, GCBRequestElement, "HeaderMessage", "");
 			appendElementWithValue(doc, GCBRequestElement, "MessageLine1", "");

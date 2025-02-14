@@ -15,7 +15,7 @@ import utilities.Utils;
 
 public class LMKKey extends BaseClass {
 
-	@Test(invocationCount = 2, priority = 1)
+	@Test(invocationCount = 20, priority = 1)
 	public void Test_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -24,10 +24,8 @@ public class LMKKey extends BaseClass {
 
 		Utils.printResults(saleResult);
 
-		/*
-		 * List<String> returnResults = performRefundTransaction(saleResult);
-		 * Utils.printResults(returnResults);
-		 */
+		List<String> returnResults = performRefundTransaction(saleResult);
+		Utils.printResults(returnResults);
 
 	}
 

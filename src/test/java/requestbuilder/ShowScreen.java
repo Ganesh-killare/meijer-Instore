@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import base.SessionIdManager;
+import utilities.Utils;
 
 public class ShowScreen {
 
@@ -140,11 +141,11 @@ public class ShowScreen {
 			doc.appendChild(showScreenRequest);
 
 			// Add child elements for ShowScreenRequest
-			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
+			appendElementWithValue(doc, showScreenRequest, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "Header", "Account Lookup Failed");
-			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.10");
+			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "Please use another");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine2", "form of payment.");
 			appendElementWithValue(doc, showScreenRequest, "TimeOut", "150");
@@ -182,7 +183,7 @@ public class ShowScreen {
 			// Add child elements for ShowScreenRequest
 			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "Header", "ID Info Does Not Match");
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.10");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "Please contact");
@@ -220,7 +221,7 @@ public class ShowScreen {
 			// Add child elements for ShowScreenRequest
 			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "Header", "");
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.10");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "Would you like to apply your mPerks");
@@ -260,7 +261,7 @@ public class ShowScreen {
 			// Add child elements for ShowScreenRequest
 			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "Header", "");
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.10");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "mperks Rewards applied");
@@ -299,7 +300,7 @@ public class ShowScreen {
 			// Add child elements for ShowScreenRequest
 			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "Header", "");
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.10");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "Ham Nahi de rahe tere ko Offer!");
@@ -339,7 +340,7 @@ public class ShowScreen {
 			// Set values for each child element
 			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.12");
 			appendElementWithValue(doc, showScreenRequest, "LanguageIndicator", "00");
 			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
@@ -396,7 +397,7 @@ public class ShowScreen {
 			// Set values for each child element
 			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, showScreenRequest, "Header", "");
 			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.10");
 			appendElementWithValue(doc, showScreenRequest, "MessageLine1", "Would you like to apply your");
@@ -439,8 +440,8 @@ public class ShowScreen {
 			// Add child elements in the desired sequence
 			appendElementWithValue(doc, showScreenRequest, "POSID", "11");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
-			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, showScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, showScreenRequest, "LanguageIndicator", "");
 			appendElementWithValue(doc, showScreenRequest, "Header", "Confirm Transaction");
@@ -484,8 +485,8 @@ public class ShowScreen {
 			// Add child elements for ShowScreenRequest
 			appendElementWithValue(doc, showScreenRequest, "POSID", "01");
 			appendElementWithValue(doc, showScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, showScreenRequest, "CCTID", "01");
-			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, showScreenRequest, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, showScreenRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, showScreenRequest, "SessionId", "128");
 			appendElementWithValue(doc, showScreenRequest, "LanguageIndicator", "");
 			appendElementWithValue(doc, showScreenRequest, "Header", "");

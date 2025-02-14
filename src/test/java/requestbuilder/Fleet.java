@@ -24,10 +24,10 @@ import utilities.Utils;
 public class Fleet {
 
 	// Constants
-	private static final String CCTID = "01";
-	private static final String POSID = "01";
+	private static final String CCTID = Utils.getCCTID();
+	private static final String POSID = Utils.getPOSID();
 	private static final String APPID = "01";
-	private static final String ADSDK_SPEC_VER = "6.14.8";
+	private static final String ADSDK_SPEC_VER = Utils.getAESDKSpec();
 	private static final String KEYED_ENTRY_AVS_FLAG = "N";
 	private static final String ECOMMERCE_INDICATOR = "N";
 	private static final String PROCESSING_MODE = "0";
@@ -110,7 +110,7 @@ public class Fleet {
 	private static void addTransactionSpecificElements(Document doc, Element parentElement, List<String> tokens) {
 		Faker faker = new Faker();
 		int productValues = faker.random().nextInt(2, 10); // Generate random product count between 1 and 10
-		productValues =9 ;
+		productValues = 9;
 		double L3ProductUnitPrice = 2.0;
 		double totalTransAmount = L3ProductUnitPrice * productValues;
 

@@ -13,25 +13,25 @@ import utilities.Utils;
 public class TC_CreditAndDebit extends BaseClass {
 
 	@Test(invocationCount = 200)
-	public void RefundOfSale() throws IOException, Exception {
+	public void saleRefundVoid() throws IOException, Exception {
 		performCloseRequest();
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
 
 		List<String> saleResult = performCreditDebitSale();
-		// Utils.printResults(saleResult);
+		 Utils.printResults(saleResult);
 
 		
 		  List<String> RefundResults = performRefundTransaction(saleResult); //
-		//  Utils.printResults(RefundResults); 
+		 Utils.printResults(RefundResults); 
 		  performVoidTransaction(RefundResults);
 		 
 	}
   
 	@Test(invocationCount = 700)
-	public void VoidOfSale() throws IOException, Exception {
+	public void VoidOfSale() throws IOException, Exception {      
 		fileName = new Exception().getStackTrace()[0].getMethodName();
-		System.out.println(fileName);
+		System.out.println(fileName);   
 
 		List<String> saleResult = performCreditDebitSale();
 		Utils.printResults(saleResult);
@@ -74,10 +74,15 @@ public class TC_CreditAndDebit extends BaseClass {
 
 	}
 
-	@Test(invocationCount = 2)
+	@Test(invocationCount = 1)
 	public void testGCB() throws Exception, Exception {
 		performGetCardBin();
 
+	}
+	@Test(invocationCount = 1)
+	public void testClose() throws Exception, Exception {
+		performCloseRequest();
+		
 	}
 
 }

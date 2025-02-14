@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import base.SessionIdManager;
+import utilities.Utils;
 
 public class Signature {
 	public static String buildXMLRequest() {
@@ -41,10 +42,10 @@ public class Signature {
 			doc.appendChild(signatureRequestElement);
 
 			// Add child elements to <SignatureRequest>
-			appendElementWithValue(doc, signatureRequestElement, "POSID", "7");
+			appendElementWithValue(doc, signatureRequestElement, "POSID",Utils.getPOSID());
 			appendElementWithValue(doc, signatureRequestElement, "APPID", "01");
-			appendElementWithValue(doc, signatureRequestElement, "CCTID", "01");
-			appendElementWithValue(doc, signatureRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, signatureRequestElement, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, signatureRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, signatureRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, signatureRequestElement, "TransactionIdentifier", "");
 			appendElementWithValue(doc, signatureRequestElement, "SignUploadFlag", "Y");

@@ -84,11 +84,11 @@ public class WorldPayEPP {
 			doc.appendChild(transRequestElement);
 
 			// Add child elements in the desired sequence
-			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
-			appendElementWithValue(doc, transRequestElement, "POSID", "01");
+			appendElementWithValue(doc, transRequestElement, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, transRequestElement, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CardToken", cardToken);
-			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "1229");
 			appendElementWithValue(doc, transRequestElement, "EntrySource", "");
@@ -203,11 +203,11 @@ public class WorldPayEPP {
 			doc.appendChild(transRequestElement);
 
 			// Add child elements in the desired sequence
-			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
+			appendElementWithValue(doc, transRequestElement, "CCTID", Utils.getCCTID());
 			appendElementWithValue(doc, transRequestElement, "POSID", "01");
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
 			appendElementWithValue(doc, transRequestElement, "CardToken", null);
-			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, transRequestElement, "KeyedEntryAVSFlag", "N");
 			appendElementWithValue(doc, transRequestElement, "CardExpiryDate", "1229");
 			appendElementWithValue(doc, transRequestElement, "EntrySource", "");
@@ -241,7 +241,8 @@ public class WorldPayEPP {
 			transRequestElement.appendChild(eppDetailsInfoElement);
 			appendElementWithValue(doc, eppDetailsInfoElement, "AmountDue", "");
 			appendElementWithValue(doc, eppDetailsInfoElement, "ProductCount", ProductCount);
-			// appendElementWithValue(doc, eppDetailsInfoElement, "POSCapability","BAR.UNK.CAT.UNK.00010000000000001000000000000000");
+			// appendElementWithValue(doc, eppDetailsInfoElement,
+			// "POSCapability","BAR.UNK.CAT.UNK.00010000000000001000000000000000");
 
 			final String iteamCode = getItemCode();
 			// Add EPPDetails with EPPProductData

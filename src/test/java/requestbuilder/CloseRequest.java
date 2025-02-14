@@ -47,10 +47,10 @@ public class CloseRequest {
 			doc.appendChild(CloseTransactionRequest);
 
 			// Add child elements in the desired sequence
-			appendElementWithValue(doc, CloseTransactionRequest, "POSID", "S00784R0100");
+			appendElementWithValue(doc, CloseTransactionRequest, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, CloseTransactionRequest, "APPID", "01");
-			appendElementWithValue(doc, CloseTransactionRequest, "CCTID", "01");
-			appendElementWithValue(doc, CloseTransactionRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, CloseTransactionRequest, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, CloseTransactionRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, CloseTransactionRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, CloseTransactionRequest, "CloseReasonCode", "TRANSACTION_COMPLETE");
 			appendElementWithValue(doc, CloseTransactionRequest, "OrigAurusPayTicketNum", "");

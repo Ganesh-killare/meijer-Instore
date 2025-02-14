@@ -11,7 +11,7 @@ import utilities.Utils;
 
 public class TC_Fleet extends BaseClass {
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 100)
 	public void fleet_RefundOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);
@@ -22,6 +22,8 @@ public class TC_Fleet extends BaseClass {
 
 	}
 
+	
+	
 	@Test(invocationCount = 100)
 	public void fleet_VoidOfSale() throws IOException, Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();     

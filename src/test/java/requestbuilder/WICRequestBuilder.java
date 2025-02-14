@@ -17,11 +17,11 @@ public class WICRequestBuilder {
 	static String invoiceNumber = Utils.sWICTimeAndDate().get(2);
 
 	// Common parameters across all requests
-	private static final String POSID = "985";
+	private static final String POSID = Utils.getPOSID();
 	private static final String APPID = "01";
-	private static final String CCTID = "01";
+	private static final String CCTID = Utils.getCCTID();
 	private static final String ClerkID = "000108488";
-	private static final String ADSDKSpecVer = "6.14.8";
+	private static final String ADSDKSpecVer = Utils.getAESDKSpec();
 
 	// Helper function to append elements to the document
 	private static void appendElementWithValue(Document doc, Element parentElement, String tagName,

@@ -20,7 +20,7 @@ public class TC_EBT extends BaseClass {
 		List<String> saleResult = performEBTSale();
 		Utils.printResults(saleResult);
 
-		Utils.printResults(saleResult);
+	
 
 		List<String> returnResults = performRefundTransaction(saleResult);                                 
 		Utils.printResults(returnResults);                                     

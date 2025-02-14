@@ -11,7 +11,7 @@ import utilities.Utils;
 
 public class TC_Check extends BaseClass {
 
-	@Test(invocationCount = 10)
+	@Test(invocationCount = 5)
 	public void voidOfCheckTransaction() throws IOException, Exception {
 
 		List<String> saleResult = performCheckTransaction();
@@ -24,7 +24,7 @@ public class TC_Check extends BaseClass {
 	public void saveXLFile() throws Exception {
 
 		performByPassRequest(0);
-		performCloseRequest();
+		performCloseRequest();     
 		excelWriter.saveExcelFile(Utils.setFileName("CHECK"));
 
 

@@ -73,12 +73,13 @@ public class BaseClass {
 		socket = new Socket(serverAddress, serverPort);
 		OutputStream outputStream = socket.getOutputStream();
 
-		// Using BufferedOutputStream for the writing the data on AESDK server 
+		// Using BufferedOutputStream for the writing the data on AESDK server
 		BufferedOutputStream bufferedOut = new BufferedOutputStream(outputStream);
 
 		LoggerUtil.logRequest(data);
-
-		// Define the chunk size (adjust as needed)
+	//	System.out.println(data);		
+		
+		// Define the chunk size (adjust as needed)s
 		int chunkSize = 150000; // For example, send 1024 characters at a time
 		int dataLength = data.length();
 		int i = 0; // Initialize the index
@@ -95,8 +96,6 @@ public class BaseClass {
 			i += chunkSize; // Move the index forward by the chunk size
 
 		}
-
-		
 
 		bufferedOut.flush(); // Ensure the last chunk is sent
 
@@ -625,6 +624,8 @@ public class BaseClass {
 
 		List<String> gcbResult = performGetCardBinAllowKeyed();
 
+		
+		Thread.sleep(5000);
 		try {
 
 			if (gcbResult.get(0).equalsIgnoreCase("Approved")) {
@@ -633,7 +634,7 @@ public class BaseClass {
 				// Sale Satrted
 
 				sendRequestToAESDK(Sale_Request);
-				// System.out.println(Sale_Request);
+				//System.out.println(Sale_Request);
 				String sale_Respose = receiveResponseFromAESDK();
 				Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 				saleResult = saleResponse.print_Response(" Sale  : ", parameters);
@@ -1113,7 +1114,7 @@ public class BaseClass {
 			// Sale Satrted
 
 			sendRequestToAESDK(Sale_Request);
-			// System.out.println(Sale_Request);
+		//	System.out.println(Sale_Request);
 			String sale_Respose = receiveResponseFromAESDK();
 			Response_Parameters saleResponse = new Response_Parameters(sale_Respose);
 			saleResult = saleResponse.print_Response(" CHECK Sale  : ", parameters);
@@ -1132,7 +1133,7 @@ public class BaseClass {
 				// System.out.println(signRequest);
 
 				String SignResponse = receiveResponseFromAESDK();
-				Response_Parameters signRes = new Response_Parameters(SignResponse);
+				Response_Parameters signRes = new Response_Parameters(SignResponse);   
 				String signResText = signRes.getParameterValue("ResponseText");
 				Assert.assertEquals("APPROVED", signResText);
 

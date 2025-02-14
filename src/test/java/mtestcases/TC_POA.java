@@ -30,7 +30,7 @@ public class TC_POA extends BaseClass {
 		System.out.println(fileName);
 		List<String> ALUData = performALUwithSSN();
 
-		performPOA("10.00", null, ALUData.get(1), "CA");       
+		performPOA("10.00", null, ALUData.get(1), "CA");          
 	}
 
 	@Test(priority = 6)

@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
 import base.SessionIdManager;
+import utilities.Utils;
 
 public class ShowList {
 
@@ -41,10 +42,10 @@ public class ShowList {
 			doc.appendChild(showListRequestElement);
 
 			// Add child elements to <ShowListRequest>
-			appendElementWithValue(doc, showListRequestElement, "POSID", "01");
+			appendElementWithValue(doc, showListRequestElement, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, showListRequestElement, "APPID", "01");
-			appendElementWithValue(doc, showListRequestElement, "CCTID", "01");
-			appendElementWithValue(doc, showListRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, showListRequestElement, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, showListRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, showListRequestElement, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, showListRequestElement, "LanguageIndicator", "00");
 

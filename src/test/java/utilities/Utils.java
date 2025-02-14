@@ -21,6 +21,10 @@ public class Utils {
 	private static final String CONFIG_FILE = "config.properties";
 
 	// Static variables to store configuration values
+	private static String CCTID;
+	private static String POSID;
+	private static String ADSDKSpecVer;
+
 	private static String environment;
 	private static String TokenType;
 	private static String LookupFlag;
@@ -42,6 +46,10 @@ public class Utils {
 		Properties properties = new Properties();
 		try (FileInputStream input = new FileInputStream(CONFIG_FILE)) {
 			properties.load(input);
+
+			CCTID = properties.getProperty("CCTID", "01");
+			POSID = properties.getProperty("POSID", "01");
+			ADSDKSpecVer = properties.getProperty("ADSDKSpecVer", "6.14.8");
 			environment = properties.getProperty("ENV", "Prod");
 			LookupFlag = properties.getProperty("LookUpFlag", "16");
 			TokenType = properties.getProperty("TokenType", "CardToken");
@@ -64,11 +72,24 @@ public class Utils {
 			System.err.println(
 					"The server port number in the configuration is invalid, so we are setting the default port to 8060.");
 			serverPort = 8060; // Default port number if parsing fails
+			POS_timeout = 190;  // Default timeout 
 
 		}
 	}
 
 	// Static methods to access configuration values
+	public static String getCCTID() {
+		return CCTID;
+	}
+
+	public static String getPOSID() {
+		return POSID;
+	}
+
+	public static String getAESDKSpec() {
+		return ADSDKSpecVer;
+	}
+
 	public static String getEnvironment() {
 		return environment;
 	}
@@ -119,7 +140,6 @@ public class Utils {
 	}
 
 	public static int getPOSTimeOut() {
-
 		return POS_timeout;
 	}
 
@@ -129,11 +149,12 @@ public class Utils {
 		// return 150 ;
 
 	}
+
 	public static int getWPProductCount() {
-		
+
 		return WP_PRODUCT_COUNT;
 		// return 150 ;
-		
+
 	}
 
 	public static List<String> generateDateTimeAndInvoice() {
@@ -283,16 +304,33 @@ public class Utils {
 		String upperCaseTender = ATVTender.toUpperCase();
 
 		switch (upperCaseTender) {
-		case "PLC":
-		case "XXC":
-		case "FSA":
-			// Assert.assertEquals(cardType, upperCaseTender);
-			break;
+		case "1":
+		Assert.assertEquals("XXC", cardType);
+		break;
+
+		case "2":
+		Assert.assertEquals(cardType, "PLC");
+		break;
+
+		case "3":
+		Assert.assertEquals("FSA", cardType);
+		break;
+
+		case "4":
+		Assert.assertTrue(cardType.equals("XXC") || cardType.equals("PLC"));
+
+		break;
+
+		case "5":
+		Assert.assertTrue(cardType.equals("XXC") || cardType.equals("FSA"));
+
+		break;
+
 		default:
-			// Optionally, you can handle unexpected tender types here
-			break;
+		// Optionally, you can handle unexpected tender types here
+		break;
 		}
-	}
+		}
 
 	public static String getCardIdentifier() {
 		List<String> CIs = Arrays.asList("2000000000023487", "2000000000000011", "2000000000000020",

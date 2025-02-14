@@ -20,6 +20,7 @@ import com.github.javafaker.Faker;
 
 import base.BaseClass;
 import base.SessionIdManager;
+import utilities.Utils;
 
 public class ByPass {
 	public static String buildXMLRequest() {
@@ -44,10 +45,10 @@ public class ByPass {
 			Element byPassScreenRequest = doc.createElement("ByPassScreenRequest");
 			doc.appendChild(byPassScreenRequest);
 
-			appendElementWithValue(doc, byPassScreenRequest, "POSID", "112");
+			appendElementWithValue(doc, byPassScreenRequest, "POSID", Utils.getPOSID());
 			appendElementWithValue(doc, byPassScreenRequest, "APPID", "01");
-			appendElementWithValue(doc, byPassScreenRequest, "CCTID", "01");
-			appendElementWithValue(doc, byPassScreenRequest, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, byPassScreenRequest, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, byPassScreenRequest, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, byPassScreenRequest, "SessionId", SessionIdManager.getCurrentSessionId());
 			appendElementWithValue(doc, byPassScreenRequest, "ByPassReason", "Idle");
 			appendElementWithValue(doc, byPassScreenRequest, "ByPassOptions", "0");

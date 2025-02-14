@@ -43,8 +43,8 @@ public class XMLRequestBuilder {
 			// Add child elements in the desired sequence
 			appendElementWithValue(doc, transRequestElement, "POSID", "S00784R0100");
 			appendElementWithValue(doc, transRequestElement, "APPID", "01");
-			appendElementWithValue(doc, transRequestElement, "CCTID", "01");
-			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", "6.14.8");
+			appendElementWithValue(doc, transRequestElement, "CCTID", Utils.getCCTID());
+			appendElementWithValue(doc, transRequestElement, "ADSDKSpecVer", Utils.getAESDKSpec());
 			appendElementWithValue(doc, transRequestElement, "SessionId", "12345");
 			appendElementWithValue(doc, transRequestElement, "CardPresent", "Y");
 			appendElementWithValue(doc, transRequestElement, "CardType", "VIC");

@@ -51,7 +51,7 @@ public class TC_CIandCRM extends BaseClass {
 		sendRequestToAESDK(GCBRequest.GCB_REQUEST());
 		Thread.sleep(1000);
 		sendRequestToAESDK(ByPass.pureRandom());
-		receiveResponseFromAESDK();
+		receiveResponseFromAESDK();   
 
 		POS_APIs apis = new POS_APIs();
 		apis.performed();
@@ -88,7 +88,7 @@ public class TC_CIandCRM extends BaseClass {
 			saleData.add(3, "Sale");
 			excelWriter.writeCICRMTransactionData(saleData);
 			saleData.remove(3);
-			Token_performRefundTransaction(saleData);
+		Token_performRefundTransaction(saleData);  // This line is performing refund txn
 
 		} finally {
 
@@ -201,7 +201,7 @@ public class TC_CIandCRM extends BaseClass {
 			excelWriter.writeCICRMTransactionData(saleData);
 			saleData.remove(3);
 
-			Token_performRefundTransaction(saleData);
+		//	Token_performRefundTransaction(saleData);
 
 		} finally {
 
