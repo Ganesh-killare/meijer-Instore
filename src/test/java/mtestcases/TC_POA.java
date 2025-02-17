@@ -21,7 +21,7 @@ public class TC_POA extends BaseClass {
 		List<String> ALUData = performALUwithSSN();
 		List<String> SaleData = performCheckTransaction();
 		performPOA(SaleData.get(8), SaleData.get(12), ALUData.get(1), "CH");  
-
+  
 	}
 
 	@Test(priority = 2)

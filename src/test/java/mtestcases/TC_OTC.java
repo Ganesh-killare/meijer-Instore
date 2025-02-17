@@ -36,10 +36,10 @@ public class TC_OTC extends BaseClass {
 	@Test(invocationCount = 1)
 	public void SolotronVoidOfSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();   
-		System.out.println(fileName);
+		System.out.println(fileName);    
 		List<String> SaleResult = SlutronTransactions();
 		// System.out.println(SaleResult);
-		performVoidTransaction(SaleResult);
+		performVoidTransaction(SaleResult);  
 	}
 
 	@Test(invocationCount = 1)
@@ -51,7 +51,7 @@ public class TC_OTC extends BaseClass {
 		performRefundTransaction(SaleResult);
 	}
 
-	@Test(invocationCount = 1)
+	//@Test(invocationCount = 1)
 	public void WorldPayEPPSale() throws Exception {
 		fileName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println(fileName);

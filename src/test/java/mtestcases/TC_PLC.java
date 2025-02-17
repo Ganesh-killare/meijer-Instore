@@ -22,7 +22,7 @@ public class TC_PLC extends BaseClass {
 		Utils.printResults(saleResult);
 
 		List<String> refundResults = performRefundTransaction(saleResult);
-		performVoidTransaction(refundResults);
+		performVoidTransaction(refundResults);  // void 
 
 	}
 

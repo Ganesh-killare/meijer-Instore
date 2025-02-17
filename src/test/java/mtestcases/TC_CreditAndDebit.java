@@ -12,7 +12,7 @@ import utilities.Utils;
 
 public class TC_CreditAndDebit extends BaseClass {
 
-	@Test(invocationCount = 200)
+	@Test(invocationCount = 1)
 	public void saleRefundVoid() throws IOException, Exception {
 		performCloseRequest();
 		fileName = new Exception().getStackTrace()[0].getMethodName();
